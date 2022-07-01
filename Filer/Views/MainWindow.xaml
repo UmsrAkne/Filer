@@ -9,8 +9,16 @@
     prism:ViewModelLocator.AutoWireViewModel="True">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="bgColorBrush" Color="#333333" />
-        <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
+
+        <ResourceDictionary>
+
+            <SolidColorBrush x:Key="bgColorBrush" Color="#333333" />
+            <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/ListViewTemplate.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
 
     <Grid>
@@ -52,6 +60,7 @@
             Grid.Column="0"
             Background="{StaticResource bgColorBrush}"
             BorderBrush="Black"
+            ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding LeftFileList}" />
 
         <ListView
@@ -59,6 +68,7 @@
             Grid.Column="1"
             Background="{StaticResource bgColorBrush}"
             BorderBrush="Black"
+            ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding RightFileList}" />
 
         <TextBlock
