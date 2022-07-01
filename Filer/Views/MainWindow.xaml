@@ -7,7 +7,66 @@
     Width="1024"
     Height="768"
     prism:ViewModelLocator.AutoWireViewModel="True">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="bgColorBrush" Color="#333333" />
+        <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
+    </Window.Resources>
+
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+
+        <Menu
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="2">
+            <MenuItem Header="File" />
+        </Menu>
+
+        <TextBox
+            Grid.Row="1"
+            Grid.Column="0"
+            Background="{StaticResource bgColorBrush}"
+            BorderBrush="Black"
+            Foreground="{StaticResource fgColorBrush}" />
+
+        <TextBox
+            Grid.Row="1"
+            Grid.Column="1"
+            Background="{StaticResource bgColorBrush}"
+            BorderBrush="Black"
+            Foreground="{StaticResource fgColorBrush}" />
+
+        <ListView
+            Grid.Row="2"
+            Grid.Column="0"
+            Background="{StaticResource bgColorBrush}"
+            BorderBrush="Black" />
+
+        <ListView
+            Grid.Row="2"
+            Grid.Column="1"
+            Background="{StaticResource bgColorBrush}"
+            BorderBrush="Black" />
+
+        <TextBlock
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Height="150"
+            Background="{StaticResource bgColorBrush}"
+            Foreground="{StaticResource fgColorBrush}" />
+
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
     </Grid>
 </Window>
