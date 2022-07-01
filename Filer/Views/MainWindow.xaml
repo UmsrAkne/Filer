@@ -58,16 +58,22 @@
         <ListView
             Grid.Row="2"
             Grid.Column="0"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Center"
             Background="{StaticResource bgColorBrush}"
             BorderBrush="Black"
+            ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding LeftFileList}" />
 
         <ListView
             Grid.Row="2"
             Grid.Column="1"
+            HorizontalContentAlignment="Stretch"
+            VerticalContentAlignment="Center"
             Background="{StaticResource bgColorBrush}"
             BorderBrush="Black"
+            ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding RightFileList}" />
 

@@ -13,20 +13,38 @@
                 <i:EventTrigger EventName="MouseDoubleClick" />
             </i:Interaction.Triggers>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="300" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
+            <Border>
 
-                <TextBlock Foreground="{StaticResource fgColorBrush}" Text="{Binding Name}" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
 
-            </Grid>
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{StaticResource fgColorBrush}"
+                        Text="{Binding Name}" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        VerticalAlignment="Center"
+                        Foreground="{StaticResource fgColorBrush}"
+                        Text="{Binding Extension}" />
+
+                </Grid>
+
+            </Border>
 
         </ContentControl>
 
     </DataTemplate>
 
-    <Style x:Key="ListViewItemContainerStyle" TargetType="ListViewItem" />
+    <Style x:Key="ListViewItemContainerStyle" TargetType="ListViewItem">
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="3" />
+        <Setter Property="BorderThickness" Value="0,0,0,1" />
+        <Setter Property="BorderBrush" Value="Black" />
+    </Style>
 
 </ResourceDictionary>
