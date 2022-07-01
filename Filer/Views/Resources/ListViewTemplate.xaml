@@ -21,6 +21,11 @@
 
                 <TextBlock Foreground="{StaticResource fgColorBrush}" Text="{Binding Name}" />
 
+                <TextBlock
+                    Grid.Column="1"
+                    Foreground="{StaticResource fgColorBrush}"
+                    Text="{Binding Extension}" />
+
             </Grid>
 
         </ContentControl>

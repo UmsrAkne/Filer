@@ -28,6 +28,8 @@
 
         public bool IsDirectory { get; }
 
+        public string Extension => IsDirectory ? "DIR" : FileSystemInfo.Extension;
+
         public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
 
         public int Index { get => index; set => SetProperty(ref index, value); }
