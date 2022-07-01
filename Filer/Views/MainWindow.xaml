@@ -51,13 +51,15 @@
             Grid.Row="2"
             Grid.Column="0"
             Background="{StaticResource bgColorBrush}"
-            BorderBrush="Black" />
+            BorderBrush="Black"
+            ItemsSource="{Binding LeftFileList}" />
 
         <ListView
             Grid.Row="2"
             Grid.Column="1"
             Background="{StaticResource bgColorBrush}"
-            BorderBrush="Black" />
+            BorderBrush="Black"
+            ItemsSource="{Binding RightFileList}" />
 
         <TextBlock
             Grid.Row="3"
