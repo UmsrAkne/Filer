@@ -2,9 +2,11 @@
 {
     using System;
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using Filer.Models;
+    using Prism.Commands;
     using Prism.Mvvm;
 
     public class MainWindowViewModel : BindableBase
@@ -13,6 +15,11 @@
 
         private ObservableCollection<ExtendFileInfo> leftFileList = new ObservableCollection<ExtendFileInfo>();
         private ObservableCollection<ExtendFileInfo> rightFileList = new ObservableCollection<ExtendFileInfo>();
+        private ExtendFileInfo selectedItem;
+
+        //// DelegateCommand *******************************************************
+
+        private DelegateCommand openFileCommand;
 
         public MainWindowViewModel()
         {
@@ -29,6 +36,28 @@
         public ObservableCollection<ExtendFileInfo> LeftFileList { get => leftFileList; set => SetProperty(ref leftFileList, value); }
 
         public ObservableCollection<ExtendFileInfo> RightFileList { get => rightFileList; set => SetProperty(ref rightFileList, value); }
+
+        public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
+
+        //// DelegateCommand *******************************************************
+
+        public DelegateCommand OpenFileCommand
+        {
+            get => openFileCommand ?? (openFileCommand = new DelegateCommand(() =>
+            {
+                if (SelectedItem != null)
+                {
+                    if (SelectedItem.IsDirectory)
+                    {
+                        LeftFileList = GetFileList(SelectedItem.FileSystemInfo.FullName);
+                    }
+                    else
+                    {
+                        Process.Start(SelectedItem.FileSystemInfo.FullName);
+                    }
+                }
+            }));
+        }
 
         private ObservableCollection<ExtendFileInfo> GetFileList(string path)
         {
