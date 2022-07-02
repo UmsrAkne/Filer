@@ -64,7 +64,8 @@
             BorderBrush="Black"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
-            ItemsSource="{Binding LeftFileList}" />
+            ItemsSource="{Binding LeftFileList}"
+            SelectedItem="{Binding SelectedItem}" />
 
         <ListView
             Grid.Row="2"
@@ -75,7 +76,8 @@
             BorderBrush="Black"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
-            ItemsSource="{Binding RightFileList}" />
+            ItemsSource="{Binding RightFileList}"
+            SelectedItem="{Binding SelectedItem}" />
 
         <TextBlock
             Grid.Row="3"
