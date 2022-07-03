@@ -35,5 +35,7 @@
         public int Index { get => index; set => SetProperty(ref index, value); }
 
         public bool Marked { get => marked; set => SetProperty(ref marked, value); }
+
+        public OwnerListViewLocation OwnerListViewLocation { get; set; }
     }
 }

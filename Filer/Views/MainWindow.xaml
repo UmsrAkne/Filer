@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:prism="http://prismlibrary.com/"
+    Name="window"
     Title="{Binding Title}"
     Width="1024"
     Height="768"
@@ -23,6 +24,21 @@
 
     <Window.InputBindings>
         <KeyBinding Key="Return" Command="{Binding OpenFileCommand}" />
+
+        <KeyBinding
+            Key="H"
+            Command="{Binding FocusToListViewCommand}"
+            CommandParameter="{Binding ElementName=LeftListView}" />
+
+        <KeyBinding
+            Key="L"
+            Command="{Binding FocusToListViewCommand}"
+            CommandParameter="{Binding ElementName=RightListView}" />
+
+        <KeyBinding Key="J" Command="{Binding CursorDownCommand}" />
+
+        <KeyBinding Key="K" Command="{Binding CursorUpCommand}" />
+
     </Window.InputBindings>
 
     <Grid>
@@ -60,6 +76,7 @@
             Foreground="{StaticResource fgColorBrush}" />
 
         <ListView
+            Name="LeftListView"
             Grid.Row="2"
             Grid.Column="0"
             HorizontalContentAlignment="Stretch"
@@ -72,6 +89,7 @@
             SelectedItem="{Binding SelectedItem}" />
 
         <ListView
+            Name="RightListView"
             Grid.Row="2"
             Grid.Column="1"
             HorizontalContentAlignment="Stretch"
