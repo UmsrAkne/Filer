@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
+    using System.Windows.Controls;
     using Filer.Models;
     using Prism.Commands;
     using Prism.Mvvm;
@@ -23,8 +24,9 @@
 
         public MainWindowViewModel()
         {
-            LeftFileList = GetFileList(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
-            RightFileList = GetFileList(Environment.GetFolderPath(Environment.SpecialFolder.Personal));
+            var defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            LeftFileList = GetFileList(defaultPath, OwnerListViewLocation.Left);
+            RightFileList = GetFileList(defaultPath, OwnerListViewLocation.Right);
         }
 
         public string Title
@@ -49,7 +51,7 @@
                 {
                     if (SelectedItem.IsDirectory)
                     {
-                        LeftFileList = GetFileList(SelectedItem.FileSystemInfo.FullName);
+                        LeftFileList = GetFileList(SelectedItem.FileSystemInfo.FullName, SelectedItem.OwnerListViewLocation);
                     }
                     else
                     {
@@ -59,13 +61,15 @@
             }));
         }
 
-        private ObservableCollection<ExtendFileInfo> GetFileList(string path)
+        private ObservableCollection<ExtendFileInfo> GetFileList(string path, OwnerListViewLocation destLocation)
         {
             var defaultDirectoryInfo = new DirectoryInfo(path);
             var directories = defaultDirectoryInfo.GetDirectories().Select(d => new ExtendFileInfo(d.FullName));
             var files = defaultDirectoryInfo.GetFiles().Select(f => new ExtendFileInfo(f.FullName));
 
             var bothList = directories.Concat(files);
+
+            bothList.ToList().ForEach(f => f.OwnerListViewLocation = destLocation);
 
             return new ObservableCollection<ExtendFileInfo>(directories.Concat(files));
         }
