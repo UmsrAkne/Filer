@@ -36,6 +36,9 @@
             var defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             LeftFileList = GetFileList(defaultPath, OwnerListViewLocation.Left);
             RightFileList = GetFileList(defaultPath, OwnerListViewLocation.Right);
+
+            LeftPathBarText = defaultPath;
+            RightPathBarText = defaultPath;
         }
 
         public string Title
