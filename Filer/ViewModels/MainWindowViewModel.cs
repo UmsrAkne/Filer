@@ -5,6 +5,7 @@
     using System.Diagnostics;
     using System.IO;
     using System.Linq;
+    using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
     using Filer.Models;
@@ -23,6 +24,8 @@
 
         private DelegateCommand openFileCommand;
         private DelegateCommand<ListView> focusToListViewCommand;
+        private DelegateCommand cursorUpCommand;
+        private DelegateCommand cursorDownCommand;
 
         public MainWindowViewModel()
         {
@@ -73,6 +76,28 @@
             }));
         }
 
+        public DelegateCommand CursorDownCommand
+        {
+            get => cursorDownCommand ?? (cursorDownCommand = new DelegateCommand(() => MoveCursor(1)));
+        }
+
+        public DelegateCommand CursorUpCommand
+        {
+            get => cursorUpCommand ?? (cursorUpCommand = new DelegateCommand(() => MoveCursor(-1)));
+        }
+
+        private void MoveCursor(int amount)
+        {
+            if (Keyboard.FocusedElement != null && Keyboard.FocusedElement is ListViewItem)
+            {
+                ListView lv = GetFocusingListView();
+                lv.SelectedIndex += amount;
+                var item = lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) as ListViewItem;
+                item.Focus();
+                lv.ScrollIntoView(item);
+            }
+        }
+
         private ObservableCollection<ExtendFileInfo> GetFileList(string path, OwnerListViewLocation destLocation)
         {
             var defaultDirectoryInfo = new DirectoryInfo(path);
@@ -84,6 +109,28 @@
             bothList.ToList().ForEach(f => f.OwnerListViewLocation = destLocation);
 
             return new ObservableCollection<ExtendFileInfo>(directories.Concat(files));
+        }
+
+        private ListView GetFocusingListView()
+        {
+            if (Keyboard.FocusedElement == null || !(Keyboard.FocusedElement is ListViewItem))
+            {
+                return null;
+            }
+
+            var obj = (DependencyObject)Keyboard.FocusedElement;
+
+            while (!(obj is ListView))
+            {
+                obj = System.Windows.Media.VisualTreeHelper.GetParent(obj);
+
+                if (obj == null)
+                {
+                    break;
+                }
+            }
+
+            return (obj != null) ? (ListView)obj : null;
         }
     }
 }

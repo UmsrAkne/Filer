@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:prism="http://prismlibrary.com/"
+    Name="window"
     Title="{Binding Title}"
     Width="1024"
     Height="768"
@@ -33,6 +34,10 @@
             Key="L"
             Command="{Binding FocusToListViewCommand}"
             CommandParameter="{Binding ElementName=RightListView}" />
+
+        <KeyBinding Key="J" Command="{Binding CursorDownCommand}" />
+
+        <KeyBinding Key="K" Command="{Binding CursorUpCommand}" />
 
     </Window.InputBindings>
 
