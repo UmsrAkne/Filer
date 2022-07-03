@@ -23,6 +23,17 @@
 
     <Window.InputBindings>
         <KeyBinding Key="Return" Command="{Binding OpenFileCommand}" />
+
+        <KeyBinding
+            Key="H"
+            Command="{Binding FocusToListViewCommand}"
+            CommandParameter="{Binding ElementName=LeftListView}" />
+
+        <KeyBinding
+            Key="L"
+            Command="{Binding FocusToListViewCommand}"
+            CommandParameter="{Binding ElementName=RightListView}" />
+
     </Window.InputBindings>
 
     <Grid>
@@ -60,6 +71,7 @@
             Foreground="{StaticResource fgColorBrush}" />
 
         <ListView
+            Name="LeftListView"
             Grid.Row="2"
             Grid.Column="0"
             HorizontalContentAlignment="Stretch"
@@ -72,6 +84,7 @@
             SelectedItem="{Binding SelectedItem}" />
 
         <ListView
+            Name="RightListView"
             Grid.Row="2"
             Grid.Column="1"
             HorizontalContentAlignment="Stretch"

@@ -6,6 +6,7 @@
     using System.IO;
     using System.Linq;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using Filer.Models;
     using Prism.Commands;
     using Prism.Mvvm;
@@ -21,6 +22,7 @@
         //// DelegateCommand *******************************************************
 
         private DelegateCommand openFileCommand;
+        private DelegateCommand<ListView> focusToListViewCommand;
 
         public MainWindowViewModel()
         {
@@ -58,6 +60,16 @@
                         Process.Start(SelectedItem.FileSystemInfo.FullName);
                     }
                 }
+            }));
+        }
+
+        public DelegateCommand<ListView> FocusToListViewCommand
+        {
+            get => focusToListViewCommand ?? (focusToListViewCommand = new DelegateCommand<ListView>((lv) =>
+            {
+                var destIndex = lv.SelectedIndex < 0 ? 0 : lv.SelectedIndex;
+                var item = lv.ItemContainerGenerator.ContainerFromIndex(destIndex) as ListViewItem;
+                Keyboard.Focus(item);
             }));
         }
 
