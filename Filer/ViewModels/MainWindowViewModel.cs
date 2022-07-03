@@ -20,6 +20,9 @@
         private ObservableCollection<ExtendFileInfo> rightFileList = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
 
+        private string leftPathBarText;
+        private string rightPathBarText;
+
         //// DelegateCommand *******************************************************
 
         private DelegateCommand openFileCommand;
@@ -45,6 +48,10 @@
         public ObservableCollection<ExtendFileInfo> RightFileList { get => rightFileList; set => SetProperty(ref rightFileList, value); }
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
+
+        public string LeftPathBarText { get => leftPathBarText; set => SetProperty(ref leftPathBarText, value); }
+
+        public string RightPathBarText { get => rightPathBarText; set => SetProperty(ref rightPathBarText, value); }
 
         //// DelegateCommand *******************************************************
 

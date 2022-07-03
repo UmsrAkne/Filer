@@ -66,14 +66,16 @@
             Grid.Column="0"
             Background="{StaticResource bgColorBrush}"
             BorderBrush="Black"
-            Foreground="{StaticResource fgColorBrush}" />
+            Foreground="{StaticResource fgColorBrush}"
+            Text="{Binding LeftPathBarText}" />
 
         <TextBox
             Grid.Row="1"
             Grid.Column="1"
             Background="{StaticResource bgColorBrush}"
             BorderBrush="Black"
-            Foreground="{StaticResource fgColorBrush}" />
+            Foreground="{StaticResource fgColorBrush}"
+            Text="{Binding RightPathBarText}" />
 
         <ListView
             Name="LeftListView"
