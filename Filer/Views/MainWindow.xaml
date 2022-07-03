@@ -66,14 +66,33 @@
             Grid.Column="0"
             Background="{StaticResource bgColorBrush}"
             BorderBrush="Black"
-            Foreground="{StaticResource fgColorBrush}" />
+            Foreground="{StaticResource fgColorBrush}"
+            Text="{Binding LeftPathBarText, UpdateSourceTrigger=PropertyChanged}">
+            <TextBox.InputBindings>
+
+                <KeyBinding Key="Return" Command="{Binding OpenPathCommand}">
+                    <KeyBinding.CommandParameter>Left</KeyBinding.CommandParameter>
+                </KeyBinding>
+
+            </TextBox.InputBindings>
+        </TextBox>
 
         <TextBox
             Grid.Row="1"
             Grid.Column="1"
             Background="{StaticResource bgColorBrush}"
             BorderBrush="Black"
-            Foreground="{StaticResource fgColorBrush}" />
+            Foreground="{StaticResource fgColorBrush}"
+            Text="{Binding RightPathBarText, UpdateSourceTrigger=PropertyChanged}">
+
+            <TextBox.InputBindings>
+
+                <KeyBinding Key="Return" Command="{Binding OpenPathCommand}">
+                    <KeyBinding.CommandParameter>Right</KeyBinding.CommandParameter>
+                </KeyBinding>
+
+            </TextBox.InputBindings>
+        </TextBox>
 
         <ListView
             Name="LeftListView"

@@ -20,18 +20,25 @@
         private ObservableCollection<ExtendFileInfo> rightFileList = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
 
+        private string leftPathBarText;
+        private string rightPathBarText;
+
         //// DelegateCommand *******************************************************
 
         private DelegateCommand openFileCommand;
         private DelegateCommand<ListView> focusToListViewCommand;
         private DelegateCommand cursorUpCommand;
         private DelegateCommand cursorDownCommand;
+        private DelegateCommand<string> openPathCommand;
 
         public MainWindowViewModel()
         {
             var defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
             LeftFileList = GetFileList(defaultPath, OwnerListViewLocation.Left);
             RightFileList = GetFileList(defaultPath, OwnerListViewLocation.Right);
+
+            LeftPathBarText = defaultPath;
+            RightPathBarText = defaultPath;
         }
 
         public string Title
@@ -45,6 +52,10 @@
         public ObservableCollection<ExtendFileInfo> RightFileList { get => rightFileList; set => SetProperty(ref rightFileList, value); }
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
+
+        public string LeftPathBarText { get => leftPathBarText; set => SetProperty(ref leftPathBarText, value); }
+
+        public string RightPathBarText { get => rightPathBarText; set => SetProperty(ref rightPathBarText, value); }
 
         //// DelegateCommand *******************************************************
 
@@ -84,6 +95,21 @@
         public DelegateCommand CursorUpCommand
         {
             get => cursorUpCommand ?? (cursorUpCommand = new DelegateCommand(() => MoveCursor(-1)));
+        }
+
+        public DelegateCommand<string> OpenPathCommand
+        {
+            get => openPathCommand ?? (openPathCommand = new DelegateCommand<string>((locationString) =>
+            {
+                if (locationString == "Left")
+                {
+                    LeftFileList = GetFileList(LeftPathBarText, OwnerListViewLocation.Left);
+                }
+                else
+                {
+                    RightFileList = GetFileList(RightPathBarText, OwnerListViewLocation.Right);
+                }
+            }));
         }
 
         private void MoveCursor(int amount)
