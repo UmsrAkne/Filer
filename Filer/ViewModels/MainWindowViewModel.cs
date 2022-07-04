@@ -23,6 +23,9 @@
         private string leftPathBarText;
         private string rightPathBarText;
 
+        private int leftListViewSelectedIndex;
+        private int rightListViewSelectedIndex;
+
         //// DelegateCommand *******************************************************
 
         private DelegateCommand openFileCommand;
@@ -57,6 +60,10 @@
 
         public string RightPathBarText { get => rightPathBarText; set => SetProperty(ref rightPathBarText, value); }
 
+        public int LeftListViewSelectedIndex { get => leftListViewSelectedIndex; set => SetProperty(ref leftListViewSelectedIndex, value); }
+
+        public int RightListViewSelectedIndex { get => rightListViewSelectedIndex; set => SetProperty(ref rightListViewSelectedIndex, value); }
+
         //// DelegateCommand *******************************************************
 
         public DelegateCommand OpenFileCommand
@@ -67,7 +74,16 @@
                 {
                     if (SelectedItem.IsDirectory)
                     {
-                        LeftFileList = GetFileList(SelectedItem.FileSystemInfo.FullName, SelectedItem.OwnerListViewLocation);
+                        if (SelectedItem.OwnerListViewLocation == OwnerListViewLocation.Left)
+                        {
+                            LeftFileList = GetFileList(SelectedItem.FileSystemInfo.FullName, SelectedItem.OwnerListViewLocation);
+                            LeftListViewSelectedIndex = 0;
+                        }
+                        else
+                        {
+                            RightFileList = GetFileList(SelectedItem.FileSystemInfo.FullName, SelectedItem.OwnerListViewLocation);
+                            RightListViewSelectedIndex = 0;
+                        }
                     }
                     else
                     {
