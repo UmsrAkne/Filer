@@ -4,6 +4,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
+    <SolidColorBrush x:Key="bgColorBrush" Color="#444444" />
 
     <DataTemplate x:Key="ListViewItemTemplate">
 
@@ -45,6 +46,13 @@
         <Setter Property="Padding" Value="3" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="BorderBrush" Value="Black" />
+
+        <Style.Triggers>
+            <Trigger Property="ListView.AlternationIndex" Value="1">
+                <Setter Property="Background" Value="{StaticResource bgColorBrush}" />
+
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>
