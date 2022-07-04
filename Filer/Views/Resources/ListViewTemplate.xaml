@@ -24,8 +24,8 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="300" />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
@@ -45,8 +45,20 @@
                     <TextBlock
                         Grid.Column="2"
                         VerticalAlignment="Center"
-                        Foreground="{StaticResource fgColorBrush}"
-                        Text="{Binding Extension}" />
+                        Text="{Binding Extension}">
+
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource fgColorBrush}" />
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Extension}" Value="DIR">
+                                        <Setter Property="Foreground" Value="Yellow" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
                 </Grid>
 
