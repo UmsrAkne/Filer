@@ -1,11 +1,17 @@
 ﻿<ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:Filer.Models.Converters"
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
 
     <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
+    <SolidColorBrush x:Key="bgColorBrush" Color="#444444" />
 
     <DataTemplate x:Key="ListViewItemTemplate">
+
+        <DataTemplate.Resources>
+            <converters:NumberFormatConverter x:Key="numberFormatConverter" />
+        </DataTemplate.Resources>
 
         <ContentControl Height="{Binding ElementName=Window, Path=DataContext.ListViewItemLineHeight}">
 
@@ -17,20 +23,42 @@
 
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="300" />
+                        <ColumnDefinition Width="auto" />
                         <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
+                        Grid.Column="0"
+                        Margin="2,0"
+                        VerticalAlignment="Center"
+                        Foreground="{StaticResource fgColorBrush}"
+                        Text="{Binding Index, Converter={StaticResource numberFormatConverter}}" />
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="8,0"
                         VerticalAlignment="Center"
                         Foreground="{StaticResource fgColorBrush}"
                         Text="{Binding Name}" />
 
                     <TextBlock
-                        Grid.Column="1"
+                        Grid.Column="2"
                         VerticalAlignment="Center"
-                        Foreground="{StaticResource fgColorBrush}"
-                        Text="{Binding Extension}" />
+                        Text="{Binding Extension}">
+
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource fgColorBrush}" />
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Extension}" Value="DIR">
+                                        <Setter Property="Foreground" Value="Yellow" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
 
                 </Grid>
 
@@ -45,6 +73,13 @@
         <Setter Property="Padding" Value="3" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="BorderBrush" Value="Black" />
+
+        <Style.Triggers>
+            <Trigger Property="ListView.AlternationIndex" Value="1">
+                <Setter Property="Background" Value="{StaticResource bgColorBrush}" />
+
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>

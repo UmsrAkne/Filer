@@ -65,6 +65,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Models\Converters\NumberFormatConverter.cs" />
     <Compile Include="Models\ExtendFileInfo.cs" />
     <Compile Include="Models\OwnerListViewLocation.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
