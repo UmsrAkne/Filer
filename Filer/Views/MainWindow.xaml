@@ -106,6 +106,7 @@
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding LeftFileList}"
+            SelectedIndex="{Binding LeftListViewSelectedIndex}"
             SelectedItem="{Binding SelectedItem}" />
 
         <ListView
@@ -120,6 +121,7 @@
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding RightFileList}"
+            SelectedIndex="{Binding RightListViewSelectedIndex}"
             SelectedItem="{Binding SelectedItem}" />
 
         <TextBlock
