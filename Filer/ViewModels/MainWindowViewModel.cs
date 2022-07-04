@@ -117,7 +117,20 @@
             if (Keyboard.FocusedElement != null && Keyboard.FocusedElement is ListViewItem)
             {
                 ListView lv = GetFocusingListView();
-                lv.SelectedIndex += amount;
+
+                if (lv.SelectedIndex + amount < 0)
+                {
+                    lv.SelectedIndex = 0;
+                }
+                else if (lv.SelectedIndex + amount > lv.Items.Count)
+                {
+                    lv.SelectedItem = lv.Items.Count - 1;
+                }
+                else
+                {
+                    lv.SelectedIndex += amount;
+                }
+
                 var item = lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) as ListViewItem;
                 item.Focus();
                 lv.ScrollIntoView(item);
