@@ -25,6 +25,9 @@
         {
             var defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
+            LeftFileListViewModel.Logger = Logger;
+            RightFileListViewModel.Logger = Logger;
+
             LeftFileListViewModel.CurrentDirectory = new DirectoryInfo(defaultPath);
             RightFileListViewModel.CurrentDirectory = new DirectoryInfo(defaultPath);
         }
@@ -40,6 +43,8 @@
         public FileListViewModel RightFileListViewModel { get; } = new FileListViewModel() { OwnerListViewLocation = OwnerListViewLocation.Right };
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
+
+        public Logger Logger { get; } = new Logger();
 
         //// DelegateCommand *******************************************************
 

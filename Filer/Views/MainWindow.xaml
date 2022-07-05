@@ -74,7 +74,8 @@
             Grid.ColumnSpan="2"
             Height="150"
             Background="{StaticResource bgColorBrush}"
-            Foreground="{StaticResource fgColorBrush}" />
+            Foreground="{StaticResource fgColorBrush}"
+            Text="{Binding Logger.Log}" />
 
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
     </Grid>
