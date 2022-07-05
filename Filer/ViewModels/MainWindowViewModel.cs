@@ -16,15 +16,7 @@
     {
         private string title = "Prism Application";
 
-        private ObservableCollection<ExtendFileInfo> leftFileList = new ObservableCollection<ExtendFileInfo>();
-        private ObservableCollection<ExtendFileInfo> rightFileList = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
-
-        private string leftPathBarText;
-        private string rightPathBarText;
-
-        private int leftListViewSelectedIndex;
-        private int rightListViewSelectedIndex;
 
         //// DelegateCommand *******************************************************
 
@@ -34,8 +26,6 @@
         public MainWindowViewModel()
         {
             var defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            LeftFileList = GetFileList(defaultPath, OwnerListViewLocation.Left);
-            RightFileList = GetFileList(defaultPath, OwnerListViewLocation.Right);
 
             LeftFileListViewModel.FileList = GetFileList(defaultPath, OwnerListViewLocation.Left);
             RightFileListViewModel.FileList = GetFileList(defaultPath, OwnerListViewLocation.Right);
@@ -53,19 +43,7 @@
 
         public FileListViewModel RightFileListViewModel { get; } = new FileListViewModel() { OwnerListViewLocation = OwnerListViewLocation.Right };
 
-        public ObservableCollection<ExtendFileInfo> LeftFileList { get => leftFileList; set => SetProperty(ref leftFileList, value); }
-
-        public ObservableCollection<ExtendFileInfo> RightFileList { get => rightFileList; set => SetProperty(ref rightFileList, value); }
-
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
-
-        public string LeftPathBarText { get => leftPathBarText; set => SetProperty(ref leftPathBarText, value); }
-
-        public string RightPathBarText { get => rightPathBarText; set => SetProperty(ref rightPathBarText, value); }
-
-        public int LeftListViewSelectedIndex { get => leftListViewSelectedIndex; set => SetProperty(ref leftListViewSelectedIndex, value); }
-
-        public int RightListViewSelectedIndex { get => rightListViewSelectedIndex; set => SetProperty(ref rightListViewSelectedIndex, value); }
 
         //// DelegateCommand *******************************************************
 
@@ -79,13 +57,13 @@
                     {
                         if (SelectedItem.OwnerListViewLocation == OwnerListViewLocation.Left)
                         {
-                            LeftFileList = GetFileList(SelectedItem.FileSystemInfo.FullName, SelectedItem.OwnerListViewLocation);
-                            LeftListViewSelectedIndex = 0;
+                            // LeftFileList = GetFileList(SelectedItem.FileSystemInfo.FullName, SelectedItem.OwnerListViewLocation);
+                            // LeftListViewSelectedIndex = 0;
                         }
                         else
                         {
-                            RightFileList = GetFileList(SelectedItem.FileSystemInfo.FullName, SelectedItem.OwnerListViewLocation);
-                            RightListViewSelectedIndex = 0;
+                            // RightFileList = GetFileList(SelectedItem.FileSystemInfo.FullName, SelectedItem.OwnerListViewLocation);
+                            // RightListViewSelectedIndex = 0;
                         }
                     }
                     else
