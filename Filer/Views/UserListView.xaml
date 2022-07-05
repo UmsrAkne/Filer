@@ -52,9 +52,7 @@
 
             <TextBox.InputBindings>
 
-                <KeyBinding Key="Return" Command="{Binding OpenPathCommand}">
-                    <KeyBinding.CommandParameter>Right</KeyBinding.CommandParameter>
-                </KeyBinding>
+                <KeyBinding Key="Return" Command="{Binding OpenPathCommand}" />
 
             </TextBox.InputBindings>
         </TextBox>

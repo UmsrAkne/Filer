@@ -32,7 +32,6 @@
         private DelegateCommand<ListView> focusToListViewCommand;
         private DelegateCommand cursorUpCommand;
         private DelegateCommand cursorDownCommand;
-        private DelegateCommand<string> openPathCommand;
 
         public MainWindowViewModel()
         {
@@ -52,9 +51,9 @@
             set { SetProperty(ref title, value); }
         }
 
-        public FileListViewModel LeftFileListViewModel { get; } = new FileListViewModel();
+        public FileListViewModel LeftFileListViewModel { get; } = new FileListViewModel() { OwnerListViewLocation = OwnerListViewLocation.Left };
 
-        public FileListViewModel RightFileListViewModel { get; } = new FileListViewModel();
+        public FileListViewModel RightFileListViewModel { get; } = new FileListViewModel() { OwnerListViewLocation = OwnerListViewLocation.Right };
 
         public ObservableCollection<ExtendFileInfo> LeftFileList { get => leftFileList; set => SetProperty(ref leftFileList, value); }
 
@@ -117,21 +116,6 @@
         public DelegateCommand CursorUpCommand
         {
             get => cursorUpCommand ?? (cursorUpCommand = new DelegateCommand(() => MoveCursor(-1)));
-        }
-
-        public DelegateCommand<string> OpenPathCommand
-        {
-            get => openPathCommand ?? (openPathCommand = new DelegateCommand<string>((locationString) =>
-            {
-                if (locationString == "Left")
-                {
-                    LeftFileList = GetFileList(LeftPathBarText, OwnerListViewLocation.Left);
-                }
-                else
-                {
-                    RightFileList = GetFileList(RightPathBarText, OwnerListViewLocation.Right);
-                }
-            }));
         }
 
         private void MoveCursor(int amount)
