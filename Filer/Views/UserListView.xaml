@@ -46,7 +46,21 @@
 
             <ListView.InputBindings>
 
-                <KeyBinding Key="Return" Command="{Binding OpenFileCommand}" />
+                <KeyBinding
+                    Key="Return"
+                    Command="{Binding OpenFileCommand}"
+                    CommandParameter="{Binding ElementName=listView}" />
+
+                <KeyBinding
+                    Key="U"
+                    Command="{Binding DirectoryUpCommand}"
+                    Modifiers="Shift" />
+
+                <KeyBinding
+                    Key="G"
+                    Command="{Binding JumpToLastCommand}"
+                    CommandParameter="{Binding ElementName=listView}"
+                    Modifiers="Shift" />
 
                 <KeyBinding
                     Key="J"

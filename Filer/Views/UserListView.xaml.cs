@@ -31,5 +31,10 @@
             get { return (IEnumerable)GetValue(ListSourceProperty); }
             set { SetValue(ListSourceProperty, value); }
         }
+
+        public ListView ListView
+        {
+            get => FindName("listView") as ListView;
+        }
     }
 }

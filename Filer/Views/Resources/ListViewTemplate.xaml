@@ -24,8 +24,8 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="410" />
+                        <ColumnDefinition Width="30" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
@@ -73,6 +73,7 @@
         <Setter Property="Padding" Value="3" />
         <Setter Property="BorderThickness" Value="0,0,0,1" />
         <Setter Property="BorderBrush" Value="Black" />
+        <Setter Property="IsSelected" Value="{Binding IsSelected}" />
 
         <Style.Triggers>
             <Trigger Property="ListView.AlternationIndex" Value="1">
