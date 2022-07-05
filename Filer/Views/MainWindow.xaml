@@ -2,6 +2,7 @@
     x:Class="Filer.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Filer.Views"
     xmlns:prism="http://prismlibrary.com/"
     Name="window"
     Title="{Binding Title}"
@@ -61,68 +62,17 @@
             <MenuItem Header="File" />
         </Menu>
 
-        <TextBox
-            Grid.Row="1"
-            Grid.Column="0"
-            Background="{StaticResource bgColorBrush}"
-            BorderBrush="Black"
-            Foreground="{StaticResource fgColorBrush}"
-            Text="{Binding LeftPathBarText, UpdateSourceTrigger=PropertyChanged}">
-            <TextBox.InputBindings>
-
-                <KeyBinding Key="Return" Command="{Binding OpenPathCommand}">
-                    <KeyBinding.CommandParameter>Left</KeyBinding.CommandParameter>
-                </KeyBinding>
-
-            </TextBox.InputBindings>
-        </TextBox>
-
-        <TextBox
-            Grid.Row="1"
-            Grid.Column="1"
-            Background="{StaticResource bgColorBrush}"
-            BorderBrush="Black"
-            Foreground="{StaticResource fgColorBrush}"
-            Text="{Binding RightPathBarText, UpdateSourceTrigger=PropertyChanged}">
-
-            <TextBox.InputBindings>
-
-                <KeyBinding Key="Return" Command="{Binding OpenPathCommand}">
-                    <KeyBinding.CommandParameter>Right</KeyBinding.CommandParameter>
-                </KeyBinding>
-
-            </TextBox.InputBindings>
-        </TextBox>
-
-        <ListView
-            Name="LeftListView"
+        <local:UserListView
             Grid.Row="2"
             Grid.Column="0"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Center"
-            AlternationCount="2"
-            Background="{StaticResource bgColorBrush}"
-            BorderBrush="Black"
-            ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
-            ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
-            ItemsSource="{Binding LeftFileList}"
-            SelectedIndex="{Binding LeftListViewSelectedIndex}"
-            SelectedItem="{Binding SelectedItem}" />
+            ListSource="{Binding LeftFileList}"
+            PathBarText="{Binding LeftPathBarText}" />
 
-        <ListView
-            Name="RightListView"
+        <local:UserListView
             Grid.Row="2"
             Grid.Column="1"
-            HorizontalContentAlignment="Stretch"
-            VerticalContentAlignment="Center"
-            AlternationCount="2"
-            Background="{StaticResource bgColorBrush}"
-            BorderBrush="Black"
-            ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
-            ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
-            ItemsSource="{Binding RightFileList}"
-            SelectedIndex="{Binding RightListViewSelectedIndex}"
-            SelectedItem="{Binding SelectedItem}" />
+            ListSource="{Binding RightFileList}"
+            PathBarText="{Binding RightPathBarText}" />
 
         <TextBlock
             Grid.Row="3"
