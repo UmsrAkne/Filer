@@ -49,9 +49,17 @@
         {
             get => focusToListViewCommand ?? (focusToListViewCommand = new DelegateCommand<ListView>((lv) =>
             {
-                var destIndex = lv.SelectedIndex < 0 ? 0 : lv.SelectedIndex;
-                var item = lv.ItemContainerGenerator.ContainerFromIndex(destIndex) as ListViewItem;
-                Keyboard.Focus(item);
+                if (lv.Items.Count == 0)
+                {
+                    Keyboard.Focus(lv);
+                }
+                else
+                {
+                    var destIndex = lv.SelectedIndex < 0 ? 0 : lv.SelectedIndex;
+                    lv.SelectedIndex = destIndex;
+                    var item = lv.ItemContainerGenerator.ContainerFromIndex(destIndex) as ListViewItem;
+                    Keyboard.Focus(item);
+                }
             }));
         }
 

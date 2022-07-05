@@ -27,12 +27,12 @@
         <KeyBinding
             Key="H"
             Command="{Binding FocusToListViewCommand}"
-            CommandParameter="{Binding ElementName=LeftListView}" />
+            CommandParameter="{Binding ElementName=leftListView, Path=ListView}" />
 
         <KeyBinding
             Key="L"
             Command="{Binding FocusToListViewCommand}"
-            CommandParameter="{Binding ElementName=RightListView}" />
+            CommandParameter="{Binding ElementName=rightListView, Path=ListView}" />
 
     </Window.InputBindings>
 
@@ -57,11 +57,13 @@
         </Menu>
 
         <local:UserListView
+            x:Name="leftListView"
             Grid.Row="2"
             Grid.Column="0"
             DataContext="{Binding LeftFileListViewModel}" />
 
         <local:UserListView
+            x:Name="rightListView"
             Grid.Row="2"
             Grid.Column="1"
             DataContext="{Binding RightFileListViewModel}" />
