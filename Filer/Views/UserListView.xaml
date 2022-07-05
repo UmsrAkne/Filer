@@ -52,6 +52,11 @@
                     CommandParameter="{Binding ElementName=listView}" />
 
                 <KeyBinding
+                    Key="U"
+                    Command="{Binding DirectoryUpCommand}"
+                    Modifiers="Shift" />
+
+                <KeyBinding
                     Key="J"
                     Command="{Binding CursorDownCommand}"
                     CommandParameter="{Binding ElementName=listView}" />

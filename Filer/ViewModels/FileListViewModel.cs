@@ -14,10 +14,12 @@
         private string pathBarText;
         private int selectedIndex;
         private ObservableCollection<ExtendFileInfo> fileList;
+        private DirectoryInfo currentDirectory;
         private DelegateCommand<string> openPathCommand;
         private DelegateCommand<ListView> openFileCommand;
         private DelegateCommand<ListView> cursorDownCommand;
         private DelegateCommand<ListView> cursorUpCommand;
+        private DelegateCommand directoryUpCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -31,11 +33,22 @@
 
         public ObservableCollection<ExtendFileInfo> FileList { get => fileList; set => SetProperty(ref fileList, value); }
 
+        public DirectoryInfo CurrentDirectory
+        {
+            get => currentDirectory;
+            set
+            {
+                FileList = GetFileList(value.FullName, OwnerListViewLocation);
+                PathBarText = value.FullName;
+                currentDirectory = value;
+            }
+        }
+
         public DelegateCommand<string> OpenPathCommand
         {
             get => openPathCommand ?? (openPathCommand = new DelegateCommand<string>((locationString) =>
             {
-                FileList = GetFileList(PathBarText, OwnerListViewLocation);
+                CurrentDirectory = new DirectoryInfo(PathBarText);
             }));
         }
 
@@ -47,7 +60,7 @@
                 {
                     if (SelectedItem.IsDirectory)
                     {
-                        FileList = GetFileList(SelectedItem.FileSystemInfo.FullName, OwnerListViewLocation);
+                        CurrentDirectory = SelectedItem.FileSystemInfo as DirectoryInfo;
 
                         if (lv.Items.Count > 0)
                         {
@@ -75,6 +88,19 @@
             get => cursorUpCommand ?? (cursorUpCommand = new DelegateCommand<ListView>((lv) =>
             {
                 MoveCursor(lv, -1);
+            }));
+        }
+
+        public DelegateCommand DirectoryUpCommand
+        {
+            get => directoryUpCommand ?? (directoryUpCommand = new DelegateCommand(() =>
+            {
+                var parentDirectoryInfo = new DirectoryInfo(CurrentDirectory.FullName).Parent;
+
+                if (parentDirectoryInfo != null)
+                {
+                    CurrentDirectory = parentDirectoryInfo;
+                }
             }));
         }
 
