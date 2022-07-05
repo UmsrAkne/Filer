@@ -31,6 +31,7 @@
         <TextBox Grid.Row="0" />
 
         <ListView
+            x:Name="listView"
             Grid.Row="1"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Center"
@@ -39,22 +40,38 @@
             BorderBrush="Black"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
-            ItemsSource="{Binding ListSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:UserListView}}}"
-            SelectedIndex="{Binding LeftListViewSelectedIndex}"
-            SelectedItem="{Binding SelectedItem}" />
+            ItemsSource="{Binding FileList}"
+            SelectedIndex="{Binding SelectedIndex}"
+            SelectedItem="{Binding SelectedItem}">
+
+            <ListView.InputBindings>
+
+                <KeyBinding Key="Return" Command="{Binding OpenFileCommand}" />
+
+                <KeyBinding
+                    Key="J"
+                    Command="{Binding CursorDownCommand}"
+                    CommandParameter="{Binding ElementName=listView}" />
+
+                <KeyBinding
+                    Key="K"
+                    Command="{Binding CursorUpCommand}"
+                    CommandParameter="{Binding ElementName=listView}" />
+
+            </ListView.InputBindings>
+
+        </ListView>
 
         <TextBox
             Grid.Row="0"
             Background="{StaticResource bgColorBrush}"
             BorderBrush="Black"
             Foreground="{StaticResource fgColorBrush}"
-            Text="{Binding PathBarText, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:UserListView}}}">
+            Text="{Binding PathBarText, UpdateSourceTrigger=PropertyChanged}">
 
             <TextBox.InputBindings>
 
-                <KeyBinding Key="Return" Command="{Binding OpenPathCommand}">
-                    <KeyBinding.CommandParameter>Right</KeyBinding.CommandParameter>
-                </KeyBinding>
+                <KeyBinding Key="Return" Command="{Binding OpenPathCommand}" />
 
             </TextBox.InputBindings>
         </TextBox>

@@ -24,8 +24,6 @@
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Key="Return" Command="{Binding OpenFileCommand}" />
-
         <KeyBinding
             Key="H"
             Command="{Binding FocusToListViewCommand}"
@@ -35,10 +33,6 @@
             Key="L"
             Command="{Binding FocusToListViewCommand}"
             CommandParameter="{Binding ElementName=RightListView}" />
-
-        <KeyBinding Key="J" Command="{Binding CursorDownCommand}" />
-
-        <KeyBinding Key="K" Command="{Binding CursorUpCommand}" />
 
     </Window.InputBindings>
 
@@ -65,14 +59,12 @@
         <local:UserListView
             Grid.Row="2"
             Grid.Column="0"
-            ListSource="{Binding LeftFileList}"
-            PathBarText="{Binding LeftPathBarText}" />
+            DataContext="{Binding LeftFileListViewModel}" />
 
         <local:UserListView
             Grid.Row="2"
             Grid.Column="1"
-            ListSource="{Binding RightFileList}"
-            PathBarText="{Binding RightPathBarText}" />
+            DataContext="{Binding RightFileListViewModel}" />
 
         <TextBlock
             Grid.Row="3"
