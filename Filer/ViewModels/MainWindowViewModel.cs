@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.ObjectModel;
-    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Windows;
@@ -20,7 +19,6 @@
 
         //// DelegateCommand *******************************************************
 
-        private DelegateCommand openFileCommand;
         private DelegateCommand<ListView> focusToListViewCommand;
 
         public MainWindowViewModel()
@@ -46,33 +44,6 @@
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
         //// DelegateCommand *******************************************************
-
-        public DelegateCommand OpenFileCommand
-        {
-            get => openFileCommand ?? (openFileCommand = new DelegateCommand(() =>
-            {
-                if (SelectedItem != null)
-                {
-                    if (SelectedItem.IsDirectory)
-                    {
-                        if (SelectedItem.OwnerListViewLocation == OwnerListViewLocation.Left)
-                        {
-                            // LeftFileList = GetFileList(SelectedItem.FileSystemInfo.FullName, SelectedItem.OwnerListViewLocation);
-                            // LeftListViewSelectedIndex = 0;
-                        }
-                        else
-                        {
-                            // RightFileList = GetFileList(SelectedItem.FileSystemInfo.FullName, SelectedItem.OwnerListViewLocation);
-                            // RightListViewSelectedIndex = 0;
-                        }
-                    }
-                    else
-                    {
-                        Process.Start(SelectedItem.FileSystemInfo.FullName);
-                    }
-                }
-            }));
-        }
 
         public DelegateCommand<ListView> FocusToListViewCommand
         {

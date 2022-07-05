@@ -24,8 +24,6 @@
     </Window.Resources>
 
     <Window.InputBindings>
-        <KeyBinding Key="Return" Command="{Binding OpenFileCommand}" />
-
         <KeyBinding
             Key="H"
             Command="{Binding FocusToListViewCommand}"

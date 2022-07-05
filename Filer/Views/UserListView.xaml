@@ -45,6 +45,9 @@
             SelectedItem="{Binding SelectedItem}">
 
             <ListView.InputBindings>
+
+                <KeyBinding Key="Return" Command="{Binding OpenFileCommand}" />
+
                 <KeyBinding
                     Key="J"
                     Command="{Binding CursorDownCommand}"

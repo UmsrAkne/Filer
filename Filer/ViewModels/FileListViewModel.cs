@@ -1,6 +1,7 @@
 ﻿namespace Filer.ViewModels
 {
     using System.Collections.ObjectModel;
+    using System.Diagnostics;
     using System.IO;
     using System.Linq;
     using System.Windows.Controls;
@@ -15,6 +16,7 @@
         private int selectedIndex;
         private ObservableCollection<ExtendFileInfo> fileList;
         private DelegateCommand<string> openPathCommand;
+        private DelegateCommand openFileCommand;
         private DelegateCommand<ListView> cursorDownCommand;
         private DelegateCommand<ListView> cursorUpCommand;
 
@@ -35,6 +37,24 @@
             get => openPathCommand ?? (openPathCommand = new DelegateCommand<string>((locationString) =>
             {
                 FileList = GetFileList(PathBarText, OwnerListViewLocation);
+            }));
+        }
+
+        public DelegateCommand OpenFileCommand
+        {
+            get => openFileCommand ?? (openFileCommand = new DelegateCommand(() =>
+            {
+                if (SelectedItem != null)
+                {
+                    if (SelectedItem.IsDirectory)
+                    {
+                        FileList = GetFileList(SelectedItem.FileSystemInfo.FullName, OwnerListViewLocation);
+                    }
+                    else
+                    {
+                        Process.Start(SelectedItem.FileSystemInfo.FullName);
+                    }
+                }
             }));
         }
 
