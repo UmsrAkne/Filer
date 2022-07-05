@@ -57,6 +57,12 @@
                     Modifiers="Shift" />
 
                 <KeyBinding
+                    Key="G"
+                    Command="{Binding JumpToLastCommand}"
+                    CommandParameter="{Binding ElementName=listView}"
+                    Modifiers="Shift" />
+
+                <KeyBinding
                     Key="J"
                     Command="{Binding CursorDownCommand}"
                     CommandParameter="{Binding ElementName=listView}" />

@@ -5,6 +5,7 @@
     using System.IO;
     using System.Linq;
     using System.Windows.Controls;
+    using System.Windows.Input;
     using Filer.Models;
     using Prism.Commands;
     using Prism.Mvvm;
@@ -19,6 +20,7 @@
         private DelegateCommand<ListView> openFileCommand;
         private DelegateCommand<ListView> cursorDownCommand;
         private DelegateCommand<ListView> cursorUpCommand;
+        private DelegateCommand<ListView> jumpToLastCommand;
         private DelegateCommand directoryUpCommand;
 
         private ExtendFileInfo selectedItem;
@@ -91,6 +93,20 @@
             }));
         }
 
+        public DelegateCommand<ListView> JumpToLastCommand
+        {
+            get => jumpToLastCommand ?? (jumpToLastCommand = new DelegateCommand<ListView>((lv) =>
+            {
+                var currentIndex = lv.SelectedIndex == -1 ? 0 : lv.SelectedIndex;
+                MoveCursor(lv, FileList.Count() + 1);
+
+                // 最後の行までジャンプした直後に ListViewItem が範囲選択されるので、選択状態をリセットしている。
+                var item = lv.SelectedItem;
+                FileList.Skip(currentIndex).ToList().ForEach(f => f.IsSelected = false);
+                SelectedItem = item as ExtendFileInfo;
+            }));
+        }
+
         public DelegateCommand DirectoryUpCommand
         {
             get => directoryUpCommand ?? (directoryUpCommand = new DelegateCommand(() =>
@@ -112,7 +128,7 @@
             }
             else if (lv.SelectedIndex + amount > lv.Items.Count)
             {
-                lv.SelectedItem = lv.Items.Count - 1;
+                lv.SelectedIndex = lv.Items.Count - 1;
             }
             else
             {
@@ -120,7 +136,9 @@
             }
 
             var item = lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) as ListViewItem;
+
             item.Focus();
+            Keyboard.Focus(item);
             lv.ScrollIntoView(item);
         }
 
