@@ -5,7 +5,6 @@
     using System.IO;
     using System.Linq;
     using System.Windows.Controls;
-    using System.Windows.Input;
     using Filer.Models;
     using Prism.Commands;
     using Prism.Mvvm;
@@ -16,7 +15,7 @@
         private int selectedIndex;
         private ObservableCollection<ExtendFileInfo> fileList;
         private DelegateCommand<string> openPathCommand;
-        private DelegateCommand openFileCommand;
+        private DelegateCommand<ListView> openFileCommand;
         private DelegateCommand<ListView> cursorDownCommand;
         private DelegateCommand<ListView> cursorUpCommand;
 
@@ -40,15 +39,20 @@
             }));
         }
 
-        public DelegateCommand OpenFileCommand
+        public DelegateCommand<ListView> OpenFileCommand
         {
-            get => openFileCommand ?? (openFileCommand = new DelegateCommand(() =>
+            get => openFileCommand ?? (openFileCommand = new DelegateCommand<ListView>((lv) =>
             {
                 if (SelectedItem != null)
                 {
                     if (SelectedItem.IsDirectory)
                     {
                         FileList = GetFileList(SelectedItem.FileSystemInfo.FullName, OwnerListViewLocation);
+
+                        if (lv.Items.Count > 0)
+                        {
+                            SelectedIndex = 0;
+                        }
                     }
                     else
                     {
@@ -76,25 +80,22 @@
 
         private void MoveCursor(ListView lv, int amount)
         {
-            if (Keyboard.FocusedElement is ListViewItem)
+            if (lv.SelectedIndex + amount < 0)
             {
-                if (lv.SelectedIndex + amount < 0)
-                {
-                    lv.SelectedIndex = 0;
-                }
-                else if (lv.SelectedIndex + amount > lv.Items.Count)
-                {
-                    lv.SelectedItem = lv.Items.Count - 1;
-                }
-                else
-                {
-                    lv.SelectedIndex += amount;
-                }
-
-                var item = lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) as ListViewItem;
-                item.Focus();
-                lv.ScrollIntoView(item);
+                lv.SelectedIndex = 0;
             }
+            else if (lv.SelectedIndex + amount > lv.Items.Count)
+            {
+                lv.SelectedItem = lv.Items.Count - 1;
+            }
+            else
+            {
+                lv.SelectedIndex += amount;
+            }
+
+            var item = lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) as ListViewItem;
+            item.Focus();
+            lv.ScrollIntoView(item);
         }
 
         private ObservableCollection<ExtendFileInfo> GetFileList(string path, OwnerListViewLocation destLocation)

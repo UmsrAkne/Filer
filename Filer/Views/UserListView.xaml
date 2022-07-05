@@ -46,7 +46,10 @@
 
             <ListView.InputBindings>
 
-                <KeyBinding Key="Return" Command="{Binding OpenFileCommand}" />
+                <KeyBinding
+                    Key="Return"
+                    Command="{Binding OpenFileCommand}"
+                    CommandParameter="{Binding ElementName=listView}" />
 
                 <KeyBinding
                     Key="J"
