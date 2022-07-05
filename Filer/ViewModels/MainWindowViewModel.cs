@@ -40,11 +40,10 @@
             LeftFileList = GetFileList(defaultPath, OwnerListViewLocation.Left);
             RightFileList = GetFileList(defaultPath, OwnerListViewLocation.Right);
 
-            LeftPathBarText = defaultPath;
-            RightPathBarText = defaultPath;
-
             LeftFileListViewModel.FileList = GetFileList(defaultPath, OwnerListViewLocation.Left);
             RightFileListViewModel.FileList = GetFileList(defaultPath, OwnerListViewLocation.Right);
+            LeftFileListViewModel.PathBarText = defaultPath;
+            RightFileListViewModel.PathBarText = defaultPath;
         }
 
         public string Title

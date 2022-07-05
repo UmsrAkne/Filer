@@ -65,14 +65,12 @@
         <local:UserListView
             Grid.Row="2"
             Grid.Column="0"
-            ListSource="{Binding LeftFileList}"
-            PathBarText="{Binding LeftPathBarText}" />
+            DataContext="{Binding LeftFileListViewModel}" />
 
         <local:UserListView
             Grid.Row="2"
             Grid.Column="1"
-            ListSource="{Binding RightFileList}"
-            PathBarText="{Binding RightPathBarText}" />
+            DataContext="{Binding RightFileListViewModel}" />
 
         <TextBlock
             Grid.Row="3"

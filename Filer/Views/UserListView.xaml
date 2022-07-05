@@ -39,8 +39,8 @@
             BorderBrush="Black"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
-            ItemsSource="{Binding ListSource, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:UserListView}}}"
-            SelectedIndex="{Binding LeftListViewSelectedIndex}"
+            ItemsSource="{Binding FileList}"
+            SelectedIndex="{Binding SelectedIndex}"
             SelectedItem="{Binding SelectedItem}" />
 
         <TextBox
@@ -48,7 +48,7 @@
             Background="{StaticResource bgColorBrush}"
             BorderBrush="Black"
             Foreground="{StaticResource fgColorBrush}"
-            Text="{Binding PathBarText, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:UserListView}}}">
+            Text="{Binding PathBarText, UpdateSourceTrigger=PropertyChanged}">
 
             <TextBox.InputBindings>
 
