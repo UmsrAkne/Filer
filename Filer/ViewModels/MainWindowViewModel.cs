@@ -42,6 +42,9 @@
 
             LeftPathBarText = defaultPath;
             RightPathBarText = defaultPath;
+
+            LeftFileListViewModel.FileList = GetFileList(defaultPath, OwnerListViewLocation.Left);
+            RightFileListViewModel.FileList = GetFileList(defaultPath, OwnerListViewLocation.Right);
         }
 
         public string Title
@@ -49,6 +52,10 @@
             get { return title; }
             set { SetProperty(ref title, value); }
         }
+
+        public FileListViewModel LeftFileListViewModel { get; } = new FileListViewModel();
+
+        public FileListViewModel RightFileListViewModel { get; } = new FileListViewModel();
 
         public ObservableCollection<ExtendFileInfo> LeftFileList { get => leftFileList; set => SetProperty(ref leftFileList, value); }
 
