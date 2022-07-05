@@ -31,6 +31,7 @@
         <TextBox Grid.Row="0" />
 
         <ListView
+            x:Name="listView"
             Grid.Row="1"
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Center"
@@ -41,7 +42,22 @@
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding FileList}"
             SelectedIndex="{Binding SelectedIndex}"
-            SelectedItem="{Binding SelectedItem}" />
+            SelectedItem="{Binding SelectedItem}">
+
+            <ListView.InputBindings>
+                <KeyBinding
+                    Key="J"
+                    Command="{Binding CursorDownCommand}"
+                    CommandParameter="{Binding ElementName=listView}" />
+
+                <KeyBinding
+                    Key="K"
+                    Command="{Binding CursorUpCommand}"
+                    CommandParameter="{Binding ElementName=listView}" />
+
+            </ListView.InputBindings>
+
+        </ListView>
 
         <TextBox
             Grid.Row="0"

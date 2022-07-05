@@ -36,10 +36,6 @@
             Command="{Binding FocusToListViewCommand}"
             CommandParameter="{Binding ElementName=RightListView}" />
 
-        <KeyBinding Key="J" Command="{Binding CursorDownCommand}" />
-
-        <KeyBinding Key="K" Command="{Binding CursorUpCommand}" />
-
     </Window.InputBindings>
 
     <Grid>

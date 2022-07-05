@@ -30,8 +30,6 @@
 
         private DelegateCommand openFileCommand;
         private DelegateCommand<ListView> focusToListViewCommand;
-        private DelegateCommand cursorUpCommand;
-        private DelegateCommand cursorDownCommand;
 
         public MainWindowViewModel()
         {
@@ -106,41 +104,6 @@
                 var item = lv.ItemContainerGenerator.ContainerFromIndex(destIndex) as ListViewItem;
                 Keyboard.Focus(item);
             }));
-        }
-
-        public DelegateCommand CursorDownCommand
-        {
-            get => cursorDownCommand ?? (cursorDownCommand = new DelegateCommand(() => MoveCursor(1)));
-        }
-
-        public DelegateCommand CursorUpCommand
-        {
-            get => cursorUpCommand ?? (cursorUpCommand = new DelegateCommand(() => MoveCursor(-1)));
-        }
-
-        private void MoveCursor(int amount)
-        {
-            if (Keyboard.FocusedElement != null && Keyboard.FocusedElement is ListViewItem)
-            {
-                ListView lv = GetFocusingListView();
-
-                if (lv.SelectedIndex + amount < 0)
-                {
-                    lv.SelectedIndex = 0;
-                }
-                else if (lv.SelectedIndex + amount > lv.Items.Count)
-                {
-                    lv.SelectedItem = lv.Items.Count - 1;
-                }
-                else
-                {
-                    lv.SelectedIndex += amount;
-                }
-
-                var item = lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) as ListViewItem;
-                item.Focus();
-                lv.ScrollIntoView(item);
-            }
         }
 
         private ObservableCollection<ExtendFileInfo> GetFileList(string path, OwnerListViewLocation destLocation)

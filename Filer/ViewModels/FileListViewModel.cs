@@ -3,6 +3,8 @@
     using System.Collections.ObjectModel;
     using System.IO;
     using System.Linq;
+    using System.Windows.Controls;
+    using System.Windows.Input;
     using Filer.Models;
     using Prism.Commands;
     using Prism.Mvvm;
@@ -13,6 +15,8 @@
         private int selectedIndex;
         private ObservableCollection<ExtendFileInfo> fileList;
         private DelegateCommand<string> openPathCommand;
+        private DelegateCommand<ListView> cursorDownCommand;
+        private DelegateCommand<ListView> cursorUpCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -32,6 +36,45 @@
             {
                 FileList = GetFileList(PathBarText, OwnerListViewLocation);
             }));
+        }
+
+        public DelegateCommand<ListView> CursorDownCommand
+        {
+            get => cursorDownCommand ?? (cursorDownCommand = new DelegateCommand<ListView>((lv) =>
+            {
+                MoveCursor(lv, 1);
+            }));
+        }
+
+        public DelegateCommand<ListView> CursorUpCommand
+        {
+            get => cursorUpCommand ?? (cursorUpCommand = new DelegateCommand<ListView>((lv) =>
+            {
+                MoveCursor(lv, -1);
+            }));
+        }
+
+        private void MoveCursor(ListView lv, int amount)
+        {
+            if (Keyboard.FocusedElement is ListViewItem)
+            {
+                if (lv.SelectedIndex + amount < 0)
+                {
+                    lv.SelectedIndex = 0;
+                }
+                else if (lv.SelectedIndex + amount > lv.Items.Count)
+                {
+                    lv.SelectedItem = lv.Items.Count - 1;
+                }
+                else
+                {
+                    lv.SelectedIndex += amount;
+                }
+
+                var item = lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) as ListViewItem;
+                item.Focus();
+                lv.ScrollIntoView(item);
+            }
         }
 
         private ObservableCollection<ExtendFileInfo> GetFileList(string path, OwnerListViewLocation destLocation)
