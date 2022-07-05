@@ -13,7 +13,7 @@
         {
             if (current != null && dest != null)
             {
-                Log += $"カレントディレクトリを移動 \n\t{current.FullName} -->\n\t{dest.FullName}\n\n";
+                Log = $"カレントディレクトリを移動 \n  {current.FullName} --> {dest.FullName}\n\n" + Log;
             }
         }
     }
