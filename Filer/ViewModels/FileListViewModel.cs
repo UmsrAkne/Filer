@@ -35,6 +35,8 @@
 
         public ObservableCollection<ExtendFileInfo> FileList { get => fileList; set => SetProperty(ref fileList, value); }
 
+        public Logger Logger { private get; set; }
+
         public DirectoryInfo CurrentDirectory
         {
             get => currentDirectory;
@@ -42,6 +44,7 @@
             {
                 FileList = GetFileList(value.FullName, OwnerListViewLocation);
                 PathBarText = value.FullName;
+                Logger.ChangeCurrentDirectoryLog(currentDirectory, value);
                 currentDirectory = value;
             }
         }
