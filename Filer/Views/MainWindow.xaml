@@ -62,9 +62,17 @@
             <MenuItem Header="File" />
         </Menu>
 
-        <local:UserListView Grid.Row="2" Grid.Column="0" />
+        <local:UserListView
+            Grid.Row="2"
+            Grid.Column="0"
+            ListSource="{Binding LeftFileList}"
+            PathBarText="{Binding LeftPathBarText}" />
 
-        <local:UserListView Grid.Row="2" Grid.Column="1" />
+        <local:UserListView
+            Grid.Row="2"
+            Grid.Column="1"
+            ListSource="{Binding RightFileList}"
+            PathBarText="{Binding RightPathBarText}" />
 
         <TextBlock
             Grid.Row="3"
