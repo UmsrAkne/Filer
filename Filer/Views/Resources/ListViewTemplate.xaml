@@ -24,8 +24,8 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="410" />
+                        <ColumnDefinition Width="30" />
                     </Grid.ColumnDefinitions>
 
                     <TextBlock
