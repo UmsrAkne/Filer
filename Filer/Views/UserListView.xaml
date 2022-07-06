@@ -57,6 +57,16 @@
                     Modifiers="Shift" />
 
                 <KeyBinding
+                    Key="U"
+                    Command="{Binding PageUpCommand}"
+                    CommandParameter="{Binding ElementName=listView}" />
+
+                <KeyBinding
+                    Key="D"
+                    Command="{Binding PageDownCommand}"
+                    CommandParameter="{Binding ElementName=listView}" />
+
+                <KeyBinding
                     Key="G"
                     Command="{Binding JumpToLastCommand}"
                     CommandParameter="{Binding ElementName=listView}"

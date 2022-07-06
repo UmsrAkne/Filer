@@ -16,12 +16,15 @@
         private int selectedIndex;
         private ObservableCollection<ExtendFileInfo> fileList;
         private DirectoryInfo currentDirectory;
+        private double listViewItemLineHeight = 15.0;
         private DelegateCommand<string> openPathCommand;
         private DelegateCommand<ListView> openFileCommand;
         private DelegateCommand<ListView> cursorDownCommand;
         private DelegateCommand<ListView> cursorUpCommand;
         private DelegateCommand<ListView> jumpToLastCommand;
         private DelegateCommand directoryUpCommand;
+        private DelegateCommand<ListView> pageUpCommand;
+        private DelegateCommand<ListView> pageDownCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -34,6 +37,8 @@
         public int SelectedIndex { get => selectedIndex; set => SetProperty(ref selectedIndex, value); }
 
         public ObservableCollection<ExtendFileInfo> FileList { get => fileList; set => SetProperty(ref fileList, value); }
+
+        public double ListViewItemLineHeight { get => listViewItemLineHeight; set => SetProperty(ref listViewItemLineHeight, value); }
 
         public Logger Logger { private get; set; }
 
@@ -123,6 +128,22 @@
             }));
         }
 
+        public DelegateCommand<ListView> PageUpCommand
+        {
+            get => pageUpCommand ?? (pageUpCommand = new DelegateCommand<ListView>((lv) =>
+            {
+                MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)) * -1);
+            }));
+        }
+
+        public DelegateCommand<ListView> PageDownCommand
+        {
+            get => pageDownCommand ?? (pageDownCommand = new DelegateCommand<ListView>((lv) =>
+            {
+                MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)));
+            }));
+        }
+
         private void MoveCursor(ListView lv, int amount)
         {
             if (lv.SelectedIndex + amount < 0)
@@ -138,11 +159,11 @@
                 lv.SelectedIndex += amount;
             }
 
-            var item = lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) as ListViewItem;
+            lv.ScrollIntoView(lv.Items[lv.SelectedIndex]);
 
+            var item = lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) as ListViewItem;
             item.Focus();
             Keyboard.Focus(item);
-            lv.ScrollIntoView(item);
         }
 
         private ObservableCollection<ExtendFileInfo> GetFileList(string path, OwnerListViewLocation destLocation)
