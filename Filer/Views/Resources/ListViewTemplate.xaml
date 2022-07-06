@@ -13,7 +13,7 @@
             <converters:NumberFormatConverter x:Key="numberFormatConverter" />
         </DataTemplate.Resources>
 
-        <ContentControl Height="{Binding ElementName=Window, Path=DataContext.ListViewItemLineHeight}">
+        <ContentControl Height="{Binding ElementName=listView, Path=DataContext.ListViewItemLineHeight}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick" />
