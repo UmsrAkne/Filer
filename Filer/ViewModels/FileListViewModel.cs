@@ -32,13 +32,13 @@
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
-        public string PathBarText { get => pathBarText; set => SetProperty(ref pathBarText, value); }
+        public string PathBarText { get => pathBarText; private set => SetProperty(ref pathBarText, value); }
 
         public int SelectedIndex { get => selectedIndex; set => SetProperty(ref selectedIndex, value); }
 
-        public ObservableCollection<ExtendFileInfo> FileList { get => fileList; set => SetProperty(ref fileList, value); }
+        public ObservableCollection<ExtendFileInfo> FileList { get => fileList; private set => SetProperty(ref fileList, value); }
 
-        public double ListViewItemLineHeight { get => listViewItemLineHeight; set => SetProperty(ref listViewItemLineHeight, value); }
+        public double ListViewItemLineHeight { get => listViewItemLineHeight; private set => SetProperty(ref listViewItemLineHeight, value); }
 
         public Logger Logger { private get; set; }
 
