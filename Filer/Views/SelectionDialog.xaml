@@ -15,14 +15,23 @@
         <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
     </Page.Resources>
 
-    <Grid Background="{StaticResource bgColorBrush}">
+    <Page.InputBindings>
+        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+        <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
+    </Page.InputBindings>
+
+    <Grid Name="selectionGrid" Background="{StaticResource bgColorBrush}">
+
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="0" Background="{StaticResource bgColorBrush}" />
+        <ListView
+            x:Name="selectionListView"
+            Grid.Row="0"
+            Background="{StaticResource bgColorBrush}" />
 
         <Border Grid.Row="1" Padding="4">
 
@@ -51,10 +60,13 @@
                 <Button
                     Width="80"
                     Margin="10,0"
+                    Command="{Binding ConfirmCommand}"
                     Content="確定" />
+
                 <Button
                     Width="80"
                     Margin="10,0"
+                    Command="{Binding CancelCommand}"
                     Content="中止" />
             </StackPanel>
         </Border>
