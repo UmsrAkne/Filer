@@ -59,6 +59,10 @@
     </ApplicationDefinition>
     <Compile Include="Models\Logger.cs" />
     <Compile Include="ViewModels\FileListViewModel.cs" />
+    <Compile Include="ViewModels\SelectionDialogViewModel.cs" />
+    <Compile Include="Views\SelectionDialog.xaml.cs">
+      <DependentUpon>SelectionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserListView.xaml.cs">
       <DependentUpon>UserListView.xaml</DependentUpon>
     </Compile>
@@ -81,6 +85,10 @@
     <Page Include="Views\Resources\ListViewTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SelectionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserListView.xaml">
       <SubType>Designer</SubType>
