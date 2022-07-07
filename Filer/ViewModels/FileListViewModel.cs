@@ -9,9 +9,11 @@
     using Filer.Models;
     using Prism.Commands;
     using Prism.Mvvm;
+    using Prism.Services.Dialogs;
 
     public class FileListViewModel : BindableBase
     {
+        private IDialogService dialogService;
         private string pathBarText;
         private int selectedIndex;
         private ObservableCollection<ExtendFileInfo> fileList;
@@ -28,11 +30,16 @@
 
         private ExtendFileInfo selectedItem;
 
+        public FileListViewModel(IDialogService dialogService)
+        {
+            this.dialogService = dialogService;
+        }
+
         public OwnerListViewLocation OwnerListViewLocation { get; set; }
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
-        public string PathBarText { get => pathBarText; private set => SetProperty(ref pathBarText, value); }
+        public string PathBarText { get => pathBarText; set => SetProperty(ref pathBarText, value); }
 
         public int SelectedIndex { get => selectedIndex; set => SetProperty(ref selectedIndex, value); }
 
