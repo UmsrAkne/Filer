@@ -1,6 +1,7 @@
 ﻿namespace Filer
 {
     using System.Windows;
+    using Filer.ViewModels;
     using Filer.Views;
     using Prism.Ioc;
 
@@ -16,6 +17,7 @@
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterDialog<SelectionDialog, SelectionDialogViewModel>();
         }
     }
 }

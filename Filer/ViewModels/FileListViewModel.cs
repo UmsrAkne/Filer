@@ -7,6 +7,7 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using Filer.Models;
+    using Filer.Views;
     using Prism.Commands;
     using Prism.Mvvm;
     using Prism.Services.Dialogs;
@@ -27,6 +28,7 @@
         private DelegateCommand directoryUpCommand;
         private DelegateCommand<ListView> pageUpCommand;
         private DelegateCommand<ListView> pageDownCommand;
+        private DelegateCommand createCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -148,6 +150,14 @@
             get => pageDownCommand ?? (pageDownCommand = new DelegateCommand<ListView>((lv) =>
             {
                 MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)));
+            }));
+        }
+
+        public DelegateCommand CreateCommand
+        {
+            get => createCommand ?? (createCommand = new DelegateCommand(() =>
+            {
+                dialogService.ShowDialog(nameof(SelectionDialog), new DialogParameters(), (IDialogResult result) => { });
             }));
         }
 
