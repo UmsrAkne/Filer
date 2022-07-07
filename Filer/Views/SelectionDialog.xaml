@@ -15,12 +15,23 @@
         <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
     </Page.Resources>
 
-    <Page.InputBindings>
-        <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
-        <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
-    </Page.InputBindings>
-
     <Grid Name="selectionGrid" Background="{StaticResource bgColorBrush}">
+        <Grid.InputBindings>
+
+            <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
+            <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
+
+            <KeyBinding
+                Key="D"
+                Command="{Binding CreateDirectoryCommand}"
+                CommandParameter="{Binding ElementName=nameInputTextBox}" />
+
+            <KeyBinding
+                Key="F"
+                Command="{Binding CreateFileCommand}"
+                CommandParameter="{Binding ElementName=nameInputTextBox}" />
+
+        </Grid.InputBindings>
 
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -31,7 +42,38 @@
         <ListView
             x:Name="selectionListView"
             Grid.Row="0"
-            Background="{StaticResource bgColorBrush}" />
+            Background="{StaticResource bgColorBrush}"
+            ItemsSource="{Binding SelectableItems}"
+            SelectedIndex="{Binding SelectedIndex}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="{StaticResource fgColorBrush}" />
+                                    <Setter Property="Margin" Value="5,0" />
+                                </Style>
+                            </Grid.Resources>
+
+                            <TextBlock Grid.Column="0" Text="{Binding Index}" />
+
+                            <TextBlock Grid.Column="1" Text="{Binding KeyText}" />
+
+                            <TextBlock Grid.Column="2" Text="{Binding Header}" />
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <Border Grid.Row="1" Padding="4">
 
@@ -49,10 +91,14 @@
                     Foreground="{StaticResource fgColorBrush}"
                     Text="名前を入力" />
 
-                <TextBox Grid.Column="1" Background="{StaticResource bgColorBrush}" />
+                <TextBox
+                    x:Name="nameInputTextBox"
+                    Grid.Column="1"
+                    Background="{StaticResource bgColorBrush}"
+                    Foreground="{StaticResource fgColorBrush}"
+                    Text="{Binding InputName, UpdateSourceTrigger=PropertyChanged}" />
 
             </Grid>
-
         </Border>
 
         <Border Grid.Row="2" Padding="4">
