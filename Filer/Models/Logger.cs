@@ -16,5 +16,18 @@
                 Log = $"カレントディレクトリを移動 \n  {current.FullName} --> {dest.FullName}\n\n" + Log;
             }
         }
+
+        public void ReloadDirectory(DirectoryInfo current, OwnerListViewLocation ownerListViewLocation)
+        {
+            if (current != null)
+            {
+                LogToTop($"ディレクトリをリロード ({ownerListViewLocation}) {current.FullName}");
+            }
+        }
+
+        private void LogToTop(string msg)
+        {
+            Log = $"{msg}\n{Log}";
+        }
     }
 }
