@@ -6,8 +6,8 @@
     xmlns:local="clr-namespace:Filer.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="SelectDialog"
-    d:DesignHeight="300"
-    d:DesignWidth="500"
+    Width="500"
+    Height="200"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -15,11 +15,16 @@
         <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
     </Page.Resources>
 
-    <Grid Name="selectionGrid" Background="{StaticResource bgColorBrush}">
+    <Grid Background="{StaticResource bgColorBrush}" FocusManager.FocusedElement="{Binding ElementName=selectionListView}">
+
         <Grid.InputBindings>
 
             <KeyBinding Key="Esc" Command="{Binding CancelCommand}" />
-            <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
+
+            <KeyBinding
+                Key="Enter"
+                Command="{Binding ConfirmCommand}"
+                Modifiers="Ctrl" />
 
             <KeyBinding
                 Key="D"

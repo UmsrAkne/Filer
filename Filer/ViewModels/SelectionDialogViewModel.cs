@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Windows.Controls;
     using System.Windows.Input;
     using Filer.Models;
@@ -17,6 +18,7 @@
         private DelegateCommand<TextBox> createFileCommand;
         private int selectedIndex = 0;
         private string inputName = "defaultName";
+        private FileSystemInfo fileSystemInfo;
 
         public event Action<IDialogResult> RequestClose;
 
@@ -36,6 +38,31 @@
         {
             get => confirmCommand ?? (confirmCommand = new DelegateCommand(() =>
             {
+                var fileName = $@"{fileSystemInfo.FullName}\{InputName}";
+
+                // パスに無効な文字が含まれていないか
+                if (fileName.IndexOfAny(Path.GetInvalidPathChars()) >= 0)
+                {
+                    RequestClose?.Invoke(new DialogResult());
+                    return;
+                }
+
+                // 同名のファイルかディレクトリが存在していないか
+                if (Directory.Exists(fileName) || File.Exists(fileName))
+                {
+                    RequestClose?.Invoke(new DialogResult());
+                    return;
+                }
+
+                if (SelectedIndex == 0)
+                {
+                    Directory.CreateDirectory(fileName);
+                }
+                else
+                {
+                    File.Create(fileName);
+                }
+
                 RequestClose?.Invoke(new DialogResult());
             }));
         }
@@ -74,6 +101,7 @@
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
+            fileSystemInfo = parameters.GetValue<FileSystemInfo>(nameof(FileSystemInfo));
         }
     }
 }

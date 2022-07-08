@@ -157,7 +157,11 @@
         {
             get => createCommand ?? (createCommand = new DelegateCommand(() =>
             {
-                dialogService.ShowDialog(nameof(SelectionDialog), new DialogParameters(), (IDialogResult result) => { });
+                var dialogParam = new DialogParameters();
+                dialogParam.Add(nameof(FileSystemInfo), new DirectoryInfo(CurrentDirectory.FullName));
+
+                dialogService.ShowDialog(nameof(SelectionDialog), dialogParam, (IDialogResult dialogResult) => { });
+                CurrentDirectory = new DirectoryInfo(CurrentDirectory.FullName);
             }));
         }
 
