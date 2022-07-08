@@ -56,10 +56,25 @@
             get => currentDirectory;
             set
             {
+                var oldDirectory = currentDirectory;
+                currentDirectory = value;
+
                 FileList = GetFileList(value.FullName, OwnerListViewLocation);
                 PathBarText = value.FullName;
-                Logger.ChangeCurrentDirectoryLog(currentDirectory, value);
-                currentDirectory = value;
+
+                if (oldDirectory == null)
+                {
+                    return;
+                }
+
+                if (oldDirectory.FullName != value.FullName)
+                {
+                    Logger.ChangeCurrentDirectoryLog(oldDirectory, value);
+                }
+                else
+                {
+                    Logger.ReloadDirectory(oldDirectory, OwnerListViewLocation);
+                }
             }
         }
 
