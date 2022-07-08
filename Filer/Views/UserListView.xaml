@@ -82,6 +82,11 @@
                     Command="{Binding CursorUpCommand}"
                     CommandParameter="{Binding ElementName=listView}" />
 
+                <KeyBinding
+                    Key="N"
+                    Command="{Binding CreateCommand}"
+                    Modifiers="Ctrl" />
+
             </ListView.InputBindings>
 
         </ListView>

@@ -10,10 +10,12 @@
     using Filer.Models;
     using Prism.Commands;
     using Prism.Mvvm;
+    using Prism.Services.Dialogs;
 
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Prism Application";
+        private IDialogService dialogService;
 
         private ExtendFileInfo selectedItem;
 
@@ -21,15 +23,24 @@
 
         private DelegateCommand<ListView> focusToListViewCommand;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IDialogService dialogService)
         {
+            this.dialogService = dialogService;
             var defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-            LeftFileListViewModel.Logger = Logger;
-            RightFileListViewModel.Logger = Logger;
+            LeftFileListViewModel = new FileListViewModel(dialogService)
+            {
+                OwnerListViewLocation = OwnerListViewLocation.Left,
+                Logger = Logger,
+                CurrentDirectory = new DirectoryInfo(defaultPath),
+            };
 
-            LeftFileListViewModel.CurrentDirectory = new DirectoryInfo(defaultPath);
-            RightFileListViewModel.CurrentDirectory = new DirectoryInfo(defaultPath);
+            RightFileListViewModel = new FileListViewModel(dialogService)
+            {
+                OwnerListViewLocation = OwnerListViewLocation.Right,
+                Logger = Logger,
+                CurrentDirectory = new DirectoryInfo(defaultPath),
+            };
         }
 
         public string Title
@@ -38,9 +49,9 @@
             set { SetProperty(ref title, value); }
         }
 
-        public FileListViewModel LeftFileListViewModel { get; } = new FileListViewModel() { OwnerListViewLocation = OwnerListViewLocation.Left };
+        public FileListViewModel LeftFileListViewModel { get; }
 
-        public FileListViewModel RightFileListViewModel { get; } = new FileListViewModel() { OwnerListViewLocation = OwnerListViewLocation.Right };
+        public FileListViewModel RightFileListViewModel { get; }
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 

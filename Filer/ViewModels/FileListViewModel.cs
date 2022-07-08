@@ -7,11 +7,14 @@
     using System.Windows.Controls;
     using System.Windows.Input;
     using Filer.Models;
+    using Filer.Views;
     using Prism.Commands;
     using Prism.Mvvm;
+    using Prism.Services.Dialogs;
 
     public class FileListViewModel : BindableBase
     {
+        private IDialogService dialogService;
         private string pathBarText;
         private int selectedIndex;
         private ObservableCollection<ExtendFileInfo> fileList;
@@ -25,14 +28,20 @@
         private DelegateCommand directoryUpCommand;
         private DelegateCommand<ListView> pageUpCommand;
         private DelegateCommand<ListView> pageDownCommand;
+        private DelegateCommand createCommand;
 
         private ExtendFileInfo selectedItem;
+
+        public FileListViewModel(IDialogService dialogService)
+        {
+            this.dialogService = dialogService;
+        }
 
         public OwnerListViewLocation OwnerListViewLocation { get; set; }
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
-        public string PathBarText { get => pathBarText; private set => SetProperty(ref pathBarText, value); }
+        public string PathBarText { get => pathBarText; set => SetProperty(ref pathBarText, value); }
 
         public int SelectedIndex { get => selectedIndex; set => SetProperty(ref selectedIndex, value); }
 
@@ -141,6 +150,18 @@
             get => pageDownCommand ?? (pageDownCommand = new DelegateCommand<ListView>((lv) =>
             {
                 MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)));
+            }));
+        }
+
+        public DelegateCommand CreateCommand
+        {
+            get => createCommand ?? (createCommand = new DelegateCommand(() =>
+            {
+                var dialogParam = new DialogParameters();
+                dialogParam.Add(nameof(FileSystemInfo), new DirectoryInfo(CurrentDirectory.FullName));
+
+                dialogService.ShowDialog(nameof(SelectionDialog), dialogParam, (IDialogResult dialogResult) => { });
+                CurrentDirectory = new DirectoryInfo(CurrentDirectory.FullName);
             }));
         }
 
