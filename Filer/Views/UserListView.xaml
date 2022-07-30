@@ -84,6 +84,8 @@
                     Command="{Binding CursorUpCommand}"
                     CommandParameter="{Binding ElementName=listView}" />
 
+                <KeyBinding Key="Space" Command="{Binding MarkCommand}" />
+
                 <KeyBinding
                     Key="N"
                     Command="{Binding CreateCommand}"

@@ -29,6 +29,7 @@
         private DelegateCommand<ListView> pageUpCommand;
         private DelegateCommand<ListView> pageDownCommand;
         private DelegateCommand createCommand;
+        private DelegateCommand markCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -177,6 +178,17 @@
 
                 dialogService.ShowDialog(nameof(SelectionDialog), dialogParam, (IDialogResult dialogResult) => { });
                 CurrentDirectory = new DirectoryInfo(CurrentDirectory.FullName);
+            }));
+        }
+
+        public DelegateCommand MarkCommand
+        {
+            get => markCommand ?? (markCommand = new DelegateCommand(() =>
+            {
+                if (SelectedItem != null)
+                {
+                    SelectedItem.Marked = !SelectedItem.Marked;
+                }
             }));
         }
 

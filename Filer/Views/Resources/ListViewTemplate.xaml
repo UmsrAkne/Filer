@@ -78,8 +78,12 @@
         <Style.Triggers>
             <Trigger Property="ListView.AlternationIndex" Value="1">
                 <Setter Property="Background" Value="{StaticResource bgColorBrush}" />
-
             </Trigger>
+
+            <DataTrigger Binding="{Binding Marked}" Value="True">
+                <Setter Property="Background" Value="Purple" />
+            </DataTrigger>
+
         </Style.Triggers>
     </Style>
 
