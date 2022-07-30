@@ -20,6 +20,20 @@
             </i:Interaction.Triggers>
 
             <Border>
+                <Border.Style>
+                    <Style TargetType="Border">
+                        <Style.Triggers>
+                            <MultiDataTrigger>
+                                <MultiDataTrigger.Conditions>
+                                    <Condition Binding="{Binding IsSelected}" Value="True" />
+                                    <Condition Binding="{Binding Marked}" Value="True" />
+                                </MultiDataTrigger.Conditions>
+
+                                <Setter Property="Background" Value="DarkViolet" />
+                            </MultiDataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Border.Style>
 
                 <Grid>
                     <Grid.ColumnDefinitions>
