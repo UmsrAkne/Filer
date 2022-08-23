@@ -20,6 +20,7 @@
         private ObservableCollection<ExtendFileInfo> fileList;
         private DirectoryInfo currentDirectory;
         private double listViewItemLineHeight = 15.0;
+        private int executeCounter;
         private DelegateCommand<string> openPathCommand;
         private DelegateCommand<ListView> openFileCommand;
         private DelegateCommand<ListView> cursorDownCommand;
@@ -49,6 +50,8 @@
         public ObservableCollection<ExtendFileInfo> FileList { get => fileList; private set => SetProperty(ref fileList, value); }
 
         public double ListViewItemLineHeight { get => listViewItemLineHeight; private set => SetProperty(ref listViewItemLineHeight, value); }
+
+        public int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
 
         public Logger Logger { private get; set; }
 
@@ -191,6 +194,15 @@
                 }
             }));
         }
+
+        public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>
+        {
+            // 型が string なのは、例えば 1, 2 と入力を行ったとき、合わせて入力値が 12 になるようにするため
+            if (ExecuteCounter < 10000)
+            {
+                ExecuteCounter = int.Parse(ExecuteCounter.ToString() + counter);
+            }
+        });
 
         private void MoveCursor(ListView lv, int amount)
         {
