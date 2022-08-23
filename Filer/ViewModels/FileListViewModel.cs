@@ -117,7 +117,9 @@
         {
             get => cursorDownCommand ?? (cursorDownCommand = new DelegateCommand<ListView>((lv) =>
             {
-                MoveCursor(lv, 1);
+                var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
+                ExecuteCounter = 0;
+                MoveCursor(lv, amount);
             }));
         }
 
@@ -125,6 +127,8 @@
         {
             get => cursorUpCommand ?? (cursorUpCommand = new DelegateCommand<ListView>((lv) =>
             {
+                var amount = ExecuteCounter != 0 ? ExecuteCounter * -1 : -1;
+                ExecuteCounter = 0;
                 MoveCursor(lv, -1);
             }));
         }
@@ -160,7 +164,12 @@
         {
             get => pageUpCommand ?? (pageUpCommand = new DelegateCommand<ListView>((lv) =>
             {
-                MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)) * -1);
+                var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
+                ExecuteCounter = 0;
+                for (var i = 0; i < amount; i++)
+                {
+                    MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)) * -1);
+                }
             }));
         }
 
@@ -168,7 +177,12 @@
         {
             get => pageDownCommand ?? (pageDownCommand = new DelegateCommand<ListView>((lv) =>
             {
-                MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)));
+                var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
+                ExecuteCounter = 0;
+                for (var i = 0; i < amount; i++)
+                {
+                    MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)));
+                }
             }));
         }
 
