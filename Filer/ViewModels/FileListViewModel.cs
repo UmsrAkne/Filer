@@ -216,8 +216,21 @@
             {
                 if (SelectedItem != null)
                 {
-                    SelectedItem.Marked = !SelectedItem.Marked;
-                    MoveCursor(param, 1);
+                    if (ExecuteCounter == 0)
+                    {
+                        SelectedItem.Marked = !SelectedItem.Marked;
+                        MoveCursor(param, 1);
+                    }
+                    else
+                    {
+                        for (var i = 0; i < ExecuteCounter; i++)
+                        {
+                            SelectedItem.Marked = !SelectedItem.Marked;
+                            MoveCursor(param, 1);
+                        }
+
+                        ExecuteCounter = 0;
+                    }
                 }
             }));
         }
