@@ -87,9 +87,67 @@
                 <KeyBinding Key="Space" Command="{Binding MarkCommand}" />
 
                 <KeyBinding
+                    Key="Space"
+                    Command="{Binding MarkAndDownCommand}"
+                    CommandParameter="{Binding ElementName=listView}"
+                    Modifiers="Shift" />
+
+                <KeyBinding
                     Key="N"
                     Command="{Binding CreateCommand}"
                     Modifiers="Ctrl" />
+
+                <KeyBinding
+                    Key="D1"
+                    Command="{Binding NumberInputCommand}"
+                    CommandParameter="1" />
+
+                <KeyBinding
+                    Key="D2"
+                    Command="{Binding NumberInputCommand}"
+                    CommandParameter="2" />
+
+                <KeyBinding
+                    Key="D3"
+                    Command="{Binding NumberInputCommand}"
+                    CommandParameter="3" />
+
+                <KeyBinding
+                    Key="D4"
+                    Command="{Binding NumberInputCommand}"
+                    CommandParameter="4" />
+
+                <KeyBinding
+                    Key="D5"
+                    Command="{Binding NumberInputCommand}"
+                    CommandParameter="5" />
+
+                <KeyBinding
+                    Key="D6"
+                    Command="{Binding NumberInputCommand}"
+                    CommandParameter="6" />
+
+                <KeyBinding
+                    Key="D7"
+                    Command="{Binding NumberInputCommand}"
+                    CommandParameter="7" />
+
+                <KeyBinding
+                    Key="D8"
+                    Command="{Binding NumberInputCommand}"
+                    CommandParameter="8" />
+
+                <KeyBinding
+                    Key="D9"
+                    Command="{Binding NumberInputCommand}"
+                    CommandParameter="9" />
+
+                <KeyBinding
+                    Key="D0"
+                    Command="{Binding NumberInputCommand}"
+                    CommandParameter="0" />
+
+                <KeyBinding Key="Esc" Command="{Binding ClearInputNumberCommand}" />
 
             </ListView.InputBindings>
 

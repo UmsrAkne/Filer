@@ -20,6 +20,7 @@
         private ObservableCollection<ExtendFileInfo> fileList;
         private DirectoryInfo currentDirectory;
         private double listViewItemLineHeight = 15.0;
+        private int executeCounter;
         private DelegateCommand<string> openPathCommand;
         private DelegateCommand<ListView> openFileCommand;
         private DelegateCommand<ListView> cursorDownCommand;
@@ -30,6 +31,7 @@
         private DelegateCommand<ListView> pageDownCommand;
         private DelegateCommand createCommand;
         private DelegateCommand markCommand;
+        private DelegateCommand<ListView> markAndDownCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -49,6 +51,8 @@
         public ObservableCollection<ExtendFileInfo> FileList { get => fileList; private set => SetProperty(ref fileList, value); }
 
         public double ListViewItemLineHeight { get => listViewItemLineHeight; private set => SetProperty(ref listViewItemLineHeight, value); }
+
+        public int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
 
         public Logger Logger { private get; set; }
 
@@ -114,7 +118,9 @@
         {
             get => cursorDownCommand ?? (cursorDownCommand = new DelegateCommand<ListView>((lv) =>
             {
-                MoveCursor(lv, 1);
+                var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
+                ExecuteCounter = 0;
+                MoveCursor(lv, amount);
             }));
         }
 
@@ -122,6 +128,8 @@
         {
             get => cursorUpCommand ?? (cursorUpCommand = new DelegateCommand<ListView>((lv) =>
             {
+                var amount = ExecuteCounter != 0 ? ExecuteCounter * -1 : -1;
+                ExecuteCounter = 0;
                 MoveCursor(lv, -1);
             }));
         }
@@ -157,7 +165,12 @@
         {
             get => pageUpCommand ?? (pageUpCommand = new DelegateCommand<ListView>((lv) =>
             {
-                MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)) * -1);
+                var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
+                ExecuteCounter = 0;
+                for (var i = 0; i < amount; i++)
+                {
+                    MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)) * -1);
+                }
             }));
         }
 
@@ -165,7 +178,12 @@
         {
             get => pageDownCommand ?? (pageDownCommand = new DelegateCommand<ListView>((lv) =>
             {
-                MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)));
+                var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
+                ExecuteCounter = 0;
+                for (var i = 0; i < amount; i++)
+                {
+                    MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)));
+                }
             }));
         }
 
@@ -191,6 +209,42 @@
                 }
             }));
         }
+
+        public DelegateCommand<ListView> MarkAndDownCommand
+        {
+            get => markAndDownCommand ?? (markAndDownCommand = new DelegateCommand<ListView>((param) =>
+            {
+                if (SelectedItem != null)
+                {
+                    if (ExecuteCounter == 0)
+                    {
+                        SelectedItem.Marked = !SelectedItem.Marked;
+                        MoveCursor(param, 1);
+                    }
+                    else
+                    {
+                        for (var i = 0; i < ExecuteCounter; i++)
+                        {
+                            SelectedItem.Marked = !SelectedItem.Marked;
+                            MoveCursor(param, 1);
+                        }
+
+                        ExecuteCounter = 0;
+                    }
+                }
+            }));
+        }
+
+        public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>
+        {
+            // 型が string なのは、例えば 1, 2 と入力を行ったとき、合わせて入力値が 12 になるようにするため
+            if (ExecuteCounter < 10000)
+            {
+                ExecuteCounter = int.Parse(ExecuteCounter.ToString() + counter);
+            }
+        });
+
+        public DelegateCommand ClearInputNumberCommand => new DelegateCommand(() => { ExecuteCounter = 0; });
 
         private void MoveCursor(ListView lv, int amount)
         {
