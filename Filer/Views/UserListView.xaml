@@ -147,6 +147,8 @@
                     Command="{Binding NumberInputCommand}"
                     CommandParameter="0" />
 
+                <KeyBinding Key="Esc" Command="{Binding ClearInputNumberCommand}" />
+
             </ListView.InputBindings>
 
         </ListView>

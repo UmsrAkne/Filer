@@ -244,6 +244,8 @@
             }
         });
 
+        public DelegateCommand ClearInputNumberCommand => new DelegateCommand(() => { ExecuteCounter = 0; });
+
         private void MoveCursor(ListView lv, int amount)
         {
             if (lv.SelectedIndex + amount < 0)
