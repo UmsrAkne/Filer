@@ -31,6 +31,7 @@
         private DelegateCommand<ListView> pageDownCommand;
         private DelegateCommand createCommand;
         private DelegateCommand markCommand;
+        private DelegateCommand<ListView> markAndDownCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -205,6 +206,18 @@
                 if (SelectedItem != null)
                 {
                     SelectedItem.Marked = !SelectedItem.Marked;
+                }
+            }));
+        }
+
+        public DelegateCommand<ListView> MarkAndDownCommand
+        {
+            get => markAndDownCommand ?? (markAndDownCommand = new DelegateCommand<ListView>((param) =>
+            {
+                if (SelectedItem != null)
+                {
+                    SelectedItem.Marked = !SelectedItem.Marked;
+                    MoveCursor(param, 1);
                 }
             }));
         }

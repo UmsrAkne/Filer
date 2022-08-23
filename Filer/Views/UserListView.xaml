@@ -87,6 +87,12 @@
                 <KeyBinding Key="Space" Command="{Binding MarkCommand}" />
 
                 <KeyBinding
+                    Key="Space"
+                    Command="{Binding MarkAndDownCommand}"
+                    CommandParameter="{Binding ElementName=listView}"
+                    Modifiers="Shift" />
+
+                <KeyBinding
                     Key="N"
                     Command="{Binding CreateCommand}"
                     Modifiers="Ctrl" />
