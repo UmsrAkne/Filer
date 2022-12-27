@@ -1,8 +1,8 @@
-﻿namespace Filer.Models
-{
-    using System.IO;
-    using Prism.Mvvm;
+﻿using System.IO;
+using Prism.Mvvm;
 
+namespace Filer.Models
+{
     public class Logger : BindableBase
     {
         private string log = string.Empty;
@@ -23,6 +23,11 @@
             {
                 LogToTop($"ディレクトリをリロード ({ownerListViewLocation}) {current.FullName}");
             }
+        }
+
+        public void FailAccess(DirectoryInfo current)
+        {
+            LogToTop($"ディレクトリへのアクセスに失敗 ({current.FullName})");
         }
 
         private void LogToTop(string msg)

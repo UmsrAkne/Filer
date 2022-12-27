@@ -1,15 +1,15 @@
-﻿namespace Filer.ViewModels
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Windows.Controls;
-    using System.Windows.Input;
-    using Filer.Models;
-    using Prism.Commands;
-    using Prism.Mvvm;
-    using Prism.Services.Dialogs;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Filer.Models;
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Services.Dialogs;
 
+namespace Filer.ViewModels
+{
     public class SelectionDialogViewModel : BindableBase, IDialogAware
     {
         private DelegateCommand confirmCommand;
@@ -34,9 +34,8 @@
 
         public string Title => "SelectionDialog";
 
-        public DelegateCommand ConfirmCommand
-        {
-            get => confirmCommand ?? (confirmCommand = new DelegateCommand(() =>
+        public DelegateCommand ConfirmCommand =>
+            confirmCommand ?? (confirmCommand = new DelegateCommand(() =>
             {
                 var fileName = $@"{fileSystemInfo.FullName}\{InputName}";
 
@@ -65,33 +64,26 @@
 
                 RequestClose?.Invoke(new DialogResult());
             }));
-        }
 
-        public DelegateCommand CancelCommand
-        {
-            get => cancelCommand ?? (cancelCommand = new DelegateCommand(() =>
+        public DelegateCommand CancelCommand =>
+            cancelCommand ?? (cancelCommand = new DelegateCommand(() =>
             {
                 RequestClose?.Invoke(new DialogResult());
             }));
-        }
 
-        public DelegateCommand<TextBox> CreateDirectoryCommand
-        {
-            get => createDirectoryCommand ?? (createDirectoryCommand = new DelegateCommand<TextBox>((tb) =>
+        public DelegateCommand<TextBox> CreateDirectoryCommand =>
+            createDirectoryCommand ?? (createDirectoryCommand = new DelegateCommand<TextBox>((tb) =>
             {
                 SelectedIndex = 0;
                 Keyboard.Focus(tb);
             }));
-        }
 
-        public DelegateCommand<TextBox> CreateFileCommand
-        {
-            get => createFileCommand ?? (createFileCommand = new DelegateCommand<TextBox>((tb) =>
+        public DelegateCommand<TextBox> CreateFileCommand =>
+            createFileCommand ?? (createFileCommand = new DelegateCommand<TextBox>((tb) =>
             {
                 SelectedIndex = 1;
                 Keyboard.Focus(tb);
             }));
-        }
 
         public bool CanCloseDialog() => true;
 

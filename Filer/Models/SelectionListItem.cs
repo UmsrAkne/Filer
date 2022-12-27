@@ -1,7 +1,7 @@
-﻿namespace Filer.Models
-{
-    using System.Windows.Input;
+﻿using System.Windows.Input;
 
+namespace Filer.Models
+{
     public class SelectionListItem
     {
         public Key Key { get; set; }
