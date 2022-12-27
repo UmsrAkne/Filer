@@ -71,20 +71,6 @@ namespace Filer.ViewModels
                 }
             }));
 
-        private ObservableCollection<ExtendFileInfo> GetFileList(string path, OwnerListViewLocation destLocation)
-        {
-            var defaultDirectoryInfo = new DirectoryInfo(path);
-            var directories = defaultDirectoryInfo.GetDirectories().Select(d => new ExtendFileInfo(d.FullName));
-            var files = defaultDirectoryInfo.GetFiles().Select(f => new ExtendFileInfo(f.FullName));
-
-            var bothList = directories.Concat(files).ToList();
-
-            bothList.ToList().ForEach(f => f.OwnerListViewLocation = destLocation);
-            Enumerable.Range(0, bothList.Count).ToList().ForEach(n => bothList[n].Index = n + 1);
-
-            return new ObservableCollection<ExtendFileInfo>(bothList);
-        }
-
         private ListView GetFocusingListView()
         {
             if (Keyboard.FocusedElement == null || !(Keyboard.FocusedElement is ListViewItem))
