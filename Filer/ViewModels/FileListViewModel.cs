@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -61,6 +62,16 @@ namespace Filer.ViewModels
             get => currentDirectory;
             set
             {
+                try
+                {
+                    value.GetDirectories();
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    Logger.FailAccess(value);
+                    return;
+                }
+
                 var oldDirectory = currentDirectory;
                 currentDirectory = value;
 

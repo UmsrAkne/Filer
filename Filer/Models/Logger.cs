@@ -25,6 +25,11 @@ namespace Filer.Models
             }
         }
 
+        public void FailAccess(DirectoryInfo current)
+        {
+            LogToTop($"ディレクトリへのアクセスに失敗 ({current.FullName})");
+        }
+
         private void LogToTop(string msg)
         {
             Log = $"{msg}\n{Log}";
