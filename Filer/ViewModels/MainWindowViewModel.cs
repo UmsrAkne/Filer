@@ -1,17 +1,17 @@
-﻿namespace Filer.ViewModels
-{
-    using System;
-    using System.Collections.ObjectModel;
-    using System.IO;
-    using System.Linq;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Input;
-    using Filer.Models;
-    using Prism.Commands;
-    using Prism.Mvvm;
-    using Prism.Services.Dialogs;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Filer.Models;
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Services.Dialogs;
 
+namespace Filer.ViewModels
+{
     public class MainWindowViewModel : BindableBase
     {
         private string title = "Prism Application";
@@ -43,11 +43,7 @@
             };
         }
 
-        public string Title
-        {
-            get { return title; }
-            set { SetProperty(ref title, value); }
-        }
+        public string Title { get => title; set => SetProperty(ref title, value); }
 
         public FileListViewModel LeftFileListViewModel { get; }
 
@@ -59,9 +55,8 @@
 
         //// DelegateCommand *******************************************************
 
-        public DelegateCommand<ListView> FocusToListViewCommand
-        {
-            get => focusToListViewCommand ?? (focusToListViewCommand = new DelegateCommand<ListView>((lv) =>
+        public DelegateCommand<ListView> FocusToListViewCommand =>
+            focusToListViewCommand ?? (focusToListViewCommand = new DelegateCommand<ListView>((lv) =>
             {
                 if (lv.Items.Count == 0)
                 {
@@ -75,7 +70,6 @@
                     Keyboard.Focus(item);
                 }
             }));
-        }
 
         private ObservableCollection<ExtendFileInfo> GetFileList(string path, OwnerListViewLocation destLocation)
         {
@@ -110,7 +104,7 @@
                 }
             }
 
-            return (obj != null) ? (ListView)obj : null;
+            return (ListView)obj;
         }
     }
 }

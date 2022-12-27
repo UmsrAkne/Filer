@@ -1,10 +1,10 @@
-﻿namespace Filer.Models.Converters
-{
-    using System;
-    using System.Globalization;
-    using System.Linq;
-    using System.Windows.Data;
+﻿using System;
+using System.Globalization;
+using System.Linq;
+using System.Windows.Data;
 
+namespace Filer.Models.Converters
+{
     public class NumberFormatConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

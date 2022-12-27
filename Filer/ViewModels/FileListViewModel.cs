@@ -1,17 +1,17 @@
-﻿namespace Filer.ViewModels
-{
-    using System.Collections.ObjectModel;
-    using System.Diagnostics;
-    using System.IO;
-    using System.Linq;
-    using System.Windows.Controls;
-    using System.Windows.Input;
-    using Filer.Models;
-    using Filer.Views;
-    using Prism.Commands;
-    using Prism.Mvvm;
-    using Prism.Services.Dialogs;
+﻿using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Input;
+using Filer.Models;
+using Filer.Views;
+using Prism.Commands;
+using Prism.Mvvm;
+using Prism.Services.Dialogs;
 
+namespace Filer.ViewModels
+{
     public class FileListViewModel : BindableBase
     {
         private IDialogService dialogService;

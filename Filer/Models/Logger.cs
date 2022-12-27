@@ -1,8 +1,8 @@
-﻿namespace Filer.Models
-{
-    using System.IO;
-    using Prism.Mvvm;
+﻿using System.IO;
+using Prism.Mvvm;
 
+namespace Filer.Models
+{
     public class Logger : BindableBase
     {
         private string log = string.Empty;
