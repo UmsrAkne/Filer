@@ -1,5 +1,7 @@
-using System.Diagnostics;
+using System.Collections.Generic;
+using System.IO;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Filer.Models.Settings
 {
@@ -7,10 +9,22 @@ namespace Filer.Models.Settings
     {
         public string TestValue { get; set; }
 
+        public List<Favorite> Favorites { get; set; }
+
         public static void WriteApplicationSetting(ApplicationSetting setting)
         {
-            string data = JsonConvert.SerializeObject(setting);
-            Debug.WriteLine(data);
+            var jsonSerializeSetting = new JsonSerializerSettings()
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver(),
+                Formatting = Formatting.Indented,
+            };
+
+            string data = JsonConvert.SerializeObject(setting, jsonSerializeSetting);
+
+            using (StreamWriter sw = File.CreateText(@"applicationSettings.json"))
+            {
+                sw.Write(data);
+            }
         }
     }
 }
