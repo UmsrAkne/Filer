@@ -120,6 +120,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Prism.Unity" Version="8.0.0.1909" />
     <PackageReference Include="StyleCop.Analyzers">
       <Version>1.1.118</Version>
