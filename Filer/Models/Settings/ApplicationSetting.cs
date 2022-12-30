@@ -7,6 +7,8 @@ namespace Filer.Models.Settings
 {
     public class ApplicationSetting
     {
+        public static string AppSettingFileName => "applicationSettings.json";
+
         public string TestValue { get; set; }
 
         public List<Favorite> Favorites { get; set; } = new List<Favorite>();
