@@ -7,9 +7,9 @@ namespace Filer.Models.Settings
 {
     public class ApplicationSetting
     {
-        public string TestValue { get; set; }
+        public static string AppSettingFileName => "applicationSettings.json";
 
-        public List<Favorite> Favorites { get; set; }
+        public List<Favorite> Favorites { get; set; } = new List<Favorite>();
 
         public static void WriteApplicationSetting(ApplicationSetting setting)
         {
@@ -24,6 +24,14 @@ namespace Filer.Models.Settings
             using (StreamWriter sw = File.CreateText(@"applicationSettings.json"))
             {
                 sw.Write(data);
+            }
+        }
+
+        public static ApplicationSetting ReadApplicationSetting(string jsonFilePath)
+        {
+            using (var reader = new StreamReader(jsonFilePath))
+            {
+                return new JsonSerializer().Deserialize<ApplicationSetting>(new JsonTextReader(reader));
             }
         }
     }
