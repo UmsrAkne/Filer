@@ -16,9 +16,10 @@ namespace Tests.Models.Settings
         [Test]
         public void WriteApplicationSettingTest()
         {
-            var setting = new ApplicationSetting();
-            setting.TestValue = "testの値";
-            setting.Favorites = new List<Favorite>() { new Favorite() { Key = "a" }, new Favorite() { Key = "b" } };
+            var setting = new ApplicationSetting
+            {
+                Favorites = new List<Favorite>() { new Favorite() { Key = "a" }, new Favorite() { Key = "b" } }
+            };
 
             ApplicationSetting.WriteApplicationSetting(setting);
         }

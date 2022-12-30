@@ -1,12 +1,12 @@
-﻿namespace Filer
-{
-    using System.IO;
-    using System.Windows;
-    using Filer.Models.Settings;
-    using Filer.ViewModels;
-    using Filer.Views;
-    using Prism.Ioc;
+﻿using System.IO;
+using System.Windows;
+using Filer.Models.Settings;
+using Filer.ViewModels;
+using Filer.Views;
+using Prism.Ioc;
 
+namespace Filer
+{
     /// <summary>
     /// Interaction logic for App.xaml.
     /// </summary>
