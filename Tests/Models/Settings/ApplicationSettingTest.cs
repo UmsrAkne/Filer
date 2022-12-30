@@ -37,5 +37,20 @@ namespace Tests.Models.Settings
             Assert.AreEqual("a", applicationSetting.Favorites[0].Key);
             Assert.AreEqual("b", applicationSetting.Favorites[1].Key);
         }
+
+        /// <summary>
+        /// JSON ファイルにパスを表記する場合はどのようなフォーマットで書けば良いかを明示するためのテスト
+        /// </summary>
+        [Test]
+        public void JSONファイルのパスの表記のテスト()
+        {
+            using (var sw = new StreamWriter("applicationSettings.json"))
+            {
+                sw.Write( @"{ ""favorites"": [ { ""key"": ""a"", ""path"": ""C:\\Users\\Public"", ""name"": ""test"" } ] }" );
+            }
+
+            var setting = ApplicationSetting.ReadApplicationSetting("applicationSettings.json");
+            Assert.AreEqual(@"C:\Users\Public", setting.Favorites[0].Path);
+        }
     }
 }
