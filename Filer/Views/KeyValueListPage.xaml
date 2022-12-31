@@ -18,11 +18,23 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="0">
-            <i:Interaction.Behaviors>
-                <models:KeyboardBehavior />
-            </i:Interaction.Behaviors>
-        </ListView>
+        <DockPanel Grid.Row="0">
+            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                <TextBlock Text="Input Key : " />
+
+                <TextBox Text="{Binding KeyText, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" />
+                    </TextBox.InputBindings>
+                </TextBox>
+            </StackPanel>
+
+            <ListView DockPanel.Dock="Bottom">
+                <i:Interaction.Behaviors>
+                    <models:KeyboardBehavior />
+                </i:Interaction.Behaviors>
+            </ListView>
+        </DockPanel>
 
         <StackPanel
             Grid.Row="1"
