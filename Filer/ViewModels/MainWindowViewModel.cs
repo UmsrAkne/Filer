@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filer.Models;
+using Filer.Views;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
@@ -16,12 +17,12 @@ namespace Filer.ViewModels
     {
         private string title = "Prism Application";
         private IDialogService dialogService;
-
         private ExtendFileInfo selectedItem;
 
         //// DelegateCommand *******************************************************
 
         private DelegateCommand<ListView> focusToListViewCommand;
+        private DelegateCommand showFavoritesCommand;
 
         public MainWindowViewModel(IDialogService dialogService)
         {
@@ -69,6 +70,12 @@ namespace Filer.ViewModels
                     var item = lv.ItemContainerGenerator.ContainerFromIndex(destIndex) as ListViewItem;
                     Keyboard.Focus(item);
                 }
+            }));
+
+        public DelegateCommand ShowFavoritesCommand =>
+            showFavoritesCommand ?? (showFavoritesCommand = new DelegateCommand(() =>
+            {
+                dialogService.ShowDialog(nameof(KeyValueListPage), new DialogParameters(), result => { });
             }));
 
         private ListView GetFocusingListView()
