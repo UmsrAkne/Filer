@@ -1,11 +1,20 @@
+using Prism.Mvvm;
+
 namespace Filer.Models.Settings
 {
-    public class Favorite
+    public class Favorite : BindableBase
     {
-        public string Key { get; set; }
+        private string key;
+        private string path;
+        private string name;
+        private bool isMatch;
 
-        public string Path { get; set; }
+        public string Key { get => key; set => SetProperty(ref key, value); }
 
-        public string Name { get; set; }
+        public string Path { get => path; set => SetProperty(ref path, value); }
+
+        public string Name { get => name; set => SetProperty(ref name, value); }
+
+        public bool IsMatch { get => isMatch; set => SetProperty(ref isMatch, value); }
     }
 }
