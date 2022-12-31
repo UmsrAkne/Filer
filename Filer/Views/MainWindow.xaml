@@ -54,6 +54,9 @@
             Grid.Column="0"
             Grid.ColumnSpan="2">
             <MenuItem Header="File" />
+            <MenuItem Header="Window">
+                <MenuItem Command="{Binding ShowFavoritesCommand}" Header="Favorites" />
+            </MenuItem>
         </Menu>
 
         <local:UserListView
