@@ -57,18 +57,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\KeyboardBehavior.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\SelectionListItem.cs" />
     <Compile Include="Models\Settings\ApplicationSetting.cs" />
     <Compile Include="Models\Settings\Favorite.cs" />
     <Compile Include="ViewModels\FileListViewModel.cs" />
+    <Compile Include="ViewModels\KeyValueListPageViewModel.cs" />
     <Compile Include="ViewModels\SelectionDialogViewModel.cs" />
+    <Compile Include="Views\KeyValueListPage.xaml.cs">
+      <DependentUpon>KeyValueListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SelectionDialog.xaml.cs">
       <DependentUpon>SelectionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserListView.xaml.cs">
       <DependentUpon>UserListView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\KeyValueListPage.xaml" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
