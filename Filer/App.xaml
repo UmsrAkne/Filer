@@ -1,9 +1,13 @@
-﻿<prism:PrismApplication x:Class="Filer.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	     xmlns:prism="http://prismlibrary.com/"
-             xmlns:local="clr-namespace:Filer">
+﻿<prism:PrismApplication
+    x:Class="Filer.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:Filer"
+    xmlns:prism="http://prismlibrary.com/">
+
     <Application.Resources>
-         
+        <SolidColorBrush x:Key="BgColorBrush" Color="#333333" />
+        <SolidColorBrush x:Key="FgColorBrush" Color="Gainsboro" />
     </Application.Resources>
+
 </prism:PrismApplication>
