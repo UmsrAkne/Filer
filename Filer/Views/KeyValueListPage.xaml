@@ -37,6 +37,7 @@
                     x:Name="TextBox"
                     Width="300"
                     Background="Transparent"
+                    Foreground="{StaticResource FgColorBrush}"
                     Text="{Binding KeyText, UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Return" Command="{Binding ExecuteFromKeyCommand}" />
