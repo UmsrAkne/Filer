@@ -12,6 +12,11 @@
     Height="450"
     d:DataContext="{d:DesignInstance viewModels:KeyValueListPageViewModel}"
     mc:Ignorable="d">
+
+    <Page.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+    </Page.InputBindings>
+
     <Grid Background="{StaticResource BgColorBrush}">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -97,7 +102,7 @@
             <Button
                 Margin="4"
                 Command="{Binding CloseCommand}"
-                Content="Close" />
+                Content="Close (Escape)" />
 
         </StackPanel>
 
