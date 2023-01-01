@@ -54,8 +54,8 @@
             Grid.Column="0"
             Grid.ColumnSpan="2">
             <MenuItem Header="File" />
-            <MenuItem Header="Window">
-                <MenuItem Command="{Binding ShowFavoritesCommand}" Header="Favorites" />
+            <MenuItem Header="Window (_W)">
+                <MenuItem Command="{Binding ShowFavoritesCommand}" Header="Favorites (_F)" />
             </MenuItem>
         </Menu>
 
