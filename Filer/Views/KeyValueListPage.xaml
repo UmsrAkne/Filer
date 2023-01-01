@@ -17,7 +17,7 @@
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
     </Page.InputBindings>
 
-    <Grid Background="{StaticResource BgColorBrush}">
+    <Grid Background="{StaticResource BgColorBrush}" FocusManager.FocusedElement="{Binding ElementName=TextBox}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="Auto" />
@@ -34,6 +34,7 @@
                     Text="Input Key : " />
 
                 <TextBox
+                    x:Name="TextBox"
                     Width="300"
                     Background="Transparent"
                     Text="{Binding KeyText, UpdateSourceTrigger=PropertyChanged}">
