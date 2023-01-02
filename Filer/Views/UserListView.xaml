@@ -46,12 +46,25 @@
             VerticalContentAlignment="Center"
             AlternationCount="2"
             Background="{StaticResource bgColorBrush}"
-            BorderBrush="Black"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding FileList}"
             SelectedIndex="{Binding SelectedIndex}"
             SelectedItem="{Binding SelectedItem}">
+
+            <ListView.Style>
+                <Style TargetType="ListView">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsFocused}" Value="True">
+                            <Setter Property="BorderBrush" Value="DeepSkyBlue" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding IsFocused}" Value="False">
+                            <Setter Property="BorderBrush" Value="Black" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.Style>
 
             <ListView.InputBindings>
 
