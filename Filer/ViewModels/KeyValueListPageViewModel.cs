@@ -48,6 +48,14 @@ namespace Filer.ViewModels
                     return;
                 }
 
+                if (Directory.Exists(targetPath))
+                {
+                    var result = new DialogResult();
+                    result.Parameters.Add(nameof(FileSystemInfo), new DirectoryInfo(targetPath));
+                    RequestClose?.Invoke(result);
+                    return;
+                }
+
                 if (!string.IsNullOrWhiteSpace(targetPath))
                 {
                     Process.Start(targetPath);
