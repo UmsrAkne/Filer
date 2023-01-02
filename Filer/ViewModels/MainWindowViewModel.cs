@@ -75,7 +75,14 @@ namespace Filer.ViewModels
         public DelegateCommand ShowFavoritesCommand =>
             showFavoritesCommand ?? (showFavoritesCommand = new DelegateCommand(() =>
             {
-                dialogService.ShowDialog(nameof(KeyValueListPage), new DialogParameters(), result => { });
+                dialogService.ShowDialog(nameof(KeyValueListPage), new DialogParameters(), result =>
+                {
+                    if (result.Parameters.ContainsKey(nameof(FileSystemInfo)))
+                    {
+                        var vm = GetFocusingListView();
+                        vm.CurrentDirectory = result.Parameters.GetValue<DirectoryInfo>(nameof(FileSystemInfo));
+                    }
+                });
             }));
 
         /// <summary>
