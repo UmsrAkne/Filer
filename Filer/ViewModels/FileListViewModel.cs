@@ -16,6 +16,7 @@ namespace Filer.ViewModels
     public class FileListViewModel : BindableBase
     {
         private IDialogService dialogService;
+        private bool isFocused;
         private string pathBarText;
         private int selectedIndex;
         private ObservableCollection<ExtendFileInfo> fileList;
@@ -44,6 +45,8 @@ namespace Filer.ViewModels
         public OwnerListViewLocation OwnerListViewLocation { get; set; }
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
+
+        public bool IsFocused { get => isFocused; set => SetProperty(ref isFocused, value); }
 
         public string PathBarText { get => pathBarText; set => SetProperty(ref pathBarText, value); }
 
