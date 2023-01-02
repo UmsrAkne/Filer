@@ -78,26 +78,24 @@ namespace Filer.ViewModels
                 dialogService.ShowDialog(nameof(KeyValueListPage), new DialogParameters(), result => { });
             }));
 
-        private ListView GetFocusingListView()
+        /// <summary>
+        /// 現在フォーカスのあるファイルリストビューのビューモデルを返します。
+        /// どっちにもフォーカスがない場合は、今のところ左側のファイルリストビューモデルを返します
+        /// </summary>
+        /// <returns>フォーカスのあるファイルリストビューモデル</returns>
+        private FileListViewModel GetFocusingListView()
         {
-            if (Keyboard.FocusedElement == null || !(Keyboard.FocusedElement is ListViewItem))
+            if (LeftFileListViewModel.IsFocused)
             {
-                return null;
+                return LeftFileListViewModel;
             }
 
-            var obj = (DependencyObject)Keyboard.FocusedElement;
-
-            while (!(obj is ListView))
+            if (RightFileListViewModel.IsFocused)
             {
-                obj = System.Windows.Media.VisualTreeHelper.GetParent(obj);
-
-                if (obj == null)
-                {
-                    break;
-                }
+                return RightFileListViewModel;
             }
 
-            return (ListView)obj;
+            return LeftFileListViewModel;
         }
     }
 }
