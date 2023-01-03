@@ -24,6 +24,13 @@
         </Grid.RowDefinitions>
 
         <DockPanel Grid.Row="0">
+            <TextBlock
+                Margin="3"
+                Background="Transparent"
+                DockPanel.Dock="Top"
+                Foreground="{StaticResource FgColorBrush}"
+                Text="{Binding Message}" />
+
             <StackPanel
                 Margin="3"
                 DockPanel.Dock="Top"

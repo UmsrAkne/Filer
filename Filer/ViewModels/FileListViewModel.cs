@@ -25,6 +25,7 @@ namespace Filer.ViewModels
         private int executeCounter;
         private DelegateCommand<string> openPathCommand;
         private DelegateCommand<ListView> openFileCommand;
+        private DelegateCommand openWithAppCommand;
         private DelegateCommand<ListView> cursorDownCommand;
         private DelegateCommand<ListView> cursorUpCommand;
         private DelegateCommand<ListView> jumpToLastCommand;
@@ -121,6 +122,45 @@ namespace Filer.ViewModels
                     {
                         Process.Start(SelectedItem.FileSystemInfo.FullName);
                     }
+                }
+            }));
+
+        public DelegateCommand OpenWithAppCommand =>
+            openWithAppCommand ?? (openWithAppCommand = new DelegateCommand(() =>
+            {
+                var paramKey = "OpenFileCount";
+
+                // マークされているファイルがある場合はそれを優先する
+                if (FileList.Any(f => f.Marked))
+                {
+                    var targets = FileList.Where(f => f.Marked).ToList();
+                    var param = new DialogParameters { { paramKey, targets.Count() } };
+                    dialogService.ShowDialog(nameof(OpenWithAppPage), param, (IDialogResult dialogResult) =>
+                    {
+                        if (dialogResult.Parameters.ContainsKey(nameof(FileInfo)))
+                        {
+                            var executeFilePath = dialogResult.Parameters.GetValue<FileInfo>(nameof(FileInfo));
+                            foreach (var f in targets)
+                            {
+                                Process.Start(executeFilePath.FullName, f.FileSystemInfo.FullName);
+                            }
+                        }
+                    });
+                    return;
+                }
+
+                // マークがされていない場合は、現在カーソルが当たっているファイルを対象とする
+                if (SelectedItem != null)
+                {
+                    var param = new DialogParameters { { paramKey, 1 } };
+                    dialogService.ShowDialog(nameof(OpenWithAppPage), param, (IDialogResult dialogResult) =>
+                    {
+                        if (dialogResult.Parameters.ContainsKey(nameof(FileInfo)))
+                        {
+                            var executeFilePath = dialogResult.Parameters.GetValue<FileInfo>(nameof(FileInfo));
+                            Process.Start(executeFilePath.FullName, SelectedItem.FileSystemInfo.FullName);
+                        }
+                    });
                 }
             }));
 

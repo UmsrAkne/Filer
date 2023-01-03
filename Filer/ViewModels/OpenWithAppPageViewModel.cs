@@ -16,6 +16,7 @@ namespace Filer.ViewModels
 
         private DelegateCommand executeFromKeyCommand;
         private DelegateCommand closeCommand;
+        private string message = string.Empty;
 
         public event Action<IDialogResult> RequestClose;
 
@@ -43,7 +44,7 @@ namespace Filer.ViewModels
                 var targetPath = Applications.FirstOrDefault(f => f.IsMatch)?.Path;
                 KeyText = string.Empty;
 
-                if (!File.Exists(targetPath))
+                if (!string.IsNullOrWhiteSpace(targetPath) && !File.Exists(targetPath))
                 {
                     return;
                 }
@@ -59,6 +60,8 @@ namespace Filer.ViewModels
                 RequestClose?.Invoke(null);
             }));
 
+        public string Message { get => message; set => SetProperty(ref message, value); }
+
         public bool CanCloseDialog() => true;
 
         public void OnDialogClosed()
@@ -69,6 +72,8 @@ namespace Filer.ViewModels
         {
             var setting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
             Applications = new ObservableCollection<Favorite>(setting.Apps);
+            var openFileCount = parameters.GetValue<int>("OpenFileCount");
+            Message = $"{openFileCount} 個のファイルを開きます。アプリケーションを指定してください。";
         }
     }
 }
