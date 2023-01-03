@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filer.Models;
+using Filer.Models.Settings;
 using Filer.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -27,20 +29,39 @@ namespace Filer.ViewModels
         public MainWindowViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
-            var defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            // アプリケーション起動時の最初のディレクトリを設定する。
+            // 前回終了時の情報があって、使えるならそれを優先する。使えない場合はユーザールートをデフォルトとする。
+            string leftWindowPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string rightWindowPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            var setting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+
+            if (setting.LastVisitedDirectories.Count >= 2)
+            {
+                if (Directory.Exists(setting.LastVisitedDirectories[0]))
+                {
+                    leftWindowPath = setting.LastVisitedDirectories[0];
+                }
+
+                if (Directory.Exists(setting.LastVisitedDirectories[1]))
+                {
+                    rightWindowPath = setting.LastVisitedDirectories[1];
+                }
+            }
 
             LeftFileListViewModel = new FileListViewModel(dialogService)
             {
                 OwnerListViewLocation = OwnerListViewLocation.Left,
                 Logger = Logger,
-                CurrentDirectory = new DirectoryInfo(defaultPath),
+                CurrentDirectory = new DirectoryInfo(leftWindowPath),
             };
 
             RightFileListViewModel = new FileListViewModel(dialogService)
             {
                 OwnerListViewLocation = OwnerListViewLocation.Right,
                 Logger = Logger,
-                CurrentDirectory = new DirectoryInfo(defaultPath),
+                CurrentDirectory = new DirectoryInfo(rightWindowPath),
             };
         }
 
@@ -84,6 +105,18 @@ namespace Filer.ViewModels
                     }
                 });
             }));
+
+        public DelegateCommand CloseCommand => new DelegateCommand(() =>
+        {
+            var setting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+            setting.LastVisitedDirectories = new List<string>
+            {
+                LeftFileListViewModel.CurrentDirectory.FullName,
+                RightFileListViewModel.CurrentDirectory.FullName,
+            };
+
+            ApplicationSetting.WriteApplicationSetting(setting);
+        });
 
         /// <summary>
         /// 現在フォーカスのあるファイルリストビューのビューモデルを返します。
