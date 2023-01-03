@@ -29,20 +29,39 @@ namespace Filer.ViewModels
         public MainWindowViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
-            var defaultPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            // アプリケーション起動時の最初のディレクトリを設定する。
+            // 前回終了時の情報があって、使えるならそれを優先する。使えない場合はユーザールートをデフォルトとする。
+            string leftWindowPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string rightWindowPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+
+            var setting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+
+            if (setting.LastVisitedDirectories.Count >= 2)
+            {
+                if (Directory.Exists(setting.LastVisitedDirectories[0]))
+                {
+                    leftWindowPath = setting.LastVisitedDirectories[0];
+                }
+
+                if (Directory.Exists(setting.LastVisitedDirectories[1]))
+                {
+                    rightWindowPath = setting.LastVisitedDirectories[1];
+                }
+            }
 
             LeftFileListViewModel = new FileListViewModel(dialogService)
             {
                 OwnerListViewLocation = OwnerListViewLocation.Left,
                 Logger = Logger,
-                CurrentDirectory = new DirectoryInfo(defaultPath),
+                CurrentDirectory = new DirectoryInfo(leftWindowPath),
             };
 
             RightFileListViewModel = new FileListViewModel(dialogService)
             {
                 OwnerListViewLocation = OwnerListViewLocation.Right,
                 Logger = Logger,
-                CurrentDirectory = new DirectoryInfo(defaultPath),
+                CurrentDirectory = new DirectoryInfo(rightWindowPath),
             };
         }
 
