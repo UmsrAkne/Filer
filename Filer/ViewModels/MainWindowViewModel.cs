@@ -23,6 +23,7 @@ namespace Filer.ViewModels
 
         private DelegateCommand<ListView> focusToListViewCommand;
         private DelegateCommand showFavoritesCommand;
+        private DelegateCommand switchFileListVmCommand;
 
         public MainWindowViewModel(IDialogService dialogService)
         {
@@ -65,9 +66,9 @@ namespace Filer.ViewModels
 
         public string Title { get => title; set => SetProperty(ref title, value); }
 
-        public FileListViewModel LeftFileListViewModel { get; }
+        public FileListViewModel LeftFileListViewModel { get; private set; }
 
-        public FileListViewModel RightFileListViewModel { get; }
+        public FileListViewModel RightFileListViewModel { get; private set; }
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
@@ -102,6 +103,17 @@ namespace Filer.ViewModels
                         vm.CurrentDirectory = result.Parameters.GetValue<DirectoryInfo>(nameof(FileSystemInfo));
                     }
                 });
+            }));
+
+        public DelegateCommand SwitchFileListVmCommand =>
+            switchFileListVmCommand ?? (switchFileListVmCommand = new DelegateCommand(() =>
+            {
+                (LeftFileListViewModel, RightFileListViewModel) = (RightFileListViewModel, LeftFileListViewModel);
+                LeftFileListViewModel.IsFocused = false;
+                RightFileListViewModel.IsFocused = false;
+
+                RaisePropertyChanged(nameof(LeftFileListViewModel));
+                RaisePropertyChanged(nameof(RightFileListViewModel));
             }));
 
         public DelegateCommand CloseCommand => new DelegateCommand(() =>
