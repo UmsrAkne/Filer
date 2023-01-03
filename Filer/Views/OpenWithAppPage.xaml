@@ -1,0 +1,112 @@
+<Page
+    x:Class="Filer.Views.OpenWithAppPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Filer.Models"
+    xmlns:viewModels="clr-namespace:Filer.ViewModels"
+    Title="Applications"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance viewModels:OpenWithAppPageViewModel}"
+    mc:Ignorable="d">
+
+    <Page.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+    </Page.InputBindings>
+
+    <Grid Background="{StaticResource BgColorBrush}" FocusManager.FocusedElement="{Binding ElementName=TextBox}">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <DockPanel Grid.Row="0">
+            <StackPanel
+                Margin="3"
+                DockPanel.Dock="Top"
+                Orientation="Horizontal">
+                <TextBlock
+                    Background="Transparent"
+                    Foreground="{StaticResource FgColorBrush}"
+                    Text="Input Key : " />
+
+                <TextBox
+                    x:Name="TextBox"
+                    Width="300"
+                    Background="Transparent"
+                    Foreground="{StaticResource FgColorBrush}"
+                    Text="{Binding KeyText, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Return" Command="{Binding ExecuteFromKeyCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+            </StackPanel>
+
+            <ListView
+                HorizontalContentAlignment="Stretch"
+                Background="{StaticResource BgColorBrush}"
+                DockPanel.Dock="Bottom"
+                ItemsSource="{Binding Favorites}">
+
+                <i:Interaction.Behaviors>
+                    <models:KeyboardBehavior />
+                </i:Interaction.Behaviors>
+
+                <ListView.ItemTemplate>
+
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsMatch}" Value="True">
+                                            <Setter Property="Background" Value="DarkSlateBlue" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                Foreground="{StaticResource FgColorBrush}"
+                                Text="{Binding Key}" />
+
+                            <Border
+                                Grid.Column="1"
+                                Width="1"
+                                Background="White" />
+
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{StaticResource FgColorBrush}"
+                                Text="{Binding Name}" />
+                        </Grid>
+
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </DockPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+
+            <Button
+                Margin="4"
+                Command="{Binding CloseCommand}"
+                Content="Close (Escape)" />
+
+        </StackPanel>
+
+    </Grid>
+</Page>
