@@ -10,6 +10,7 @@ using Prism.Services.Dialogs;
 
 namespace Filer.ViewModels
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class KeyValueListPageViewModel : BindableBase, IDialogAware
     {
         private string keyText;
@@ -35,7 +36,7 @@ namespace Filer.ViewModels
             }
         }
 
-        public ObservableCollection<Favorite> Favorites { get; set; }
+        public ObservableCollection<Favorite> Favorites { get; private set; }
 
         public DelegateCommand ExecuteFromKeyCommand =>
             executeFromKeyCommand ?? (executeFromKeyCommand = new DelegateCommand(() =>

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filer.Models;
@@ -15,10 +12,11 @@ using Prism.Services.Dialogs;
 
 namespace Filer.ViewModels
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class MainWindowViewModel : BindableBase
     {
+        private readonly IDialogService dialogService;
         private string title = "Prism Application";
-        private IDialogService dialogService;
         private ExtendFileInfo selectedItem;
 
         //// DelegateCommand *******************************************************
