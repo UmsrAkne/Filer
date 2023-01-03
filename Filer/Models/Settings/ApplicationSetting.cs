@@ -11,6 +11,8 @@ namespace Filer.Models.Settings
 
         public List<Favorite> Favorites { get; set; } = new List<Favorite>();
 
+        public List<string> LastVisitedDirectories { get; set; } = new List<string>();
+
         public static void WriteApplicationSetting(ApplicationSetting setting)
         {
             var jsonSerializeSetting = new JsonSerializerSettings()

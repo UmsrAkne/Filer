@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filer.Models;
+using Filer.Models.Settings;
 using Filer.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -84,6 +86,18 @@ namespace Filer.ViewModels
                     }
                 });
             }));
+
+        public DelegateCommand CloseCommand => new DelegateCommand(() =>
+        {
+            var setting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+            setting.LastVisitedDirectories = new List<string>
+            {
+                LeftFileListViewModel.CurrentDirectory.FullName,
+                RightFileListViewModel.CurrentDirectory.FullName,
+            };
+
+            ApplicationSetting.WriteApplicationSetting(setting);
+        });
 
         /// <summary>
         /// 現在フォーカスのあるファイルリストビューのビューモデルを返します。
