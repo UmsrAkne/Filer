@@ -1,6 +1,5 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using Filer.Models.Settings;
@@ -20,7 +19,7 @@ namespace Filer.ViewModels
 
         public event Action<IDialogResult> RequestClose;
 
-        public string Title { get; } = "Applications";
+        public string Title => "Applications";
 
         public string KeyText
         {
@@ -44,23 +43,14 @@ namespace Filer.ViewModels
                 var targetPath = Applications.FirstOrDefault(f => f.IsMatch)?.Path;
                 KeyText = string.Empty;
 
-                if (!File.Exists(targetPath) && !Directory.Exists(targetPath))
+                if (!File.Exists(targetPath))
                 {
                     return;
                 }
 
-                if (Directory.Exists(targetPath))
-                {
-                    var result = new DialogResult();
-                    result.Parameters.Add(nameof(FileSystemInfo), new DirectoryInfo(targetPath));
-                    RequestClose?.Invoke(result);
-                    return;
-                }
-
-                if (!string.IsNullOrWhiteSpace(targetPath))
-                {
-                    Process.Start(targetPath);
-                }
+                var result = new DialogResult();
+                result.Parameters.Add(nameof(FileInfo), new FileInfo(targetPath));
+                RequestClose?.Invoke(result);
             }));
 
         public DelegateCommand CloseCommand =>
@@ -77,8 +67,8 @@ namespace Filer.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
-            // var setting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
-            // Favorites = new ObservableCollection<Favorite>(setting.Favorites);
+            var setting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+            Applications = new ObservableCollection<Favorite>(setting.Apps);
         }
     }
 }

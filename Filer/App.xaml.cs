@@ -39,6 +39,14 @@ namespace Filer
                     Key = "n",
                 });
 
+                defaultSettings.Apps.Add(new Favorite
+                {
+                    // ReSharper disable once StringLiteralTypo, notepad が正しい単語として認識されないため
+                    Path = @"C:\Windows\notepad.exe",
+                    Name = "Notepad",
+                    Key = "note",
+                });
+
                 ApplicationSetting.WriteApplicationSetting(defaultSettings);
             }
 

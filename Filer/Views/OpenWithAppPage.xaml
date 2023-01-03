@@ -49,7 +49,7 @@
                 HorizontalContentAlignment="Stretch"
                 Background="{StaticResource BgColorBrush}"
                 DockPanel.Dock="Bottom"
-                ItemsSource="{Binding Favorites}">
+                ItemsSource="{Binding Applications}">
 
                 <i:Interaction.Behaviors>
                     <models:KeyboardBehavior />
