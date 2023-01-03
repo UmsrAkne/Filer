@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -25,6 +26,7 @@ namespace Filer.ViewModels
         private int executeCounter;
         private DelegateCommand<string> openPathCommand;
         private DelegateCommand<ListView> openFileCommand;
+        private DelegateCommand openWithAppCommand;
         private DelegateCommand<ListView> cursorDownCommand;
         private DelegateCommand<ListView> cursorUpCommand;
         private DelegateCommand<ListView> jumpToLastCommand;
@@ -121,6 +123,39 @@ namespace Filer.ViewModels
                     {
                         Process.Start(SelectedItem.FileSystemInfo.FullName);
                     }
+                }
+            }));
+
+        public DelegateCommand OpenWithAppCommand =>
+            openWithAppCommand ?? (openWithAppCommand = new DelegateCommand(() =>
+            {
+                List<ExtendFileInfo> targets = new List<ExtendFileInfo>();
+
+                // マークされているファイルがある場合はそれを優先する
+                if (FileList.Any(f => f.Marked))
+                {
+                    targets = FileList.Where(f => f.Marked).ToList();
+                }
+                else if (SelectedItem != null)
+                {
+                    // マークがされていない場合は、現在カーソルが当たっているファイルを対象とする
+                    targets = new List<ExtendFileInfo>() { SelectedItem };
+                }
+
+                if (targets.Count != 0)
+                {
+                    var param = new DialogParameters { { "OpenFileCount", targets.Count() } };
+                    dialogService.ShowDialog(nameof(OpenWithAppPage), param, (IDialogResult dialogResult) =>
+                    {
+                        if (dialogResult.Parameters.ContainsKey(nameof(FileInfo)))
+                        {
+                            var executeFilePath = dialogResult.Parameters.GetValue<FileInfo>(nameof(FileInfo));
+                            foreach (var f in targets)
+                            {
+                                Process.Start(executeFilePath.FullName, f.FileSystemInfo.FullName);
+                            }
+                        }
+                    });
                 }
             }));
 

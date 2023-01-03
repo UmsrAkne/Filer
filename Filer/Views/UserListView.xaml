@@ -74,6 +74,12 @@
                     CommandParameter="{Binding ElementName=listView}" />
 
                 <KeyBinding
+                    Key="O"
+                    Command="{Binding OpenWithAppCommand}"
+                    CommandParameter="{Binding ElementName=listView}"
+                    Modifiers="Control" />
+
+                <KeyBinding
                     Key="U"
                     Command="{Binding DirectoryUpCommand}"
                     Modifiers="Shift" />

@@ -21,6 +21,7 @@ namespace Filer
         {
             containerRegistry.RegisterDialog<SelectionDialog, SelectionDialogViewModel>();
             containerRegistry.RegisterDialog<KeyValueListPage, KeyValueListPageViewModel>();
+            containerRegistry.RegisterDialog<OpenWithAppPage, OpenWithAppPageViewModel>();
         }
 
         protected override void OnStartup(StartupEventArgs e)
@@ -36,6 +37,14 @@ namespace Filer
                     Path = @"C:\Windows\notepad.exe",
                     Name = "Notepad",
                     Key = "n",
+                });
+
+                defaultSettings.Apps.Add(new Favorite
+                {
+                    // ReSharper disable once StringLiteralTypo, notepad が正しい単語として認識されないため
+                    Path = @"C:\Windows\notepad.exe",
+                    Name = "Notepad",
+                    Key = "note",
                 });
 
                 ApplicationSetting.WriteApplicationSetting(defaultSettings);
