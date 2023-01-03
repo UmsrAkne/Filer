@@ -15,7 +15,7 @@ namespace Filer.ViewModels
 {
     public class FileListViewModel : BindableBase
     {
-        private IDialogService dialogService;
+        private readonly IDialogService dialogService;
         private bool isFocused;
         private string pathBarText;
         private int selectedIndex;
@@ -97,17 +97,14 @@ namespace Filer.ViewModels
             }
         }
 
-        public DelegateCommand<string> OpenPathCommand
-        {
-            get => openPathCommand ?? (openPathCommand = new DelegateCommand<string>((locationString) =>
+        public DelegateCommand<string> OpenPathCommand =>
+            openPathCommand ?? (openPathCommand = new DelegateCommand<string>((locationString) =>
             {
                 CurrentDirectory = new DirectoryInfo(PathBarText);
             }));
-        }
 
-        public DelegateCommand<ListView> OpenFileCommand
-        {
-            get => openFileCommand ?? (openFileCommand = new DelegateCommand<ListView>((lv) =>
+        public DelegateCommand<ListView> OpenFileCommand =>
+            openFileCommand ?? (openFileCommand = new DelegateCommand<ListView>((lv) =>
             {
                 if (SelectedItem != null)
                 {
@@ -126,31 +123,25 @@ namespace Filer.ViewModels
                     }
                 }
             }));
-        }
 
-        public DelegateCommand<ListView> CursorDownCommand
-        {
-            get => cursorDownCommand ?? (cursorDownCommand = new DelegateCommand<ListView>((lv) =>
+        public DelegateCommand<ListView> CursorDownCommand =>
+            cursorDownCommand ?? (cursorDownCommand = new DelegateCommand<ListView>((lv) =>
             {
                 var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
                 ExecuteCounter = 0;
                 MoveCursor(lv, amount);
             }));
-        }
 
-        public DelegateCommand<ListView> CursorUpCommand
-        {
-            get => cursorUpCommand ?? (cursorUpCommand = new DelegateCommand<ListView>((lv) =>
+        public DelegateCommand<ListView> CursorUpCommand =>
+            cursorUpCommand ?? (cursorUpCommand = new DelegateCommand<ListView>((lv) =>
             {
                 var amount = ExecuteCounter != 0 ? ExecuteCounter * -1 : -1;
                 ExecuteCounter = 0;
                 MoveCursor(lv, -1);
             }));
-        }
 
-        public DelegateCommand<ListView> JumpToLastCommand
-        {
-            get => jumpToLastCommand ?? (jumpToLastCommand = new DelegateCommand<ListView>((lv) =>
+        public DelegateCommand<ListView> JumpToLastCommand =>
+            jumpToLastCommand ?? (jumpToLastCommand = new DelegateCommand<ListView>((lv) =>
             {
                 var currentIndex = lv.SelectedIndex == -1 ? 0 : lv.SelectedIndex;
                 MoveCursor(lv, FileList.Count() + 1);
@@ -160,11 +151,9 @@ namespace Filer.ViewModels
                 FileList.Skip(currentIndex).ToList().ForEach(f => f.IsSelected = false);
                 SelectedItem = item as ExtendFileInfo;
             }));
-        }
 
-        public DelegateCommand DirectoryUpCommand
-        {
-            get => directoryUpCommand ?? (directoryUpCommand = new DelegateCommand(() =>
+        public DelegateCommand DirectoryUpCommand =>
+            directoryUpCommand ?? (directoryUpCommand = new DelegateCommand(() =>
             {
                 var parentDirectoryInfo = new DirectoryInfo(CurrentDirectory.FullName).Parent;
 
@@ -173,11 +162,9 @@ namespace Filer.ViewModels
                     CurrentDirectory = parentDirectoryInfo;
                 }
             }));
-        }
 
-        public DelegateCommand<ListView> PageUpCommand
-        {
-            get => pageUpCommand ?? (pageUpCommand = new DelegateCommand<ListView>((lv) =>
+        public DelegateCommand<ListView> PageUpCommand =>
+            pageUpCommand ?? (pageUpCommand = new DelegateCommand<ListView>((lv) =>
             {
                 var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
                 ExecuteCounter = 0;
@@ -186,11 +173,9 @@ namespace Filer.ViewModels
                     MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)) * -1);
                 }
             }));
-        }
 
-        public DelegateCommand<ListView> PageDownCommand
-        {
-            get => pageDownCommand ?? (pageDownCommand = new DelegateCommand<ListView>((lv) =>
+        public DelegateCommand<ListView> PageDownCommand =>
+            pageDownCommand ?? (pageDownCommand = new DelegateCommand<ListView>((lv) =>
             {
                 var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
                 ExecuteCounter = 0;
@@ -199,34 +184,26 @@ namespace Filer.ViewModels
                     MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)));
                 }
             }));
-        }
 
-        public DelegateCommand CreateCommand
-        {
-            get => createCommand ?? (createCommand = new DelegateCommand(() =>
+        public DelegateCommand CreateCommand =>
+            createCommand ?? (createCommand = new DelegateCommand(() =>
             {
-                var dialogParam = new DialogParameters();
-                dialogParam.Add(nameof(FileSystemInfo), new DirectoryInfo(CurrentDirectory.FullName));
-
+                var dialogParam = new DialogParameters { { nameof(FileSystemInfo), new DirectoryInfo(CurrentDirectory.FullName) } };
                 dialogService.ShowDialog(nameof(SelectionDialog), dialogParam, (IDialogResult dialogResult) => { });
                 CurrentDirectory = new DirectoryInfo(CurrentDirectory.FullName);
             }));
-        }
 
-        public DelegateCommand MarkCommand
-        {
-            get => markCommand ?? (markCommand = new DelegateCommand(() =>
+        public DelegateCommand MarkCommand =>
+            markCommand ?? (markCommand = new DelegateCommand(() =>
             {
                 if (SelectedItem != null)
                 {
                     SelectedItem.Marked = !SelectedItem.Marked;
                 }
             }));
-        }
 
-        public DelegateCommand<ListView> MarkAndDownCommand
-        {
-            get => markAndDownCommand ?? (markAndDownCommand = new DelegateCommand<ListView>((param) =>
+        public DelegateCommand<ListView> MarkAndDownCommand =>
+            markAndDownCommand ?? (markAndDownCommand = new DelegateCommand<ListView>((param) =>
             {
                 if (SelectedItem != null)
                 {
@@ -247,7 +224,6 @@ namespace Filer.ViewModels
                     }
                 }
             }));
-        }
 
         public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>
         {
