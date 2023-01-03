@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -128,13 +129,22 @@ namespace Filer.ViewModels
         public DelegateCommand OpenWithAppCommand =>
             openWithAppCommand ?? (openWithAppCommand = new DelegateCommand(() =>
             {
-                var paramKey = "OpenFileCount";
+                List<ExtendFileInfo> targets = new List<ExtendFileInfo>();
 
                 // マークされているファイルがある場合はそれを優先する
                 if (FileList.Any(f => f.Marked))
                 {
-                    var targets = FileList.Where(f => f.Marked).ToList();
-                    var param = new DialogParameters { { paramKey, targets.Count() } };
+                    targets = FileList.Where(f => f.Marked).ToList();
+                }
+                else if (SelectedItem != null)
+                {
+                    // マークがされていない場合は、現在カーソルが当たっているファイルを対象とする
+                    targets = new List<ExtendFileInfo>() { SelectedItem };
+                }
+
+                if (targets.Count != 0)
+                {
+                    var param = new DialogParameters { { "OpenFileCount", targets.Count() } };
                     dialogService.ShowDialog(nameof(OpenWithAppPage), param, (IDialogResult dialogResult) =>
                     {
                         if (dialogResult.Parameters.ContainsKey(nameof(FileInfo)))
@@ -144,21 +154,6 @@ namespace Filer.ViewModels
                             {
                                 Process.Start(executeFilePath.FullName, f.FileSystemInfo.FullName);
                             }
-                        }
-                    });
-                    return;
-                }
-
-                // マークがされていない場合は、現在カーソルが当たっているファイルを対象とする
-                if (SelectedItem != null)
-                {
-                    var param = new DialogParameters { { paramKey, 1 } };
-                    dialogService.ShowDialog(nameof(OpenWithAppPage), param, (IDialogResult dialogResult) =>
-                    {
-                        if (dialogResult.Parameters.ContainsKey(nameof(FileInfo)))
-                        {
-                            var executeFilePath = dialogResult.Parameters.GetValue<FileInfo>(nameof(FileInfo));
-                            Process.Start(executeFilePath.FullName, SelectedItem.FileSystemInfo.FullName);
                         }
                     });
                 }
