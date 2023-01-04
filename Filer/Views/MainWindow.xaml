@@ -46,6 +46,13 @@
             Command="{Binding FocusToListViewCommand}"
             CommandParameter="{Binding ElementName=rightListView, Path=ListView}" />
 
+        <KeyBinding Key="S" Command="{Binding SyncToAnotherCommand}" />
+
+        <KeyBinding
+            Key="S"
+            Command="{Binding SyncFromAnotherCommand}"
+            Modifiers="Shift" />
+
         <KeyBinding Key="X" Command="{Binding SwitchFileListVmCommand}" />
 
     </Window.InputBindings>

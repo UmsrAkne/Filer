@@ -24,6 +24,8 @@ namespace Filer.ViewModels
         private DelegateCommand<ListView> focusToListViewCommand;
         private DelegateCommand showFavoritesCommand;
         private DelegateCommand switchFileListVmCommand;
+        private DelegateCommand syncToAnotherCommand;
+        private DelegateCommand syncFromAnotherCommand;
 
         public MainWindowViewModel(IDialogService dialogService)
         {
@@ -114,6 +116,20 @@ namespace Filer.ViewModels
 
                 RaisePropertyChanged(nameof(LeftFileListViewModel));
                 RaisePropertyChanged(nameof(RightFileListViewModel));
+            }));
+
+        public DelegateCommand SyncToAnotherCommand =>
+            syncToAnotherCommand ?? (syncToAnotherCommand = new DelegateCommand(() =>
+            {
+                var currentLv = GetFocusingListView();
+                GetAnotherListViewModel(currentLv).CurrentDirectory = currentLv.CurrentDirectory;
+            }));
+
+        public DelegateCommand SyncFromAnotherCommand =>
+            syncFromAnotherCommand ?? (syncFromAnotherCommand = new DelegateCommand(() =>
+            {
+                var currentLv = GetFocusingListView();
+                currentLv.CurrentDirectory = GetAnotherListViewModel(currentLv).CurrentDirectory;
             }));
 
         public DelegateCommand CloseCommand => new DelegateCommand(() =>
