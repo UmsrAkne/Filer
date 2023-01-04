@@ -147,5 +147,27 @@ namespace Filer.ViewModels
 
             return LeftFileListViewModel;
         }
+
+        /// <summary>
+        /// LeftFileListViewModel, RightFileListViewModel のいずれかを入力して使用します。
+        /// 入力したほうとは別のビューモデルを返します。
+        /// </summary>
+        /// <param name="vm">LeftFileListViewModel, RightFileListViewModel　のいずれかを入力します</param>
+        /// <returns>入力したビューモデルとは別の方のビューモデルを返します</returns>
+        /// <exception cref="ArgumentException">param で指定されているビューモデル以外のインスタンスが入力された時スローされます</exception>
+        private FileListViewModel GetAnotherListViewModel(FileListViewModel vm)
+        {
+            if (LeftFileListViewModel == vm)
+            {
+                return RightFileListViewModel;
+            }
+
+            if (RightFileListViewModel == vm)
+            {
+                return LeftFileListViewModel;
+            }
+
+            throw new ArgumentException("不正なビューモデル、または Null が入力されました");
+        }
     }
 }
