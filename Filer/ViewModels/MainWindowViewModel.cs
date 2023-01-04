@@ -24,6 +24,8 @@ namespace Filer.ViewModels
         private DelegateCommand<ListView> focusToListViewCommand;
         private DelegateCommand showFavoritesCommand;
         private DelegateCommand switchFileListVmCommand;
+        private DelegateCommand syncToAnotherCommand;
+        private DelegateCommand syncFromAnotherCommand;
 
         public MainWindowViewModel(IDialogService dialogService)
         {
@@ -116,6 +118,20 @@ namespace Filer.ViewModels
                 RaisePropertyChanged(nameof(RightFileListViewModel));
             }));
 
+        public DelegateCommand SyncToAnotherCommand =>
+            syncToAnotherCommand ?? (syncToAnotherCommand = new DelegateCommand(() =>
+            {
+                var currentLv = GetFocusingListView();
+                GetAnotherListViewModel(currentLv).CurrentDirectory = currentLv.CurrentDirectory;
+            }));
+
+        public DelegateCommand SyncFromAnotherCommand =>
+            syncFromAnotherCommand ?? (syncFromAnotherCommand = new DelegateCommand(() =>
+            {
+                var currentLv = GetFocusingListView();
+                currentLv.CurrentDirectory = GetAnotherListViewModel(currentLv).CurrentDirectory;
+            }));
+
         public DelegateCommand CloseCommand => new DelegateCommand(() =>
         {
             var setting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
@@ -146,6 +162,28 @@ namespace Filer.ViewModels
             }
 
             return LeftFileListViewModel;
+        }
+
+        /// <summary>
+        /// LeftFileListViewModel, RightFileListViewModel のいずれかを入力して使用します。
+        /// 入力したほうとは別のビューモデルを返します。
+        /// </summary>
+        /// <param name="vm">LeftFileListViewModel, RightFileListViewModel　のいずれかを入力します</param>
+        /// <returns>入力したビューモデルとは別の方のビューモデルを返します</returns>
+        /// <exception cref="ArgumentException">param で指定されているビューモデル以外のインスタンスが入力された時スローされます</exception>
+        private FileListViewModel GetAnotherListViewModel(FileListViewModel vm)
+        {
+            if (LeftFileListViewModel == vm)
+            {
+                return RightFileListViewModel;
+            }
+
+            if (RightFileListViewModel == vm)
+            {
+                return LeftFileListViewModel;
+            }
+
+            throw new ArgumentException("不正なビューモデル、または Null が入力されました");
         }
     }
 }
