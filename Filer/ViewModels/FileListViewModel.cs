@@ -38,6 +38,7 @@ namespace Filer.ViewModels
         private DelegateCommand createCommand;
         private DelegateCommand markCommand;
         private DelegateCommand<ListView> markAndDownCommand;
+        private DelegateCommand<TextBox> focusCommandTextBoxCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -271,6 +272,12 @@ namespace Filer.ViewModels
                         ExecuteCounter = 0;
                     }
                 }
+            }));
+
+        public DelegateCommand<TextBox> FocusCommandTextBoxCommand =>
+            focusCommandTextBoxCommand ?? (focusCommandTextBoxCommand = new DelegateCommand<TextBox>(t =>
+            {
+                t.Focus();
             }));
 
         public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>

@@ -133,6 +133,11 @@
                     Modifiers="Ctrl" />
 
                 <KeyBinding
+                    Key="F"
+                    Command="{Binding FocusCommandTextBoxCommand}"
+                    CommandParameter="{Binding ElementName=CommandTextBox}" />
+
+                <KeyBinding
                     Key="D1"
                     Command="{Binding NumberInputCommand}"
                     CommandParameter="1" />
@@ -202,8 +207,8 @@
             </TextBox.InputBindings>
         </TextBox>
 
-        <!--  コマンド入力用テキストボックス  -->
         <TextBox
+            x:Name="CommandTextBox"
             Grid.Row="2"
             Background="{StaticResource BgColorBrush}"
             Foreground="{StaticResource FgColorBrush}"
