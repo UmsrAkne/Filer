@@ -172,7 +172,7 @@ namespace Filer.ViewModels
             {
                 var amount = ExecuteCounter != 0 ? ExecuteCounter * -1 : -1;
                 ExecuteCounter = 0;
-                MoveCursor(lv, -1);
+                MoveCursor(lv, amount);
             }));
 
         public DelegateCommand<ListView> JumpToLastCommand =>
