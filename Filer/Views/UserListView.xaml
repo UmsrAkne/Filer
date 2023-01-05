@@ -102,6 +102,8 @@
                     CommandParameter="{Binding ElementName=listView}"
                     Modifiers="Shift" />
 
+                <KeyBinding Key="G" Command="{Binding JumpToFirstCommand}" />
+
                 <KeyBinding
                     Key="J"
                     Command="{Binding CursorDownCommand}"

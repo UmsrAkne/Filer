@@ -29,6 +29,7 @@ namespace Filer.ViewModels
         private DelegateCommand openWithAppCommand;
         private DelegateCommand<ListView> cursorDownCommand;
         private DelegateCommand<ListView> cursorUpCommand;
+        private DelegateCommand jumpToFirstCommand;
         private DelegateCommand<ListView> jumpToLastCommand;
         private DelegateCommand directoryUpCommand;
         private DelegateCommand<ListView> pageUpCommand;
@@ -185,6 +186,15 @@ namespace Filer.ViewModels
                 var item = lv.SelectedItem;
                 FileList.Skip(currentIndex).ToList().ForEach(f => f.IsSelected = false);
                 SelectedItem = item as ExtendFileInfo;
+            }));
+
+        public DelegateCommand JumpToFirstCommand =>
+            jumpToFirstCommand ?? (jumpToFirstCommand = new DelegateCommand(() =>
+            {
+                if (SelectedIndex != -1)
+                {
+                    SelectedIndex = 0;
+                }
             }));
 
         public DelegateCommand DirectoryUpCommand =>
