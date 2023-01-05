@@ -52,6 +52,10 @@
             SelectedIndex="{Binding SelectedIndex}"
             SelectedItem="{Binding SelectedItem}">
 
+            <i:Interaction.Behaviors>
+                <models:ScrollBehavior />
+            </i:Interaction.Behaviors>
+
             <ListView.Style>
                 <Style TargetType="ListView">
                     <Style.Triggers>
@@ -101,6 +105,8 @@
                     Command="{Binding JumpToLastCommand}"
                     CommandParameter="{Binding ElementName=listView}"
                     Modifiers="Shift" />
+
+                <KeyBinding Key="G" Command="{Binding JumpToFirstCommand}" />
 
                 <KeyBinding
                     Key="J"
