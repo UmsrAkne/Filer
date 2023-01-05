@@ -52,6 +52,10 @@
             SelectedIndex="{Binding SelectedIndex}"
             SelectedItem="{Binding SelectedItem}">
 
+            <i:Interaction.Behaviors>
+                <models:ScrollBehavior />
+            </i:Interaction.Behaviors>
+
             <ListView.Style>
                 <Style TargetType="ListView">
                     <Style.Triggers>

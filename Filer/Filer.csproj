@@ -60,6 +60,7 @@
     <Compile Include="Models\FocusSetBehavior.cs" />
     <Compile Include="Models\KeyboardBehavior.cs" />
     <Compile Include="Models\Logger.cs" />
+    <Compile Include="Models\ScrollBehavior.cs" />
     <Compile Include="Models\SelectionListItem.cs" />
     <Compile Include="Models\Settings\ApplicationSetting.cs" />
     <Compile Include="Models\Settings\Favorite.cs" />
