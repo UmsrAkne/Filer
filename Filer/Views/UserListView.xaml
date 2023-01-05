@@ -212,7 +212,12 @@
             Grid.Row="2"
             Background="{StaticResource BgColorBrush}"
             Foreground="{StaticResource FgColorBrush}"
-            Text="{Binding CommandText}" />
+            Text="{Binding CommandText, UpdateSourceTrigger=PropertyChanged}">
+
+            <TextBox.InputBindings>
+                <KeyBinding Key="Return" Command="{Binding SearchFileCommand}" />
+            </TextBox.InputBindings>
+        </TextBox>
 
     </Grid>
 </UserControl>

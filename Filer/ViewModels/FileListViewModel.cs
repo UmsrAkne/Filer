@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filer.Models;
@@ -39,6 +40,7 @@ namespace Filer.ViewModels
         private DelegateCommand markCommand;
         private DelegateCommand<ListView> markAndDownCommand;
         private DelegateCommand<TextBox> focusCommandTextBoxCommand;
+        private DelegateCommand searchFileCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -278,6 +280,20 @@ namespace Filer.ViewModels
             focusCommandTextBoxCommand ?? (focusCommandTextBoxCommand = new DelegateCommand<TextBox>(t =>
             {
                 t.Focus();
+                t.Text = "^.*";
+                t.SelectionStart = 1;
+            }));
+
+        public DelegateCommand SearchFileCommand =>
+            searchFileCommand ?? (searchFileCommand = new DelegateCommand(() =>
+            {
+                // 現在選択中の要素の次の要素から検索を開始する
+                var matched = FileList.Skip(SelectedIndex + 1).FirstOrDefault(f => Regex.IsMatch(f.Name, CommandText));
+
+                if (matched != null)
+                {
+                    SelectedIndex = matched.Index - 1;
+                }
             }));
 
         public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>
