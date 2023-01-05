@@ -19,6 +19,7 @@ namespace Filer.ViewModels
         private readonly IDialogService dialogService;
         private bool isFocused;
         private string pathBarText;
+        private string commandText;
         private int selectedIndex;
         private ObservableCollection<ExtendFileInfo> fileList;
         private DirectoryInfo currentDirectory;
@@ -52,6 +53,8 @@ namespace Filer.ViewModels
         public bool IsFocused { get => isFocused; set => SetProperty(ref isFocused, value); }
 
         public string PathBarText { get => pathBarText; set => SetProperty(ref pathBarText, value); }
+
+        public string CommandText { get => commandText; set => SetProperty(ref commandText, value); }
 
         public int SelectedIndex { get => selectedIndex; set => SetProperty(ref selectedIndex, value); }
 
