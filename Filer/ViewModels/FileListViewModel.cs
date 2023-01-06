@@ -295,6 +295,7 @@ namespace Filer.ViewModels
                 if (matched != null)
                 {
                     SelectedIndex = matched.Index - 1;
+                    FocusToListViewItem();
                 }
             }));
 
@@ -308,6 +309,15 @@ namespace Filer.ViewModels
         });
 
         public DelegateCommand ClearInputNumberCommand => new DelegateCommand(() => { ExecuteCounter = 0; });
+
+        private void FocusToListViewItem()
+        {
+            if (ListView?.ItemContainerGenerator.ContainerFromIndex(ListView.SelectedIndex) is ListViewItem item)
+            {
+                item.Focus();
+                Keyboard.Focus(item);
+            }
+        }
 
         private void MoveCursor(ListView lv, int amount)
         {
