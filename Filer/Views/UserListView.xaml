@@ -137,6 +137,8 @@
                     Command="{Binding FocusCommandTextBoxCommand}"
                     CommandParameter="{Binding ElementName=CommandTextBox}" />
 
+                <KeyBinding Key="N" Command="{Binding SearchFileCommand}" />
+
                 <KeyBinding
                     Key="D1"
                     Command="{Binding NumberInputCommand}"
