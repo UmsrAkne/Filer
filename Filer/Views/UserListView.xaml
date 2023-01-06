@@ -35,6 +35,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
         <TextBox Grid.Row="0" />
@@ -132,6 +133,13 @@
                     Modifiers="Ctrl" />
 
                 <KeyBinding
+                    Key="F"
+                    Command="{Binding FocusCommandTextBoxCommand}"
+                    CommandParameter="{Binding ElementName=CommandTextBox}" />
+
+                <KeyBinding Key="N" Command="{Binding SearchFileCommand}" />
+
+                <KeyBinding
                     Key="D1"
                     Command="{Binding NumberInputCommand}"
                     CommandParameter="1" />
@@ -198,6 +206,18 @@
 
                 <KeyBinding Key="Return" Command="{Binding OpenPathCommand}" />
 
+            </TextBox.InputBindings>
+        </TextBox>
+
+        <TextBox
+            x:Name="CommandTextBox"
+            Grid.Row="2"
+            Background="{StaticResource BgColorBrush}"
+            Foreground="{StaticResource FgColorBrush}"
+            Text="{Binding CommandText, UpdateSourceTrigger=PropertyChanged}">
+
+            <TextBox.InputBindings>
+                <KeyBinding Key="Return" Command="{Binding SearchFileCommand}" />
             </TextBox.InputBindings>
         </TextBox>
 

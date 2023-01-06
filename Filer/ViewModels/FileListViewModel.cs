@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filer.Models;
@@ -19,6 +20,7 @@ namespace Filer.ViewModels
         private readonly IDialogService dialogService;
         private bool isFocused;
         private string pathBarText;
+        private string commandText;
         private int selectedIndex;
         private ObservableCollection<ExtendFileInfo> fileList;
         private DirectoryInfo currentDirectory;
@@ -37,6 +39,8 @@ namespace Filer.ViewModels
         private DelegateCommand createCommand;
         private DelegateCommand markCommand;
         private DelegateCommand<ListView> markAndDownCommand;
+        private DelegateCommand<TextBox> focusCommandTextBoxCommand;
+        private DelegateCommand searchFileCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -53,6 +57,8 @@ namespace Filer.ViewModels
 
         public string PathBarText { get => pathBarText; set => SetProperty(ref pathBarText, value); }
 
+        public string CommandText { get => commandText; set => SetProperty(ref commandText, value); }
+
         public int SelectedIndex { get => selectedIndex; set => SetProperty(ref selectedIndex, value); }
 
         public ObservableCollection<ExtendFileInfo> FileList { get => fileList; private set => SetProperty(ref fileList, value); }
@@ -62,6 +68,8 @@ namespace Filer.ViewModels
         public int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
 
         public Logger Logger { private get; set; }
+
+        public ListView ListView { private get; set; }
 
         public DirectoryInfo CurrentDirectory
         {
@@ -270,6 +278,27 @@ namespace Filer.ViewModels
                 }
             }));
 
+        public DelegateCommand<TextBox> FocusCommandTextBoxCommand =>
+            focusCommandTextBoxCommand ?? (focusCommandTextBoxCommand = new DelegateCommand<TextBox>(t =>
+            {
+                t.Focus();
+                t.Text = "^.*";
+                t.SelectionStart = 1;
+            }));
+
+        public DelegateCommand SearchFileCommand =>
+            searchFileCommand ?? (searchFileCommand = new DelegateCommand(() =>
+            {
+                // 現在選択中の要素の次の要素から検索を開始する
+                var matched = FileList.Skip(SelectedIndex + 1).FirstOrDefault(f => Regex.IsMatch(f.Name, CommandText));
+
+                if (matched != null)
+                {
+                    SelectedIndex = matched.Index - 1;
+                    FocusToListViewItem();
+                }
+            }));
+
         public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>
         {
             // 型が string なのは、例えば 1, 2 と入力を行ったとき、合わせて入力値が 12 になるようにするため
@@ -280,6 +309,15 @@ namespace Filer.ViewModels
         });
 
         public DelegateCommand ClearInputNumberCommand => new DelegateCommand(() => { ExecuteCounter = 0; });
+
+        private void FocusToListViewItem()
+        {
+            if (ListView?.ItemContainerGenerator.ContainerFromIndex(ListView.SelectedIndex) is ListViewItem item)
+            {
+                item.Focus();
+                Keyboard.Focus(item);
+            }
+        }
 
         private void MoveCursor(ListView lv, int amount)
         {
