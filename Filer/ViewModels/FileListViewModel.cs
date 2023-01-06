@@ -69,6 +69,8 @@ namespace Filer.ViewModels
 
         public Logger Logger { private get; set; }
 
+        public ListView ListView { private get; set; }
+
         public DirectoryInfo CurrentDirectory
         {
             get => currentDirectory;

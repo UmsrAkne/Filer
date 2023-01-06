@@ -1,4 +1,6 @@
-﻿namespace Filer.Views
+﻿using Filer.ViewModels;
+
+namespace Filer.Views
 {
     using System.Collections;
     using System.Windows;
@@ -17,6 +19,14 @@
 
         public UserListView()
         {
+            DataContextChanged += (sender, args) =>
+            {
+                if (DataContext is FileListViewModel model)
+                {
+                    model.ListView = ListView;
+                }
+            };
+
             InitializeComponent();
         }
 
