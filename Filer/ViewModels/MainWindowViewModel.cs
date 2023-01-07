@@ -21,11 +21,7 @@ namespace Filer.ViewModels
 
         //// DelegateCommand *******************************************************
 
-        private DelegateCommand<ListView> focusToListViewCommand;
         private DelegateCommand showFavoritesCommand;
-        private DelegateCommand switchFileListVmCommand;
-        private DelegateCommand syncToAnotherCommand;
-        private DelegateCommand syncFromAnotherCommand;
 
         public MainWindowViewModel(IDialogService dialogService)
         {
@@ -74,25 +70,11 @@ namespace Filer.ViewModels
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
+        public bool TextInputting => GetFocusingListView().TextInputting;
+
         public Logger Logger { get; } = new Logger();
 
         //// DelegateCommand *******************************************************
-
-        public DelegateCommand<ListView> FocusToListViewCommand =>
-            focusToListViewCommand ?? (focusToListViewCommand = new DelegateCommand<ListView>((lv) =>
-            {
-                if (lv.Items.Count == 0)
-                {
-                    Keyboard.Focus(lv);
-                }
-                else
-                {
-                    var destIndex = lv.SelectedIndex < 0 ? 0 : lv.SelectedIndex;
-                    lv.SelectedIndex = destIndex;
-                    var item = lv.ItemContainerGenerator.ContainerFromIndex(destIndex) as ListViewItem;
-                    Keyboard.Focus(item);
-                }
-            }));
 
         public DelegateCommand ShowFavoritesCommand =>
             showFavoritesCommand ?? (showFavoritesCommand = new DelegateCommand(() =>
@@ -107,31 +89,6 @@ namespace Filer.ViewModels
                 });
             }));
 
-        public DelegateCommand SwitchFileListVmCommand =>
-            switchFileListVmCommand ?? (switchFileListVmCommand = new DelegateCommand(() =>
-            {
-                (LeftFileListViewModel, RightFileListViewModel) = (RightFileListViewModel, LeftFileListViewModel);
-                LeftFileListViewModel.IsFocused = false;
-                RightFileListViewModel.IsFocused = false;
-
-                RaisePropertyChanged(nameof(LeftFileListViewModel));
-                RaisePropertyChanged(nameof(RightFileListViewModel));
-            }));
-
-        public DelegateCommand SyncToAnotherCommand =>
-            syncToAnotherCommand ?? (syncToAnotherCommand = new DelegateCommand(() =>
-            {
-                var currentLv = GetFocusingListView();
-                GetAnotherListViewModel(currentLv).CurrentDirectory = currentLv.CurrentDirectory;
-            }));
-
-        public DelegateCommand SyncFromAnotherCommand =>
-            syncFromAnotherCommand ?? (syncFromAnotherCommand = new DelegateCommand(() =>
-            {
-                var currentLv = GetFocusingListView();
-                currentLv.CurrentDirectory = GetAnotherListViewModel(currentLv).CurrentDirectory;
-            }));
-
         public DelegateCommand CloseCommand => new DelegateCommand(() =>
         {
             var setting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
@@ -143,6 +100,43 @@ namespace Filer.ViewModels
 
             ApplicationSetting.WriteApplicationSetting(setting);
         });
+
+        public void FocusToListView(ListView lv)
+        {
+            if (lv.Items.Count == 0)
+            {
+                Keyboard.Focus(lv);
+            }
+            else
+            {
+                var destIndex = lv.SelectedIndex < 0 ? 0 : lv.SelectedIndex;
+                lv.SelectedIndex = destIndex;
+                var item = lv.ItemContainerGenerator.ContainerFromIndex(destIndex) as ListViewItem;
+                Keyboard.Focus(item);
+            }
+        }
+
+        public void SwitchFileListView()
+        {
+            (LeftFileListViewModel, RightFileListViewModel) = (RightFileListViewModel, LeftFileListViewModel);
+            LeftFileListViewModel.IsFocused = false;
+            RightFileListViewModel.IsFocused = false;
+
+            RaisePropertyChanged(nameof(LeftFileListViewModel));
+            RaisePropertyChanged(nameof(RightFileListViewModel));
+        }
+
+        public void SyncToAnother()
+        {
+            var currentLv = GetFocusingListView();
+            GetAnotherListViewModel(currentLv).CurrentDirectory = currentLv.CurrentDirectory;
+        }
+
+        public void SyncFromAnother()
+        {
+            var currentLv = GetFocusingListView();
+            currentLv.CurrentDirectory = GetAnotherListViewModel(currentLv).CurrentDirectory;
+        }
 
         /// <summary>
         /// 現在フォーカスのあるファイルリストビューのビューモデルを返します。

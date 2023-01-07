@@ -41,6 +41,7 @@ namespace Filer.ViewModels
         private DelegateCommand<ListView> markAndDownCommand;
         private DelegateCommand<TextBox> focusCommandTextBoxCommand;
         private DelegateCommand searchFileCommand;
+        private DelegateCommand<object> toggleTextInputCommand;
 
         private ExtendFileInfo selectedItem;
 
@@ -66,6 +67,8 @@ namespace Filer.ViewModels
         public double ListViewItemLineHeight { get => listViewItemLineHeight; private set => SetProperty(ref listViewItemLineHeight, value); }
 
         public int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
+
+        public bool TextInputting { get; private set; }
 
         public Logger Logger { private get; set; }
 
@@ -276,6 +279,12 @@ namespace Filer.ViewModels
                         ExecuteCounter = 0;
                     }
                 }
+            }));
+
+        public DelegateCommand<object> ToggleTextInputCommand =>
+            toggleTextInputCommand ?? (toggleTextInputCommand = new DelegateCommand<object>(b =>
+            {
+                TextInputting = (bool)b; // パラメーターは Nullable しか受け付けないので　object で受け取る
             }));
 
         public DelegateCommand<TextBox> FocusCommandTextBoxCommand =>
