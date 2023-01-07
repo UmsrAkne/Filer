@@ -74,6 +74,8 @@ namespace Filer.ViewModels
 
         public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
 
+        public bool TextInputting => GetFocusingListView().TextInputting;
+
         public Logger Logger { get; } = new Logger();
 
         //// DelegateCommand *******************************************************
