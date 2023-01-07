@@ -32,29 +32,29 @@ namespace Filer.Models
 
             if (e.Key == Key.H)
             {
-                vm.FocusToListViewCommand.Execute(window.leftListView.ListView);
+                vm.FocusToListView(window.leftListView.ListView);
             }
 
             if (e.Key == Key.L)
             {
-                vm.FocusToListViewCommand.Execute(window.rightListView.ListView);
+                vm.FocusToListView(window.rightListView.ListView);
             }
 
             if (e.Key == Key.S)
             {
                 if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0)
                 {
-                    vm.SyncFromAnotherCommand.Execute();
+                    vm.SyncFromAnother();
                 }
                 else
                 {
-                    vm.SyncToAnotherCommand.Execute();
+                    vm.SyncToAnother();
                 }
             }
 
             if (e.Key == Key.X)
             {
-                vm.SwitchFileListVmCommand.Execute();
+                vm.SwitchFileListView();
             }
         }
     }
