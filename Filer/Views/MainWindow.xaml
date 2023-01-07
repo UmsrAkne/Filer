@@ -6,6 +6,7 @@
     xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:local="clr-namespace:Filer.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Filer.Models"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:viewModels="clr-namespace:Filer.ViewModels"
     Name="window"
@@ -22,6 +23,12 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
+    <i:Interaction.Behaviors>
+        <!--  KeyDownBehavior の中でキーボード系の処理を行う  -->
+        <!--  InputBindings でキー入力を捌くと、UserListView のキー入力と衝突するため不可  -->
+        <models:KeyDownBehavior />
+    </i:Interaction.Behaviors>
+
     <Window.Resources>
 
         <ResourceDictionary>
@@ -34,28 +41,6 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
-
-    <Window.InputBindings>
-        <KeyBinding
-            Key="H"
-            Command="{Binding FocusToListViewCommand}"
-            CommandParameter="{Binding ElementName=leftListView, Path=ListView}" />
-
-        <KeyBinding
-            Key="L"
-            Command="{Binding FocusToListViewCommand}"
-            CommandParameter="{Binding ElementName=rightListView, Path=ListView}" />
-
-        <KeyBinding Key="S" Command="{Binding SyncToAnotherCommand}" />
-
-        <KeyBinding
-            Key="S"
-            Command="{Binding SyncFromAnotherCommand}"
-            Modifiers="Shift" />
-
-        <KeyBinding Key="X" Command="{Binding SwitchFileListVmCommand}" />
-
-    </Window.InputBindings>
 
     <Grid>
         <Grid.RowDefinitions>
