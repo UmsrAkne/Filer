@@ -32,12 +32,12 @@ namespace Filer.Models
 
             if (e.Key == Key.H)
             {
-                vm.FocusToListView(window.leftListView.ListView);
+                vm.FocusToListView(window.LeftListView.ListView);
             }
 
             if (e.Key == Key.L)
             {
-                vm.FocusToListView(window.rightListView.ListView);
+                vm.FocusToListView(window.RightListView.ListView);
             }
 
             if (e.Key == Key.S)

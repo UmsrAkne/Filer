@@ -15,7 +15,7 @@
     Height="768"
     d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
-    FocusManager.FocusedElement="{Binding ElementName=leftListView}"
+    FocusManager.FocusedElement="{Binding ElementName=LeftListView}"
     mc:Ignorable="d">
 
     <i:Interaction.Triggers>
@@ -70,13 +70,13 @@
         </Menu>
 
         <local:UserListView
-            x:Name="leftListView"
+            x:Name="LeftListView"
             Grid.Row="2"
             Grid.Column="0"
             DataContext="{Binding LeftFileListViewModel}" />
 
         <local:UserListView
-            x:Name="rightListView"
+            x:Name="RightListView"
             Grid.Row="2"
             Grid.Column="1"
             DataContext="{Binding RightFileListViewModel}" />
