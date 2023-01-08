@@ -33,10 +33,6 @@
     <Window.Resources>
 
         <ResourceDictionary>
-
-            <SolidColorBrush x:Key="bgColorBrush" Color="#333333" />
-            <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/ListViewTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -86,8 +82,8 @@
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Height="150"
-            Background="{StaticResource bgColorBrush}"
-            Foreground="{StaticResource fgColorBrush}"
+            Background="{StaticResource BgColorBrush}"
+            Foreground="{StaticResource FgColorBrush}"
             Text="{Binding Logger.Log}" />
 
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
