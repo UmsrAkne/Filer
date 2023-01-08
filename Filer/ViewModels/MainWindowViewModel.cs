@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,6 +22,7 @@ namespace Filer.ViewModels
 
         //// DelegateCommand *******************************************************
 
+        private DelegateCommand openSettingFileCommand;
         private DelegateCommand showFavoritesCommand;
 
         public MainWindowViewModel(IDialogService dialogService)
@@ -87,6 +89,17 @@ namespace Filer.ViewModels
                         vm.CurrentDirectory = result.Parameters.GetValue<DirectoryInfo>(nameof(FileSystemInfo));
                     }
                 });
+            }));
+
+        public DelegateCommand OpenSettingFileCommand =>
+            openSettingFileCommand ?? (openSettingFileCommand = new DelegateCommand(() =>
+            {
+                if (!File.Exists(ApplicationSetting.AppSettingFileName))
+                {
+                    File.Create(ApplicationSetting.AppSettingFileName);
+                }
+
+                Process.Start(ApplicationSetting.AppSettingFileName);
             }));
 
         public DelegateCommand CloseCommand => new DelegateCommand(() =>

@@ -64,6 +64,8 @@
             <MenuItem Header="Window (_W)">
                 <MenuItem Command="{Binding ShowFavoritesCommand}" Header="Favorites (_F)" />
             </MenuItem>
+
+            <MenuItem Command="{Binding OpenSettingFileCommand}" Header="Setting (_S)" />
         </Menu>
 
         <local:UserListView
