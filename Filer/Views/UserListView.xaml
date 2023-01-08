@@ -219,6 +219,7 @@
 
             <TextBox.InputBindings>
                 <KeyBinding Key="Return" Command="{Binding SearchFileCommand}" />
+                <KeyBinding Key="Escape" Command="{Binding ClearInputNumberCommand}" />
             </TextBox.InputBindings>
 
             <i:Interaction.Triggers>

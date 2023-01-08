@@ -317,7 +317,11 @@ namespace Filer.ViewModels
             }
         });
 
-        public DelegateCommand ClearInputNumberCommand => new DelegateCommand(() => { ExecuteCounter = 0; });
+        public DelegateCommand ClearInputNumberCommand => new DelegateCommand(() =>
+        {
+            FocusToListViewItem();
+            ExecuteCounter = 0;
+        });
 
         private void FocusToListViewItem()
         {
