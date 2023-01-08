@@ -15,6 +15,7 @@
     Height="768"
     d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    FocusManager.FocusedElement="{Binding ElementName=leftListView}"
     mc:Ignorable="d">
 
     <i:Interaction.Triggers>
