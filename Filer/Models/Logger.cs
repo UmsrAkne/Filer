@@ -30,6 +30,11 @@ namespace Filer.Models
             LogToTop($"ディレクトリへのアクセスに失敗 ({current.FullName})");
         }
 
+        public void FileNotFound(string fileName)
+        {
+            LogToTop($"\"{fileName}\" は見つかりませんでした");
+        }
+
         private void LogToTop(string msg)
         {
             Log = $"{msg}\n{Log}";

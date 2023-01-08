@@ -66,8 +66,6 @@ namespace Filer.ViewModels
 
         public double ListViewItemLineHeight { get => listViewItemLineHeight; private set => SetProperty(ref listViewItemLineHeight, value); }
 
-        public int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
-
         public bool TextInputting { get; private set; }
 
         public Logger Logger { private get; set; }
@@ -157,7 +155,7 @@ namespace Filer.ViewModels
                 if (targets.Count != 0)
                 {
                     var param = new DialogParameters { { "OpenFileCount", targets.Count() } };
-                    dialogService.ShowDialog(nameof(OpenWithAppPage), param, (IDialogResult dialogResult) =>
+                    dialogService.ShowDialog(nameof(OpenWithAppPage), param, dialogResult =>
                     {
                         if (dialogResult.Parameters.ContainsKey(nameof(FileInfo)))
                         {
@@ -245,7 +243,7 @@ namespace Filer.ViewModels
             createCommand ?? (createCommand = new DelegateCommand(() =>
             {
                 var dialogParam = new DialogParameters { { nameof(FileSystemInfo), new DirectoryInfo(CurrentDirectory.FullName) } };
-                dialogService.ShowDialog(nameof(SelectionDialog), dialogParam, (IDialogResult dialogResult) => { });
+                dialogService.ShowDialog(nameof(SelectionDialog), dialogParam, dialogResult => { });
                 CurrentDirectory = new DirectoryInfo(CurrentDirectory.FullName);
             }));
 
@@ -306,6 +304,10 @@ namespace Filer.ViewModels
                     SelectedIndex = matched.Index - 1;
                     FocusToListViewItem();
                 }
+                else
+                {
+                    Logger.FileNotFound(CommandText);
+                }
             }));
 
         public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>
@@ -317,7 +319,13 @@ namespace Filer.ViewModels
             }
         });
 
-        public DelegateCommand ClearInputNumberCommand => new DelegateCommand(() => { ExecuteCounter = 0; });
+        public DelegateCommand ClearInputNumberCommand => new DelegateCommand(() =>
+        {
+            FocusToListViewItem();
+            ExecuteCounter = 0;
+        });
+
+        private int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
 
         private void FocusToListViewItem()
         {
@@ -345,9 +353,11 @@ namespace Filer.ViewModels
 
             lv.ScrollIntoView(lv.Items[lv.SelectedIndex]);
 
-            var item = lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) as ListViewItem;
-            item.Focus();
-            Keyboard.Focus(item);
+            if (lv.ItemContainerGenerator.ContainerFromIndex(lv.SelectedIndex) is ListViewItem item)
+            {
+                item.Focus();
+                Keyboard.Focus(item);
+            }
         }
 
         private ObservableCollection<ExtendFileInfo> GetFileList(string path, OwnerListViewLocation destLocation)
