@@ -15,6 +15,7 @@
     Height="768"
     d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
+    FocusManager.FocusedElement="{Binding ElementName=LeftListView}"
     mc:Ignorable="d">
 
     <i:Interaction.Triggers>
@@ -32,10 +33,6 @@
     <Window.Resources>
 
         <ResourceDictionary>
-
-            <SolidColorBrush x:Key="bgColorBrush" Color="#333333" />
-            <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/ListViewTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -69,13 +66,13 @@
         </Menu>
 
         <local:UserListView
-            x:Name="leftListView"
+            x:Name="LeftListView"
             Grid.Row="2"
             Grid.Column="0"
             DataContext="{Binding LeftFileListViewModel}" />
 
         <local:UserListView
-            x:Name="rightListView"
+            x:Name="RightListView"
             Grid.Row="2"
             Grid.Column="1"
             DataContext="{Binding RightFileListViewModel}" />
@@ -85,8 +82,8 @@
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Height="150"
-            Background="{StaticResource bgColorBrush}"
-            Foreground="{StaticResource fgColorBrush}"
+            Background="{StaticResource BgColorBrush}"
+            Foreground="{StaticResource FgColorBrush}"
             Text="{Binding Logger.Log}" />
 
         <ContentControl prism:RegionManager.RegionName="ContentRegion" />
