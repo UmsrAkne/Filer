@@ -306,6 +306,10 @@ namespace Filer.ViewModels
                     SelectedIndex = matched.Index - 1;
                     FocusToListViewItem();
                 }
+                else
+                {
+                    Logger.FileNotFound(CommandText);
+                }
             }));
 
         public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>
