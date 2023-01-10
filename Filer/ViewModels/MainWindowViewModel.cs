@@ -131,7 +131,7 @@ namespace Filer.ViewModels
 
                 try
                 {
-                    f.FileSystemInfo.Delete();
+                    f.Delete();
                 }
                 catch (IOException e)
                 {
