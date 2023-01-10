@@ -118,11 +118,9 @@ namespace Filer.ViewModels
         public void DeleteFile()
         {
             var currentLv = GetFocusingListView();
-            var targets = currentLv.FileList.Count(f => f.Marked) != 0
-                ? currentLv.FileList.Where(f => f.Marked).ToList()
-                : new List<ExtendFileInfo>() { currentLv.SelectedItem };
+            var targets = currentLv.FileList.Where(f => f.Marked).ToList();
 
-            if (!targets.All(f => f.FileSystemInfo.Exists))
+            if (!targets.Any() || !targets.All(f => f.FileSystemInfo.Exists))
             {
                 return;
             }
