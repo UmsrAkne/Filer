@@ -129,6 +129,8 @@ namespace Filer.ViewModels
 
             foreach (var f in targets)
             {
+                var deleteSuccess = true;
+
                 try
                 {
                     f.FileSystemInfo.Delete();
@@ -136,6 +138,12 @@ namespace Filer.ViewModels
                 catch (IOException e)
                 {
                     Logger.FailDelete(f.FileSystemInfo);
+                    deleteSuccess = false;
+                }
+
+                if (deleteSuccess)
+                {
+                    Logger.FileDeleted(f.FileSystemInfo);
                 }
             }
 
