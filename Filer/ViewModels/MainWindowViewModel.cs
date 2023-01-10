@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filer.Models;
@@ -113,6 +114,33 @@ namespace Filer.ViewModels
 
             ApplicationSetting.WriteApplicationSetting(setting);
         });
+
+        public void DeleteFile()
+        {
+            var currentLv = GetFocusingListView();
+            var targets = currentLv.FileList.Count(f => f.Marked) != 0
+                ? currentLv.FileList.Where(f => f.Marked).ToList()
+                : new List<ExtendFileInfo>() { currentLv.SelectedItem };
+
+            if (!targets.All(f => f.FileSystemInfo.Exists))
+            {
+                return;
+            }
+
+            foreach (var f in targets)
+            {
+                try
+                {
+                    f.FileSystemInfo.Delete();
+                }
+                catch (IOException e)
+                {
+                    Logger.FailDelete(f.FileSystemInfo);
+                }
+            }
+
+            currentLv.CurrentDirectory = currentLv.CurrentDirectory;
+        }
 
         public void FocusToListView(ListView lv)
         {

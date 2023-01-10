@@ -30,6 +30,8 @@ namespace Filer.Models
                 return;
             }
 
+            //// ここからビューの操作に関するメソッド群
+
             if (e.Key == Key.H)
             {
                 vm.FocusToListView(window.LeftListView.ListView);
@@ -55,6 +57,13 @@ namespace Filer.Models
             if (e.Key == Key.X)
             {
                 vm.SwitchFileListView();
+            }
+
+            //// ここからファイル操作に関するメソッドの呼び出し
+
+            if (e.Key == Key.D && (Keyboard.Modifiers & ModifierKeys.Control) != 0)
+            {
+                vm.DeleteFile();
             }
         }
     }
