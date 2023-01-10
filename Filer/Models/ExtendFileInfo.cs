@@ -62,6 +62,18 @@
             }
         }
 
+        public void Move(string sourcePath, string destinationPath)
+        {
+            if (IsDirectory)
+            {
+                Directory.Move(sourcePath, destinationPath);
+            }
+            else
+            {
+                File.Move(sourcePath, destinationPath);
+            }
+        }
+
         private void CopyDirectory(string sourceDir, string destinationDir)
         {
             // Get information about the source directory

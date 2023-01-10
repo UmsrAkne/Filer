@@ -183,6 +183,41 @@ namespace Filer.ViewModels
             anotherLv.CurrentDirectory = anotherLv.CurrentDirectory;
         }
 
+        public void MoveFile()
+        {
+            var currentLv = GetFocusingListView();
+            var anotherLv = GetAnotherListViewModel(currentLv);
+            var targets = currentLv.FileList.Where(f => f.Marked).ToList();
+
+            if (!targets.Any() || !targets.All(f => f.FileSystemInfo.Exists))
+            {
+                return;
+            }
+
+            foreach (var f in targets)
+            {
+                var moveSuccess = true;
+
+                try
+                {
+                    f.Move(f.FileSystemInfo.FullName, $@"{anotherLv.CurrentDirectory.FullName}\{f.FileSystemInfo.Name}");
+                }
+                catch (IOException e)
+                {
+                    Logger.FailMove(f.FileSystemInfo);
+                    moveSuccess = false;
+                }
+
+                if (moveSuccess)
+                {
+                    Logger.FileMoved(f.FileSystemInfo);
+                }
+            }
+
+            currentLv.CurrentDirectory = currentLv.CurrentDirectory;
+            anotherLv.CurrentDirectory = anotherLv.CurrentDirectory;
+        }
+
         public void FocusToListView(ListView lv)
         {
             if (lv.Items.Count == 0)

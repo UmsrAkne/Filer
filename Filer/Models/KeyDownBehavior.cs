@@ -70,6 +70,11 @@ namespace Filer.Models
             {
                 vm.CopyFile();
             }
+
+            if (e.Key == Key.M && (Keyboard.Modifiers & ModifierKeys.Control) != 0)
+            {
+                vm.MoveFile();
+            }
         }
     }
 }

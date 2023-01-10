@@ -50,6 +50,16 @@ namespace Filer.Models
             LogToTop($"ファイルをコピーしました ({current.FullName})");
         }
 
+        public void FileMoved(FileSystemInfo current)
+        {
+            LogToTop($"ファイルを移動しました　({current.FullName})");
+        }
+
+        public void FailMove(FileSystemInfo current)
+        {
+            LogToTop($"ファイルの移動に失敗しました ({current.FullName})");
+        }
+
         public void FileNotFound(string fileName)
         {
             LogToTop($"\"{fileName}\" は見つかりませんでした");
