@@ -338,6 +338,11 @@ namespace Filer.ViewModels
 
         private void MoveCursor(ListView lv, int amount)
         {
+            if (!FileList.Any())
+            {
+                return;
+            }
+
             if (lv.SelectedIndex + amount < 0)
             {
                 lv.SelectedIndex = 0;
