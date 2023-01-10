@@ -59,7 +59,7 @@ namespace Filer.ViewModels
                 }
                 else
                 {
-                    File.Create(fileName);
+                    File.Create(fileName).Close();
                 }
 
                 RequestClose?.Invoke(new DialogResult());

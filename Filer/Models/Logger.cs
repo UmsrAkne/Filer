@@ -30,6 +30,16 @@ namespace Filer.Models
             LogToTop($"ディレクトリへのアクセスに失敗 ({current.FullName})");
         }
 
+        public void FailDelete(FileSystemInfo current)
+        {
+            LogToTop($"ファイルの削除に失敗 ({current.FullName})");
+        }
+
+        public void FileDeleted(FileSystemInfo current)
+        {
+            LogToTop($"ファイルを削除しました　({current.FullName})");
+        }
+
         public void FileNotFound(string fileName)
         {
             LogToTop($"\"{fileName}\" は見つかりませんでした");

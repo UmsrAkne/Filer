@@ -37,5 +37,17 @@
         public bool Marked { get => marked; set => SetProperty(ref marked, value); }
 
         public OwnerListViewLocation OwnerListViewLocation { get; set; }
+
+        public void Delete()
+        {
+            if (IsDirectory)
+            {
+                (FileSystemInfo as DirectoryInfo)?.Delete(true);
+            }
+            else
+            {
+                FileSystemInfo.Delete();
+            }
+        }
     }
 }
