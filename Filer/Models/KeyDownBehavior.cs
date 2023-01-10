@@ -65,6 +65,16 @@ namespace Filer.Models
             {
                 vm.DeleteFile();
             }
+
+            if (e.Key == Key.C && (Keyboard.Modifiers & ModifierKeys.Control) != 0)
+            {
+                vm.CopyFile();
+            }
+
+            if (e.Key == Key.M && (Keyboard.Modifiers & ModifierKeys.Control) != 0)
+            {
+                vm.MoveFile();
+            }
         }
     }
 }

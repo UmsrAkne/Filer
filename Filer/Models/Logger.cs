@@ -35,9 +35,29 @@ namespace Filer.Models
             LogToTop($"ファイルの削除に失敗 ({current.FullName})");
         }
 
+        public void FailCopy(FileSystemInfo current)
+        {
+            LogToTop($"ファイルのコピーに失敗 ({current.FullName})");
+        }
+
         public void FileDeleted(FileSystemInfo current)
         {
             LogToTop($"ファイルを削除しました　({current.FullName})");
+        }
+
+        public void FileCopied(FileSystemInfo current)
+        {
+            LogToTop($"ファイルをコピーしました ({current.FullName})");
+        }
+
+        public void FileMoved(FileSystemInfo current)
+        {
+            LogToTop($"ファイルを移動しました　({current.FullName})");
+        }
+
+        public void FailMove(FileSystemInfo current)
+        {
+            LogToTop($"ファイルの移動に失敗しました ({current.FullName})");
         }
 
         public void FileNotFound(string fileName)
