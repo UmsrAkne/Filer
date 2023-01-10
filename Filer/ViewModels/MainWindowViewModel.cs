@@ -148,6 +148,41 @@ namespace Filer.ViewModels
             currentLv.CurrentDirectory = currentLv.CurrentDirectory;
         }
 
+        public void CopyFile()
+        {
+            var currentLv = GetFocusingListView();
+            var anotherLv = GetAnotherListViewModel(currentLv);
+            var targets = currentLv.FileList.Where(f => f.Marked).ToList();
+
+            if (!targets.Any() || !targets.All(f => f.FileSystemInfo.Exists))
+            {
+                return;
+            }
+
+            foreach (var f in targets)
+            {
+                var copySuccess = true;
+
+                try
+                {
+                    f.Copy(f.FileSystemInfo.FullName, $@"{anotherLv.CurrentDirectory.FullName}\{f.FileSystemInfo.Name}");
+                }
+                catch (IOException e)
+                {
+                    Logger.FailCopy(f.FileSystemInfo);
+                    copySuccess = false;
+                }
+
+                if (copySuccess)
+                {
+                    Logger.FileCopied(f.FileSystemInfo);
+                }
+            }
+
+            currentLv.CurrentDirectory = currentLv.CurrentDirectory;
+            anotherLv.CurrentDirectory = anotherLv.CurrentDirectory;
+        }
+
         public void FocusToListView(ListView lv)
         {
             if (lv.Items.Count == 0)
