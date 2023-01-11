@@ -58,6 +58,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\FocusSetBehavior.cs" />
+    <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\KeyboardBehavior.cs" />
     <Compile Include="Models\KeyDownBehavior.cs" />
     <Compile Include="Models\Logger.cs" />
