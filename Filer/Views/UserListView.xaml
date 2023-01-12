@@ -44,6 +44,7 @@
                 Background="{StaticResource BgColorBrush}"
                 BorderThickness="1,1,0,0"
                 ItemsSource="{Binding Folders}"
+                SelectedIndex="{Binding SelectedFolderIndex}"
                 SelectedItem="{Binding SelectedFolder}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -182,6 +183,18 @@
                     Key="T"
                     Command="{Binding AddTabCommand}"
                     Modifiers="Control" />
+
+                <KeyBinding
+                    Key="Tab"
+                    Command="{Binding ChangeTabCommand}"
+                    CommandParameter="1"
+                    Modifiers="Control" />
+
+                <KeyBinding
+                    Key="Tab"
+                    Command="{Binding ChangeTabCommand}"
+                    CommandParameter="-1"
+                    Modifiers="Control+Shift" />
 
                 <KeyBinding
                     Key="D1"

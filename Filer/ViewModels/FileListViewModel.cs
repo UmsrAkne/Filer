@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -39,11 +38,13 @@ namespace Filer.ViewModels
         private DelegateCommand<TextBox> focusCommandTextBoxCommand;
         private DelegateCommand searchFileCommand;
         private DelegateCommand addTabCommand;
+        private DelegateCommand<object> changeTabCommand;
         private DelegateCommand<object> toggleTextInputCommand;
 
         private ExtendFileInfo selectedItem;
         private ObservableCollection<Folder> folders;
         private Folder selectedFolder;
+        private int selectedFolderIndex;
 
         public FileListViewModel(IDialogService dialogService, OwnerListViewLocation location, Logger lg)
         {
@@ -327,6 +328,34 @@ namespace Filer.ViewModels
 
                 Folders.Add(folder);
             }));
+
+        public DelegateCommand<object> ChangeTabCommand =>
+            changeTabCommand ?? (changeTabCommand = new DelegateCommand<object>((amount) =>
+            {
+                if (SelectedFolderIndex < 0 || Folders.Count <= 1)
+                {
+                    return;
+                }
+
+                var count = int.Parse((string)amount);
+
+                if (SelectedFolderIndex + count < 0)
+                {
+                    SelectedFolderIndex = Folders.Count - 1;
+                }
+                else if (SelectedFolderIndex + count >= Folders.Count)
+                {
+                    SelectedFolderIndex = 0;
+                }
+                else
+                {
+                    SelectedFolderIndex += count;
+                }
+
+                FocusToListViewItem();
+            }));
+
+        public int SelectedFolderIndex { get => selectedFolderIndex; set => SetProperty(ref selectedFolderIndex, value); }
 
         private int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
 
