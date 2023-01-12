@@ -53,7 +53,19 @@
                             BorderBrush="{StaticResource FgColorBrush}"
                             BorderThickness="1,1,1,0"
                             CornerRadius="3">
-                            <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding Name}" />
+
+                            <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding Name}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Selected}" Value="true">
+                                                <Setter Property="Background" Value="RoyalBlue" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
                         </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
