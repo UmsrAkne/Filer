@@ -38,6 +38,7 @@ namespace Filer.ViewModels
         private DelegateCommand<ListView> markAndDownCommand;
         private DelegateCommand<TextBox> focusCommandTextBoxCommand;
         private DelegateCommand searchFileCommand;
+        private DelegateCommand addTabCommand;
         private DelegateCommand<object> toggleTextInputCommand;
 
         private ExtendFileInfo selectedItem;
@@ -313,6 +314,19 @@ namespace Filer.ViewModels
             FocusToListViewItem();
             ExecuteCounter = 0;
         });
+
+        public DelegateCommand AddTabCommand =>
+            addTabCommand ?? (addTabCommand = new DelegateCommand(() =>
+            {
+                var folder = new Folder()
+                {
+                    Logger = Logger,
+                    OwnerListViewLocation = OwnerListViewLocation,
+                    CurrentDirectory = SelectedFolder.CurrentDirectory,
+                };
+
+                Folders.Add(folder);
+            }));
 
         private int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
 
