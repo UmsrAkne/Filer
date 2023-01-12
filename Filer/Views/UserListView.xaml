@@ -39,7 +39,58 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0" />
+        <StackPanel Grid.Row="0">
+            <ListBox
+                Background="{StaticResource BgColorBrush}"
+                BorderThickness="1,1,0,0"
+                ItemsSource="{Binding Folders}"
+                SelectedIndex="{Binding SelectedFolderIndex}"
+                SelectedItem="{Binding SelectedFolder}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Padding="3,0"
+                            BorderBrush="{StaticResource FgColorBrush}"
+                            BorderThickness="1,1,1,0"
+                            CornerRadius="3">
+
+                            <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding Name}">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Selected}" Value="true">
+                                                <Setter Property="Background" Value="RoyalBlue" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+
+            <TextBox
+                Background="{StaticResource bgColorBrush}"
+                BorderBrush="Black"
+                Foreground="{StaticResource fgColorBrush}"
+                Text="{Binding SelectedFolder.FullName, UpdateSourceTrigger=PropertyChanged}">
+
+                <TextBox.InputBindings>
+
+                    <KeyBinding Key="Return" Command="{Binding OpenPathCommand}" />
+
+                </TextBox.InputBindings>
+            </TextBox>
+
+        </StackPanel>
 
         <ListView
             x:Name="listView"
@@ -50,7 +101,7 @@
             Background="{StaticResource bgColorBrush}"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
-            ItemsSource="{Binding FileList}"
+            ItemsSource="{Binding SelectedFolder.Files}"
             SelectedIndex="{Binding SelectedIndex}"
             SelectedItem="{Binding SelectedItem}">
 
@@ -141,6 +192,23 @@
                 <KeyBinding Key="N" Command="{Binding SearchFileCommand}" />
 
                 <KeyBinding
+                    Key="T"
+                    Command="{Binding AddTabCommand}"
+                    Modifiers="Control" />
+
+                <KeyBinding
+                    Key="Tab"
+                    Command="{Binding ChangeTabCommand}"
+                    CommandParameter="1"
+                    Modifiers="Control" />
+
+                <KeyBinding
+                    Key="Tab"
+                    Command="{Binding ChangeTabCommand}"
+                    CommandParameter="-1"
+                    Modifiers="Control+Shift" />
+
+                <KeyBinding
                     Key="D1"
                     Command="{Binding NumberInputCommand}"
                     CommandParameter="1" />
@@ -195,20 +263,6 @@
             </ListView.InputBindings>
 
         </ListView>
-
-        <TextBox
-            Grid.Row="0"
-            Background="{StaticResource bgColorBrush}"
-            BorderBrush="Black"
-            Foreground="{StaticResource fgColorBrush}"
-            Text="{Binding PathBarText, UpdateSourceTrigger=PropertyChanged}">
-
-            <TextBox.InputBindings>
-
-                <KeyBinding Key="Return" Command="{Binding OpenPathCommand}" />
-
-            </TextBox.InputBindings>
-        </TextBox>
 
         <TextBox
             x:Name="CommandTextBox"

@@ -50,17 +50,13 @@ namespace Filer.ViewModels
                 }
             }
 
-            LeftFileListViewModel = new FileListViewModel(dialogService)
+            LeftFileListViewModel = new FileListViewModel(dialogService, OwnerListViewLocation.Left, Logger)
             {
-                OwnerListViewLocation = OwnerListViewLocation.Left,
-                Logger = Logger,
                 CurrentDirectory = new DirectoryInfo(leftWindowPath),
             };
 
-            RightFileListViewModel = new FileListViewModel(dialogService)
+            RightFileListViewModel = new FileListViewModel(dialogService, OwnerListViewLocation.Right, Logger)
             {
-                OwnerListViewLocation = OwnerListViewLocation.Right,
-                Logger = Logger,
                 CurrentDirectory = new DirectoryInfo(rightWindowPath),
             };
         }

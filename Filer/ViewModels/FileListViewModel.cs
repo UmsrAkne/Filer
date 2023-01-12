@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -19,11 +18,8 @@ namespace Filer.ViewModels
     {
         private readonly IDialogService dialogService;
         private bool isFocused;
-        private string pathBarText;
         private string commandText;
         private int selectedIndex;
-        private ObservableCollection<ExtendFileInfo> fileList;
-        private DirectoryInfo currentDirectory;
         private double listViewItemLineHeight = 15.0;
         private int executeCounter;
         private DelegateCommand<string> openPathCommand;
@@ -41,13 +37,24 @@ namespace Filer.ViewModels
         private DelegateCommand<ListView> markAndDownCommand;
         private DelegateCommand<TextBox> focusCommandTextBoxCommand;
         private DelegateCommand searchFileCommand;
+        private DelegateCommand addTabCommand;
+        private DelegateCommand<object> changeTabCommand;
         private DelegateCommand<object> toggleTextInputCommand;
 
         private ExtendFileInfo selectedItem;
+        private ObservableCollection<Folder> folders;
+        private Folder selectedFolder;
+        private int selectedFolderIndex;
 
-        public FileListViewModel(IDialogService dialogService)
+        public FileListViewModel(IDialogService dialogService, OwnerListViewLocation location, Logger lg)
         {
             this.dialogService = dialogService;
+            Logger = lg;
+            OwnerListViewLocation = location;
+
+            var defaultFolder = new Folder() { Logger = Logger, OwnerListViewLocation = location };
+            Folders = new ObservableCollection<Folder>() { defaultFolder };
+            SelectedFolder = defaultFolder;
         }
 
         public OwnerListViewLocation OwnerListViewLocation { get; set; }
@@ -56,13 +63,28 @@ namespace Filer.ViewModels
 
         public bool IsFocused { get => isFocused; set => SetProperty(ref isFocused, value); }
 
-        public string PathBarText { get => pathBarText; set => SetProperty(ref pathBarText, value); }
-
         public string CommandText { get => commandText; set => SetProperty(ref commandText, value); }
 
         public int SelectedIndex { get => selectedIndex; set => SetProperty(ref selectedIndex, value); }
 
-        public ObservableCollection<ExtendFileInfo> FileList { get => fileList; private set => SetProperty(ref fileList, value); }
+        public ObservableCollection<ExtendFileInfo> FileList => SelectedFolder.Files;
+
+        public ObservableCollection<Folder> Folders { get => folders; set => SetProperty(ref folders, value); }
+
+        public Folder SelectedFolder
+        {
+            get => selectedFolder;
+            set
+            {
+                if (selectedFolder != null)
+                {
+                    selectedFolder.Selected = false;
+                }
+
+                value.Selected = true;
+                SetProperty(ref selectedFolder, value);
+            }
+        }
 
         public double ListViewItemLineHeight { get => listViewItemLineHeight; private set => SetProperty(ref listViewItemLineHeight, value); }
 
@@ -74,45 +96,14 @@ namespace Filer.ViewModels
 
         public DirectoryInfo CurrentDirectory
         {
-            get => currentDirectory;
-            set
-            {
-                try
-                {
-                    value.GetDirectories();
-                }
-                catch (UnauthorizedAccessException e)
-                {
-                    Logger.FailAccess(value);
-                    return;
-                }
-
-                var oldDirectory = currentDirectory;
-                currentDirectory = value;
-
-                FileList = GetFileList(value.FullName, OwnerListViewLocation);
-                PathBarText = value.FullName;
-
-                if (oldDirectory == null)
-                {
-                    return;
-                }
-
-                if (oldDirectory.FullName != value.FullName)
-                {
-                    Logger.ChangeCurrentDirectoryLog(oldDirectory, value);
-                }
-                else
-                {
-                    Logger.ReloadDirectory(oldDirectory, OwnerListViewLocation);
-                }
-            }
+            get => SelectedFolder.CurrentDirectory;
+            set => SelectedFolder.CurrentDirectory = value;
         }
 
         public DelegateCommand<string> OpenPathCommand =>
             openPathCommand ?? (openPathCommand = new DelegateCommand<string>((locationString) =>
             {
-                CurrentDirectory = new DirectoryInfo(PathBarText);
+                CurrentDirectory = new DirectoryInfo(SelectedFolder.FullName);
             }));
 
         public DelegateCommand<ListView> OpenFileCommand =>
@@ -325,6 +316,47 @@ namespace Filer.ViewModels
             ExecuteCounter = 0;
         });
 
+        public DelegateCommand AddTabCommand =>
+            addTabCommand ?? (addTabCommand = new DelegateCommand(() =>
+            {
+                var folder = new Folder()
+                {
+                    Logger = Logger,
+                    OwnerListViewLocation = OwnerListViewLocation,
+                    CurrentDirectory = SelectedFolder.CurrentDirectory,
+                };
+
+                Folders.Add(folder);
+            }));
+
+        public DelegateCommand<object> ChangeTabCommand =>
+            changeTabCommand ?? (changeTabCommand = new DelegateCommand<object>((amount) =>
+            {
+                if (SelectedFolderIndex < 0 || Folders.Count <= 1)
+                {
+                    return;
+                }
+
+                var count = int.Parse((string)amount);
+
+                if (SelectedFolderIndex + count < 0)
+                {
+                    SelectedFolderIndex = Folders.Count - 1;
+                }
+                else if (SelectedFolderIndex + count >= Folders.Count)
+                {
+                    SelectedFolderIndex = 0;
+                }
+                else
+                {
+                    SelectedFolderIndex += count;
+                }
+
+                FocusToListViewItem();
+            }));
+
+        public int SelectedFolderIndex { get => selectedFolderIndex; set => SetProperty(ref selectedFolderIndex, value); }
+
         private int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
 
         private void FocusToListViewItem()
@@ -363,20 +395,6 @@ namespace Filer.ViewModels
                 item.Focus();
                 Keyboard.Focus(item);
             }
-        }
-
-        private ObservableCollection<ExtendFileInfo> GetFileList(string path, OwnerListViewLocation destLocation)
-        {
-            var defaultDirectoryInfo = new DirectoryInfo(path);
-            var directories = defaultDirectoryInfo.GetDirectories().Select(d => new ExtendFileInfo(d.FullName));
-            var files = defaultDirectoryInfo.GetFiles().Select(f => new ExtendFileInfo(f.FullName));
-
-            var bothList = directories.Concat(files).ToList();
-
-            bothList.ToList().ForEach(f => f.OwnerListViewLocation = destLocation);
-            Enumerable.Range(0, bothList.Count).ToList().ForEach(n => bothList[n].Index = n + 1);
-
-            return new ObservableCollection<ExtendFileInfo>(bothList);
         }
     }
 }
