@@ -40,7 +40,29 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <ListBox ItemsSource="{Binding Folders}" />
+            <ListBox
+                Background="{StaticResource BgColorBrush}"
+                BorderThickness="1,1,0,0"
+                ItemsSource="{Binding Folders}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            Padding="3,0"
+                            BorderBrush="{StaticResource FgColorBrush}"
+                            BorderThickness="1,1,1,0"
+                            CornerRadius="3">
+                            <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding Name}" />
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <StackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+
             <TextBox
                 Background="{StaticResource bgColorBrush}"
                 BorderBrush="Black"

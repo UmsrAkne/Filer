@@ -11,6 +11,7 @@ namespace Filer.Models
         private DirectoryInfo currentDirectory;
         private ObservableCollection<ExtendFileInfo> files;
         private string fullName = string.Empty;
+        private string name = string.Empty;
 
         public ObservableCollection<ExtendFileInfo> Files
         {
@@ -39,6 +40,7 @@ namespace Filer.Models
                 currentDirectory = value;
 
                 Files = GetFileList(value.FullName);
+                Name = value.Name;
                 FullName = value.FullName;
 
                 if (oldDirectory == null)
@@ -57,7 +59,7 @@ namespace Filer.Models
             }
         }
 
-        public string Name { get; set; } = string.Empty;
+        public string Name { get => name; set => SetProperty(ref name, value); }
 
         public string FullName { get => fullName; set => SetProperty(ref fullName, value); }
 
