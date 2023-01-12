@@ -43,7 +43,8 @@
             <ListBox
                 Background="{StaticResource BgColorBrush}"
                 BorderThickness="1,1,0,0"
-                ItemsSource="{Binding Folders}">
+                ItemsSource="{Binding Folders}"
+                SelectedItem="{Binding SelectedFolder}">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border

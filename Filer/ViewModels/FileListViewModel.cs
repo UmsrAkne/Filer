@@ -69,7 +69,20 @@ namespace Filer.ViewModels
 
         public ObservableCollection<Folder> Folders { get => folders; set => SetProperty(ref folders, value); }
 
-        public Folder SelectedFolder { get => selectedFolder; set => SetProperty(ref selectedFolder, value); }
+        public Folder SelectedFolder
+        {
+            get => selectedFolder;
+            set
+            {
+                if (selectedFolder != null)
+                {
+                    selectedFolder.Selected = false;
+                }
+
+                value.Selected = true;
+                SetProperty(ref selectedFolder, value);
+            }
+        }
 
         public double ListViewItemLineHeight { get => listViewItemLineHeight; private set => SetProperty(ref listViewItemLineHeight, value); }
 

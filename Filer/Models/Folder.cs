@@ -12,6 +12,7 @@ namespace Filer.Models
         private ObservableCollection<ExtendFileInfo> files;
         private string fullName = string.Empty;
         private string name = string.Empty;
+        private bool selected;
 
         public ObservableCollection<ExtendFileInfo> Files
         {
@@ -62,6 +63,8 @@ namespace Filer.Models
         public string Name { get => name; set => SetProperty(ref name, value); }
 
         public string FullName { get => fullName; set => SetProperty(ref fullName, value); }
+
+        public bool Selected { get => selected; set => SetProperty(ref selected, value); }
 
         public OwnerListViewLocation OwnerListViewLocation { private get; set; }
 
