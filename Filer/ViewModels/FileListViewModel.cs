@@ -18,7 +18,7 @@ namespace Filer.ViewModels
     {
         private readonly IDialogService dialogService;
         private bool isFocused;
-        private string commandText;
+        private string commandText = string.Empty;
         private int selectedIndex;
         private double listViewItemLineHeight = 15.0;
         private int executeCounter;
