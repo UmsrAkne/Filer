@@ -251,6 +251,17 @@ namespace Filer.ViewModels
             currentLv.CurrentDirectory = GetAnotherListViewModel(currentLv).CurrentDirectory;
         }
 
+        public void OpenFolderToAnotherListView()
+        {
+            var currentLv = GetFocusingListView();
+            var dir = currentLv.SelectedItem;
+
+            if (dir != null && dir.IsDirectory)
+            {
+                GetAnotherListViewModel(currentLv).CurrentDirectory = new DirectoryInfo(dir.FileSystemInfo.FullName);
+            }
+        }
+
         /// <summary>
         /// 現在フォーカスのあるファイルリストビューのビューモデルを返します。
         /// どっちにもフォーカスがない場合は、今のところ左側のファイルリストビューモデルを返します

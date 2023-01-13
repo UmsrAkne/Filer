@@ -59,6 +59,11 @@ namespace Filer.Models
                 vm.SwitchFileListView();
             }
 
+            if (e.Key == Key.Return && (Keyboard.Modifiers & ModifierKeys.Shift) != 0)
+            {
+                vm.OpenFolderToAnotherListView();
+            }
+
             //// ここからファイル操作に関するメソッドの呼び出し
 
             if (e.Key == Key.D && (Keyboard.Modifiers & ModifierKeys.Control) != 0)
