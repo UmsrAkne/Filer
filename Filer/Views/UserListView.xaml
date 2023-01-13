@@ -189,6 +189,13 @@
                     Command="{Binding FocusCommandTextBoxCommand}"
                     CommandParameter="{Binding ElementName=CommandTextBox}" />
 
+                <!--  question とあるが実際は slash を入力しようとした時に発動する  -->
+                <!--  Divide というキーも定義されているが、こちらはテンキーのスラッシュにのみ反応する  -->
+                <KeyBinding
+                    Key="OemQuestion"
+                    Command="{Binding StartPartialMatchSearchCommand}"
+                    CommandParameter="{Binding ElementName=CommandTextBox}" />
+
                 <KeyBinding Key="N" Command="{Binding SearchFileCommand}" />
 
                 <KeyBinding

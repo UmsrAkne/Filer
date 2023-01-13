@@ -36,6 +36,7 @@ namespace Filer.ViewModels
         private DelegateCommand markCommand;
         private DelegateCommand<ListView> markAndDownCommand;
         private DelegateCommand<TextBox> focusCommandTextBoxCommand;
+        private DelegateCommand<TextBox> startPartialMatchSearchCommand;
         private DelegateCommand searchFileCommand;
         private DelegateCommand addTabCommand;
         private DelegateCommand<object> changeTabCommand;
@@ -282,6 +283,13 @@ namespace Filer.ViewModels
                 t.Focus();
                 t.Text = "^.*";
                 t.SelectionStart = 1;
+            }));
+
+        public DelegateCommand<TextBox> StartPartialMatchSearchCommand =>
+            startPartialMatchSearchCommand ?? (startPartialMatchSearchCommand = new DelegateCommand<TextBox>(t =>
+            {
+                t.Focus();
+                t.Text = string.Empty;
             }));
 
         public DelegateCommand SearchFileCommand =>
