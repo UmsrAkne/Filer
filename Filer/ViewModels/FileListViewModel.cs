@@ -39,6 +39,7 @@ namespace Filer.ViewModels
         private DelegateCommand<TextBox> startPartialMatchSearchCommand;
         private DelegateCommand searchFileCommand;
         private DelegateCommand addTabCommand;
+        private DelegateCommand closeTabCommand;
         private DelegateCommand<object> changeTabCommand;
         private DelegateCommand<object> toggleTextInputCommand;
 
@@ -82,7 +83,11 @@ namespace Filer.ViewModels
                     selectedFolder.Selected = false;
                 }
 
-                value.Selected = true;
+                if (value != null)
+                {
+                    value.Selected = true;
+                }
+
                 SetProperty(ref selectedFolder, value);
             }
         }
@@ -361,6 +366,22 @@ namespace Filer.ViewModels
                 }
 
                 FocusToListViewItem();
+            }));
+
+        public DelegateCommand CloseTabCommand =>
+            closeTabCommand ?? (closeTabCommand = new DelegateCommand(() =>
+            {
+                if (Folders.Count < 2)
+                {
+                    return; // タブを一つしか開いていない状態では発動不要
+                }
+
+                var currentIndex = SelectedFolderIndex;
+                Folders.Remove(SelectedFolder);
+
+                var newIndex = currentIndex == Folders.Count ? currentIndex - 1 : currentIndex;
+                SelectedFolderIndex = newIndex;
+                SelectedFolder = Folders[newIndex];
             }));
 
         public int SelectedFolderIndex { get => selectedFolderIndex; set => SetProperty(ref selectedFolderIndex, value); }

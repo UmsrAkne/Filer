@@ -216,6 +216,11 @@
                     Modifiers="Control+Shift" />
 
                 <KeyBinding
+                    Key="W"
+                    Command="{Binding CloseTabCommand}"
+                    Modifiers="Control" />
+
+                <KeyBinding
                     Key="D1"
                     Command="{Binding NumberInputCommand}"
                     CommandParameter="1" />
