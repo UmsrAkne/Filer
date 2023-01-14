@@ -390,6 +390,22 @@ namespace Filer.ViewModels
 
         private void FocusToListViewItem()
         {
+            if (ListView == null)
+            {
+                return;
+            }
+
+            if (FileList.Count == 0)
+            {
+                // このブロックに入った場合は ListViewItem にフォーカスすることはできない
+                // 代わりに ListView 自体にフォーカスする
+                ListView.Focus();
+                Keyboard.Focus(ListView);
+                return;
+            }
+
+            SelectedIndex = SelectedIndex == -1 ? 0 : SelectedIndex;
+
             if (ListView?.ItemContainerGenerator.ContainerFromIndex(ListView.SelectedIndex) is ListViewItem item)
             {
                 item.Focus();
