@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\FileContainer.cs" />
     <Compile Include="Models\FocusSetBehavior.cs" />
     <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\KeyboardBehavior.cs" />
