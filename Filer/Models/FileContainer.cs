@@ -53,5 +53,22 @@ namespace Filer.Models
                 SelectedIndex += count;
             }
         }
+
+        public void UpCursor(int count)
+        {
+            if (!CanMoveCursor)
+            {
+                return;
+            }
+
+            if (SelectedIndex - count < 0)
+            {
+                SelectedIndex = 0;
+            }
+            else
+            {
+                SelectedIndex -= count;
+            }
+        }
     }
 }

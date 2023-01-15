@@ -31,5 +31,30 @@ namespace Tests.Models
             fileContainer.DownCursor(4);
             Assert.AreEqual(1, fileContainer.SelectedIndex, "過剰な数を投入しても問題ないか？");
         }
+
+        [Test]
+        public void UpCursorTest()
+        {
+            var fileContainer = new FileContainer
+            {
+                Files = new ObservableCollection<ExtendFileInfo>()
+                {
+                    new ExtendFileInfo("a"),
+                    new ExtendFileInfo("b"),
+                }
+            };
+
+            fileContainer.SelectedIndex = 1;
+
+            fileContainer.UpCursor(1);
+            Assert.AreEqual(0, fileContainer.SelectedIndex, "index-1 = 0 ");
+
+            fileContainer.UpCursor(1);
+            Assert.AreEqual(0, fileContainer.SelectedIndex, "既に先頭なのでインデックスは減らない");
+
+            fileContainer.SelectedIndex = 1;
+            fileContainer.UpCursor(4);
+            Assert.AreEqual(0, fileContainer.SelectedIndex, "過剰な数を投入しても問題ないか？");
+        }
     }
 }
