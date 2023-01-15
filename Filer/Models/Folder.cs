@@ -9,15 +9,14 @@ namespace Filer.Models
     public class Folder : BindableBase
     {
         private DirectoryInfo currentDirectory;
-        private ObservableCollection<ExtendFileInfo> files;
         private string fullName = string.Empty;
         private string name = string.Empty;
         private bool selected;
 
         public ObservableCollection<ExtendFileInfo> Files
         {
-            get => files;
-            set => SetProperty(ref files, value);
+            get => FileContainer.Files;
+            private set => FileContainer.Files = value;
         }
 
         public DirectoryInfo CurrentDirectory
@@ -69,6 +68,8 @@ namespace Filer.Models
         public OwnerListViewLocation OwnerListViewLocation { private get; set; }
 
         public Logger Logger { private get; set; }
+
+        public FileContainer FileContainer { get; set; } = new FileContainer();
 
         private ObservableCollection<ExtendFileInfo> GetFileList(string path)
         {
