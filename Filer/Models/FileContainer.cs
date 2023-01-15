@@ -70,5 +70,25 @@ namespace Filer.Models
                 SelectedIndex -= count;
             }
         }
+
+        public void JumpToHead()
+        {
+            if (!CanMoveCursor)
+            {
+                return;
+            }
+
+            SelectedIndex = 0;
+        }
+
+        public void JumpToLast()
+        {
+            if (!CanMoveCursor)
+            {
+                return;
+            }
+
+            SelectedIndex = Files.Count - 1;
+        }
     }
 }

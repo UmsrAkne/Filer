@@ -56,5 +56,42 @@ namespace Tests.Models
             fileContainer.UpCursor(4);
             Assert.AreEqual(0, fileContainer.SelectedIndex, "過剰な数を投入しても問題ないか？");
         }
+
+        [Test]
+        public void JumpToLastTest()
+        {
+            var fileContainer = new FileContainer
+            {
+                Files = new ObservableCollection<ExtendFileInfo>()
+                {
+                    new ExtendFileInfo("a"),
+                    new ExtendFileInfo("b"),
+                    new ExtendFileInfo("c"),
+                }
+            };
+
+            Assert.AreEqual(0, fileContainer.SelectedIndex);
+
+            fileContainer.JumpToLast();
+            Assert.AreEqual(2, fileContainer.SelectedIndex);
+        }
+
+        [Test]
+        public void JumpToHeadTest()
+        {
+            var fileContainer = new FileContainer
+            {
+                Files = new ObservableCollection<ExtendFileInfo>()
+                {
+                    new ExtendFileInfo("a"),
+                    new ExtendFileInfo("b"),
+                    new ExtendFileInfo("c"),
+                },
+                SelectedIndex = 2
+            };
+
+            fileContainer.JumpToHead();
+            Assert.AreEqual(0, fileContainer.SelectedIndex);
+        }
     }
 }
