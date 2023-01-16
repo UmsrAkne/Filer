@@ -252,6 +252,17 @@ namespace Filer.ViewModels
         public DelegateCommand MarkCommand =>
             markCommand ?? (markCommand = new DelegateCommand(() =>
             {
+                if (SelectedFolder.FileContainer.SelectionMode)
+                {
+                    foreach (var f in FileList.Where(f => f.IsSelectionModeSelected))
+                    {
+                        f.Marked = !f.Marked;
+                    }
+
+                    SelectedFolder.FileContainer.SelectionMode = false;
+                    return;
+                }
+
                 if (SelectedItem != null)
                 {
                     SelectedItem.Marked = !SelectedItem.Marked;
