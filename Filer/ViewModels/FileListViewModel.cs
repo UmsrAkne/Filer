@@ -42,6 +42,7 @@ namespace Filer.ViewModels
         private DelegateCommand closeTabCommand;
         private DelegateCommand<object> changeTabCommand;
         private DelegateCommand<object> toggleTextInputCommand;
+        private DelegateCommand selectionModeCommand;
 
         private ExtendFileInfo selectedItem;
         private ObservableCollection<Folder> folders;
@@ -331,6 +332,7 @@ namespace Filer.ViewModels
         {
             FocusToListViewItem();
             ExecuteCounter = 0;
+            SelectedFolder.FileContainer.SelectionMode = false;
         });
 
         public DelegateCommand AddTabCommand =>
@@ -386,6 +388,12 @@ namespace Filer.ViewModels
                 var newIndex = currentIndex == Folders.Count ? currentIndex - 1 : currentIndex;
                 SelectedFolderIndex = newIndex;
                 SelectedFolder = Folders[newIndex];
+            }));
+
+        public DelegateCommand SelectionModeCommand =>
+            selectionModeCommand ?? (selectionModeCommand = new DelegateCommand(() =>
+            {
+                SelectedFolder.FileContainer.SelectionMode = true;
             }));
 
         public int SelectedFolderIndex { get => selectedFolderIndex; set => SetProperty(ref selectedFolderIndex, value); }
