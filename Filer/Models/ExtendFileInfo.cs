@@ -8,6 +8,7 @@
         private bool isSelected;
         private int index;
         private bool marked;
+        private bool isSelectionModeSelected;
 
         public ExtendFileInfo(string path)
         {
@@ -29,6 +30,12 @@
         public bool IsDirectory { get; }
 
         public string Extension => IsDirectory ? "DIR" : FileSystemInfo.Extension;
+
+        public bool IsSelectionModeSelected
+        {
+            get => isSelectionModeSelected;
+            set => SetProperty(ref isSelectionModeSelected, value);
+        }
 
         public bool IsSelected { get => isSelected; set => SetProperty(ref isSelected, value); }
 
