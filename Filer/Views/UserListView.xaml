@@ -102,8 +102,8 @@
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding SelectedFolder.Files}"
-            SelectedIndex="{Binding SelectedIndex}"
-            SelectedItem="{Binding SelectedItem}">
+            SelectedIndex="{Binding SelectedFolder.FileContainer.SelectedIndex}"
+            SelectedItem="{Binding SelectedFolder.FileContainer.SelectedItem}">
 
             <i:Interaction.Behaviors>
                 <models:ScrollBehavior />

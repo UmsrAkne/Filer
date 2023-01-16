@@ -171,32 +171,38 @@ namespace Filer.ViewModels
             {
                 var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
                 ExecuteCounter = 0;
-                MoveCursor(lv, amount);
+                SelectedFolder.FileContainer.DownCursor(amount);
+                FocusToListViewItem();
             }));
 
         public DelegateCommand<ListView> CursorUpCommand =>
             cursorUpCommand ?? (cursorUpCommand = new DelegateCommand<ListView>((lv) =>
             {
-                var amount = ExecuteCounter != 0 ? ExecuteCounter * -1 : -1;
+                var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
                 ExecuteCounter = 0;
-                MoveCursor(lv, amount);
+                SelectedFolder.FileContainer.UpCursor(amount);
+                FocusToListViewItem();
             }));
 
         public DelegateCommand<ListView> JumpToLastCommand =>
             jumpToLastCommand ?? (jumpToLastCommand = new DelegateCommand<ListView>((lv) =>
             {
-                var currentIndex = lv.SelectedIndex == -1 ? 0 : lv.SelectedIndex;
-                MoveCursor(lv, FileList.Count() + 1);
+                SelectedFolder.FileContainer.JumpToLast();
+                FocusToListViewItem();
 
                 // 最後の行までジャンプした直後に ListViewItem が範囲選択されるので、選択状態をリセットしている。
                 var item = lv.SelectedItem;
+                var currentIndex = lv.SelectedIndex == -1 ? 0 : lv.SelectedIndex;
                 FileList.Skip(currentIndex).ToList().ForEach(f => f.IsSelected = false);
-                SelectedItem = item as ExtendFileInfo;
+                SelectedFolder.FileContainer.SelectedItem = item as ExtendFileInfo;
             }));
 
         public DelegateCommand JumpToFirstCommand =>
             jumpToFirstCommand ?? (jumpToFirstCommand = new DelegateCommand(() =>
             {
+                SelectedFolder.FileContainer.JumpToHead();
+                FocusToListViewItem();
+
                 if (SelectedIndex != -1)
                 {
                     SelectedIndex = 0;
@@ -219,10 +225,9 @@ namespace Filer.ViewModels
             {
                 var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
                 ExecuteCounter = 0;
-                for (var i = 0; i < amount; i++)
-                {
-                    MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)) * -1);
-                }
+                var itemCountPerPage = (int)(lv.ActualHeight / (ListViewItemLineHeight + 8));
+                SelectedFolder.FileContainer.UpCursor(amount * itemCountPerPage);
+                FocusToListViewItem();
             }));
 
         public DelegateCommand<ListView> PageDownCommand =>
@@ -230,10 +235,9 @@ namespace Filer.ViewModels
             {
                 var amount = ExecuteCounter != 0 ? ExecuteCounter : 1;
                 ExecuteCounter = 0;
-                for (var i = 0; i < amount; i++)
-                {
-                    MoveCursor(lv, (int)(lv.ActualHeight / (ListViewItemLineHeight + 8)));
-                }
+                var itemCountPerPage = (int)(lv.ActualHeight / (ListViewItemLineHeight + 8));
+                SelectedFolder.FileContainer.DownCursor(amount * itemCountPerPage);
+                FocusToListViewItem();
             }));
 
         public DelegateCommand CreateCommand =>
