@@ -19,7 +19,8 @@
                 <i:EventTrigger EventName="MouseDoubleClick" />
             </i:Interaction.Triggers>
 
-            <Border>
+            <Border Padding="3,0" BorderThickness="3,0,0,0">
+
                 <Border.Style>
                     <Style TargetType="Border">
                         <Style.Triggers>
@@ -31,6 +32,11 @@
 
                                 <Setter Property="Background" Value="DarkViolet" />
                             </MultiDataTrigger>
+
+                            <DataTrigger Binding="{Binding IsSelectionModeSelected}" Value="True">
+                                <Setter Property="BorderBrush" Value="Violet" />
+                            </DataTrigger>
+
                         </Style.Triggers>
                     </Style>
                 </Border.Style>

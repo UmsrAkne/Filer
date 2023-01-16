@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Linq;
 using Filer.Models;
 using NUnit.Framework;
 
@@ -92,6 +93,78 @@ namespace Tests.Models
 
             fileContainer.JumpToHead();
             Assert.AreEqual(0, fileContainer.SelectedIndex);
+        }
+
+        [Test]
+        public void SelectionMode_下移動()
+        {
+            var fileContainer = new FileContainer
+            {
+                Files = new ObservableCollection<ExtendFileInfo>()
+                {
+                    new ExtendFileInfo("a"), new ExtendFileInfo("b"), new ExtendFileInfo("c"), new ExtendFileInfo("d"),
+                },
+            };
+
+            fileContainer.SelectionMode = true;
+            fileContainer.DownCursor(1);
+            fileContainer.DownCursor(1);
+
+            Assert.IsTrue(fileContainer.Files[0].IsSelectionModeSelected);
+            Assert.IsTrue(fileContainer.Files[1].IsSelectionModeSelected);
+            Assert.IsTrue(fileContainer.Files[2].IsSelectionModeSelected);
+            Assert.IsFalse(fileContainer.Files[3].IsSelectionModeSelected);
+        }
+
+        [Test]
+        public void SelectionMode_上移動()
+        {
+            var fileContainer = new FileContainer
+            {
+                Files = new ObservableCollection<ExtendFileInfo>()
+                {
+                    new ExtendFileInfo("a"), new ExtendFileInfo("b"), new ExtendFileInfo("c"), new ExtendFileInfo("d"),
+                },
+                SelectedIndex = 2,
+            };
+
+            fileContainer.SelectionMode = true;
+            fileContainer.UpCursor(1); // -> 1
+            fileContainer.UpCursor(1); // -> 0
+
+            Assert.IsTrue(fileContainer.Files[0].IsSelectionModeSelected);
+            Assert.IsTrue(fileContainer.Files[1].IsSelectionModeSelected);
+            Assert.IsTrue(fileContainer.Files[2].IsSelectionModeSelected);
+            Assert.IsFalse(fileContainer.Files[3].IsSelectionModeSelected);
+        }
+
+        [Test]
+        public void SelectionModeのキャンセル()
+        {
+            var fileContainer = new FileContainer
+            {
+                Files = new ObservableCollection<ExtendFileInfo>()
+                {
+                    new ExtendFileInfo("a"), new ExtendFileInfo("b"), new ExtendFileInfo("c"), new ExtendFileInfo("d"),
+                },
+                SelectedIndex = 2,
+            };
+
+            fileContainer.SelectionMode = true;
+            fileContainer.UpCursor(1); // -> 1
+            fileContainer.UpCursor(1); // -> 0
+
+            // ４ファイル中３ファイルを選択中
+            Assert.IsTrue(fileContainer.Files[0].IsSelectionModeSelected);
+            Assert.IsTrue(fileContainer.Files[1].IsSelectionModeSelected);
+            Assert.IsTrue(fileContainer.Files[2].IsSelectionModeSelected);
+            Assert.IsFalse(fileContainer.Files[3].IsSelectionModeSelected);
+
+            fileContainer.SelectionMode = false; // SelectionMode キャンセル
+
+            var selectedFlags = fileContainer.Files.Select(f => f.IsSelectionModeSelected).ToList();
+            Assert.AreEqual(4, selectedFlags.Count);
+            CollectionAssert.DoesNotContain(selectedFlags, true, "選択モード解除後なので true は含まれていないはず");
         }
     }
 }
