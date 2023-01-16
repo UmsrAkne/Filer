@@ -57,6 +57,14 @@ namespace Filer.Models
                     Files[SelectedIndex].IsSelectionModeSelected = true;
                 }
 
+                if (selectionMode && !value)
+                {
+                    // !value でも SelectionMode でない場合は IsSelectionModeSelected の初期化処理は不要
+                    SelectionStartIndex = -1;
+                    Files.Where(f => f.IsSelectionModeSelected).ToList()
+                        .ForEach(f => f.IsSelectionModeSelected = false);
+                }
+
                 SetProperty(ref selectionMode, value);
             }
         }
