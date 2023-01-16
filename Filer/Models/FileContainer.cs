@@ -1,4 +1,6 @@
+using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Prism.Mvvm;
 
 namespace Filer.Models
@@ -8,6 +10,7 @@ namespace Filer.Models
         private ObservableCollection<ExtendFileInfo> files = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
         private int selectedIndex = -1;
+        private bool selectionMode = false;
 
         public ObservableCollection<ExtendFileInfo> Files
         {
@@ -37,6 +40,29 @@ namespace Filer.Models
 
         public bool CanMoveCursor => Files != null && Files.Count != 0;
 
+        public bool SelectionMode
+        {
+            get => selectionMode;
+            set
+            {
+                if (!CanMoveCursor)
+                {
+                    SetProperty(ref selectionMode, false);
+                    return;
+                }
+
+                if (value)
+                {
+                    SelectionStartIndex = SelectedIndex;
+                    Files[SelectedIndex].IsSelectionModeSelected = true;
+                }
+
+                SetProperty(ref selectionMode, value);
+            }
+        }
+
+        private int SelectionStartIndex { get; set; }
+
         public void DownCursor(int count)
         {
             if (!CanMoveCursor)
@@ -52,6 +78,8 @@ namespace Filer.Models
             {
                 SelectedIndex += count;
             }
+
+            UpdateSelectionRange();
         }
 
         public void UpCursor(int count)
@@ -69,6 +97,8 @@ namespace Filer.Models
             {
                 SelectedIndex -= count;
             }
+
+            UpdateSelectionRange();
         }
 
         public void JumpToHead()
@@ -79,6 +109,8 @@ namespace Filer.Models
             }
 
             SelectedIndex = 0;
+
+            UpdateSelectionRange();
         }
 
         public void JumpToLast()
@@ -89,6 +121,35 @@ namespace Filer.Models
             }
 
             SelectedIndex = Files.Count - 1;
+
+            UpdateSelectionRange();
+        }
+
+        private void UpdateSelectionRange()
+        {
+            if (!SelectionMode)
+            {
+                return;
+            }
+
+            foreach (var f in Files.Where(f => f.IsSelectionModeSelected))
+            {
+                f.IsSelectionModeSelected = false;
+            }
+
+            if (SelectionStartIndex == SelectedIndex)
+            {
+                Files[SelectionStartIndex].IsSelectionModeSelected = true;
+                return;
+            }
+
+            var startIdx = Math.Min(SelectionStartIndex, SelectedIndex);
+            var endIdx = Math.Max(SelectionStartIndex, SelectedIndex);
+
+            foreach (var f in Files.Skip(startIdx).Take(endIdx - startIdx + 1))
+            {
+                f.IsSelectionModeSelected = true;
+            }
         }
     }
 }

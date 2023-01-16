@@ -93,5 +93,48 @@ namespace Tests.Models
             fileContainer.JumpToHead();
             Assert.AreEqual(0, fileContainer.SelectedIndex);
         }
+
+        [Test]
+        public void SelectionMode_下移動()
+        {
+            var fileContainer = new FileContainer
+            {
+                Files = new ObservableCollection<ExtendFileInfo>()
+                {
+                    new ExtendFileInfo("a"), new ExtendFileInfo("b"), new ExtendFileInfo("c"), new ExtendFileInfo("d"),
+                },
+            };
+
+            fileContainer.SelectionMode = true;
+            fileContainer.DownCursor(1);
+            fileContainer.DownCursor(1);
+
+            Assert.IsTrue(fileContainer.Files[0].IsSelectionModeSelected);
+            Assert.IsTrue(fileContainer.Files[1].IsSelectionModeSelected);
+            Assert.IsTrue(fileContainer.Files[2].IsSelectionModeSelected);
+            Assert.IsFalse(fileContainer.Files[3].IsSelectionModeSelected);
+        }
+
+        [Test]
+        public void SelectionMode_上移動()
+        {
+            var fileContainer = new FileContainer
+            {
+                Files = new ObservableCollection<ExtendFileInfo>()
+                {
+                    new ExtendFileInfo("a"), new ExtendFileInfo("b"), new ExtendFileInfo("c"), new ExtendFileInfo("d"),
+                },
+                SelectedIndex = 2,
+            };
+
+            fileContainer.SelectionMode = true;
+            fileContainer.UpCursor(1); // -> 1
+            fileContainer.UpCursor(1); // -> 0
+
+            Assert.IsTrue(fileContainer.Files[0].IsSelectionModeSelected);
+            Assert.IsTrue(fileContainer.Files[1].IsSelectionModeSelected);
+            Assert.IsTrue(fileContainer.Files[2].IsSelectionModeSelected);
+            Assert.IsFalse(fileContainer.Files[3].IsSelectionModeSelected);
+        }
     }
 }
