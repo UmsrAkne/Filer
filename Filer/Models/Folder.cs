@@ -29,8 +29,6 @@ namespace Filer.Models
             get => currentDirectory;
             set
             {
-                currentDirectory = value;
-
                 try
                 {
                     value.GetDirectories();
@@ -52,6 +50,14 @@ namespace Filer.Models
                 if (oldDirectory == null)
                 {
                     return;
+                }
+
+                // 移動先のディレクトリに移動元ディレクトリがあるならば(ディレクトリを一段登った場合等) そのディレクトリを選択する。
+                var oldDirectoryParentPath = oldDirectory.Parent != null ? oldDirectory.Parent.FullName : string.Empty;
+                if (oldDirectoryParentPath == value.FullName)
+                {
+                    FileContainer.SelectedItem =
+                        Files.FirstOrDefault(d => d.FileSystemInfo.FullName == oldDirectory.FullName);
                 }
 
                 if (oldDirectory.FullName != value.FullName)
