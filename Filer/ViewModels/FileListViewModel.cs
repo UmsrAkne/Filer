@@ -60,7 +60,11 @@ namespace Filer.ViewModels
 
         public OwnerListViewLocation OwnerListViewLocation { get; set; }
 
-        public ExtendFileInfo SelectedItem { get => selectedItem; set => SetProperty(ref selectedItem, value); }
+        public ExtendFileInfo SelectedItem
+        {
+            get => SelectedFolder.FileContainer.SelectedItem;
+            set => SelectedFolder.FileContainer.SelectedItem = value;
+        }
 
         public bool IsFocused { get => isFocused; set => SetProperty(ref isFocused, value); }
 
