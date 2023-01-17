@@ -59,7 +59,7 @@ namespace Filer.Models
             }
         }
 
-        public string Name { get => name; set => SetProperty(ref name, value); }
+        public string Name { get => name; private set => SetProperty(ref name, value); }
 
         public string FullName { get => fullName; set => SetProperty(ref fullName, value); }
 

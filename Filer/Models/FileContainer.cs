@@ -10,7 +10,7 @@ namespace Filer.Models
         private ObservableCollection<ExtendFileInfo> files = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
         private int selectedIndex = -1;
-        private bool selectionMode = false;
+        private bool selectionMode;
 
         public ObservableCollection<ExtendFileInfo> Files
         {
@@ -37,8 +37,6 @@ namespace Filer.Models
             get => selectedIndex;
             set => SetProperty(ref selectedIndex, value);
         }
-
-        public bool CanMoveCursor => Files != null && Files.Count != 0;
 
         public bool SelectionMode
         {
@@ -70,6 +68,8 @@ namespace Filer.Models
         }
 
         private int SelectionStartIndex { get; set; }
+
+        private bool CanMoveCursor => Files != null && Files.Count != 0;
 
         public void DownCursor(int count)
         {
