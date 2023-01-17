@@ -10,13 +10,14 @@ using Prism.Services.Dialogs;
 
 namespace Filer.ViewModels
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class SelectionDialogViewModel : BindableBase, IDialogAware
     {
         private DelegateCommand confirmCommand;
         private DelegateCommand cancelCommand;
         private DelegateCommand<TextBox> createDirectoryCommand;
         private DelegateCommand<TextBox> createFileCommand;
-        private int selectedIndex = 0;
+        private int selectedIndex;
         private string inputName = "defaultName";
         private FileSystemInfo fileSystemInfo;
 

@@ -10,7 +10,7 @@ namespace Filer.Models
         private ObservableCollection<ExtendFileInfo> files = new ObservableCollection<ExtendFileInfo>();
         private ExtendFileInfo selectedItem;
         private int selectedIndex = -1;
-        private bool selectionMode = false;
+        private bool selectionMode;
 
         public ObservableCollection<ExtendFileInfo> Files
         {
