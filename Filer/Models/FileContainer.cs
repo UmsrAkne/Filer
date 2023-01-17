@@ -38,8 +38,6 @@ namespace Filer.Models
             set => SetProperty(ref selectedIndex, value);
         }
 
-        public bool CanMoveCursor => Files != null && Files.Count != 0;
-
         public bool SelectionMode
         {
             get => selectionMode;
@@ -70,6 +68,8 @@ namespace Filer.Models
         }
 
         private int SelectionStartIndex { get; set; }
+
+        private bool CanMoveCursor => Files != null && Files.Count != 0;
 
         public void DownCursor(int count)
         {

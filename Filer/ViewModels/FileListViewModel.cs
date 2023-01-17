@@ -19,8 +19,6 @@ namespace Filer.ViewModels
         private readonly IDialogService dialogService;
         private bool isFocused;
         private string commandText = string.Empty;
-        private int selectedIndex;
-        private double listViewItemLineHeight = 15.0;
         private int executeCounter;
         private DelegateCommand<string> openPathCommand;
         private DelegateCommand<ListView> openFileCommand;
@@ -68,11 +66,9 @@ namespace Filer.ViewModels
 
         public string CommandText { get => commandText; set => SetProperty(ref commandText, value); }
 
-        public int SelectedIndex { get => selectedIndex; set => SetProperty(ref selectedIndex, value); }
-
         public ObservableCollection<ExtendFileInfo> FileList => SelectedFolder.Files;
 
-        public ObservableCollection<Folder> Folders { get => folders; set => SetProperty(ref folders, value); }
+        public ObservableCollection<Folder> Folders { get => folders; private set => SetProperty(ref folders, value); }
 
         public Folder SelectedFolder
         {
@@ -93,11 +89,7 @@ namespace Filer.ViewModels
             }
         }
 
-        public double ListViewItemLineHeight { get => listViewItemLineHeight; private set => SetProperty(ref listViewItemLineHeight, value); }
-
         public bool TextInputting { get; private set; }
-
-        public Logger Logger { private get; set; }
 
         public ListView ListView { private get; set; }
 
@@ -410,6 +402,16 @@ namespace Filer.ViewModels
         public int SelectedFolderIndex { get => selectedFolderIndex; set => SetProperty(ref selectedFolderIndex, value); }
 
         private int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
+
+        private double ListViewItemLineHeight => 15.0;
+
+        private Logger Logger { get; }
+
+        private int SelectedIndex
+        {
+            get => SelectedFolder.FileContainer.SelectedIndex;
+            set => SelectedFolder.FileContainer.SelectedIndex = value;
+        }
 
         private void FocusToListViewItem()
         {
