@@ -9,7 +9,7 @@
     xmlns:models="clr-namespace:Filer.Models"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:viewModels="clr-namespace:Filer.ViewModels"
-    Name="window"
+    Name="Window"
     Title="{Binding Title}"
     Width="1024"
     Height="768"
@@ -53,6 +53,11 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
+        <ContentControl
+            Grid.Row="0"
+            Grid.Column="0"
+            prism:RegionManager.RegionName="ContentRegion" />
+
         <Menu
             Grid.Row="0"
             Grid.Column="0"
@@ -85,7 +90,5 @@
             Background="{StaticResource BgColorBrush}"
             Foreground="{StaticResource FgColorBrush}"
             Text="{Binding Logger.Log}" />
-
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
     </Grid>
 </Window>
