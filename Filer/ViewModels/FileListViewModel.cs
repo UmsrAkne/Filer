@@ -42,6 +42,9 @@ namespace Filer.ViewModels
         private DelegateCommand<object> toggleTextInputCommand;
         private DelegateCommand selectionModeCommand;
 
+        private DelegateCommand openBookmarkAdditionPageCommand;
+        private DelegateCommand openBookmarkJumpPageCommand;
+
         private ExtendFileInfo selectedItem;
         private ObservableCollection<Folder> folders;
         private Folder selectedFolder;
@@ -161,6 +164,24 @@ namespace Filer.ViewModels
                         }
                     });
                 }
+            }));
+
+        public DelegateCommand OpenBookmarkAdditionPageCommand =>
+            openBookmarkAdditionPageCommand ?? (openBookmarkAdditionPageCommand = new DelegateCommand(() =>
+            {
+                var param = new DialogParameters
+                    { { nameof(BookmarkPageViewModel.Mode), BookmarkPageViewModel.Mode.AdditionMode } };
+
+                dialogService.ShowDialog(nameof(BookmarkPage), param, result => { });
+            }));
+
+        public DelegateCommand OpenBookmarkJumpPageCommand =>
+            openBookmarkJumpPageCommand ?? (openBookmarkJumpPageCommand = new DelegateCommand(() =>
+            {
+                var param = new DialogParameters
+                    { { nameof(BookmarkPageViewModel.Mode), BookmarkPageViewModel.Mode.JumpMode } };
+
+                dialogService.ShowDialog(nameof(BookmarkPage), param, result => { });
             }));
 
         public DelegateCommand<ListView> CursorDownCommand =>
