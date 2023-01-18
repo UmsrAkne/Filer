@@ -3,7 +3,7 @@ using System.Windows.Input;
 using Filer.ViewModels;
 using Microsoft.Xaml.Behaviors;
 
-namespace Filer.Models
+namespace Filer.Models.Behaviors
 {
     public class KeyboardBehavior : Behavior<ListView>
     {

@@ -57,11 +57,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Behaviors\FocusSetBehavior.cs" />
+    <Compile Include="Models\Behaviors\KeyboardBehavior.cs" />
+    <Compile Include="Models\Behaviors\KeyDownBehavior.cs" />
     <Compile Include="Models\FileContainer.cs" />
-    <Compile Include="Models\FocusSetBehavior.cs" />
     <Compile Include="Models\Folder.cs" />
-    <Compile Include="Models\KeyboardBehavior.cs" />
-    <Compile Include="Models\KeyDownBehavior.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\ScrollBehavior.cs" />
     <Compile Include="Models\SelectionListItem.cs" />

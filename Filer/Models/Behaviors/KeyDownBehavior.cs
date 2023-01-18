@@ -4,7 +4,7 @@ using Filer.ViewModels;
 using Filer.Views;
 using Microsoft.Xaml.Behaviors;
 
-namespace Filer.Models
+namespace Filer.Models.Behaviors
 {
     public class KeyDownBehavior : Behavior<Window>
     {
