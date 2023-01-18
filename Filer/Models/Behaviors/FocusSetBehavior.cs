@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using Filer.ViewModels;
 using Microsoft.Xaml.Behaviors;
 
-namespace Filer.Models
+namespace Filer.Models.Behaviors
 {
     public class FocusSetBehavior : Behavior<UIElement>
     {
