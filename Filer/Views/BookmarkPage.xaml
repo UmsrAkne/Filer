@@ -34,13 +34,24 @@
 
         </DockPanel>
 
-        <ListView Grid.Row="1" Background="{StaticResource BgColorBrush}" />
+        <ListView
+            Grid.Row="1"
+            Background="{StaticResource BgColorBrush}"
+            ItemsSource="{Binding Favorites}" />
 
         <StackPanel
             Grid.Row="2"
             Margin="3"
             HorizontalAlignment="Right"
             Orientation="Horizontal">
+
+            <Button
+                Width="100"
+                Command="{Binding ButtonCommand}"
+                Content="{Binding ButtonText}" />
+
+            <Border Width="0" Margin="10,0" />
+
             <Button Width="100" Content="Close" />
         </StackPanel>
 
