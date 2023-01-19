@@ -187,11 +187,26 @@ namespace Filer.ViewModels
 
                 dialogService.ShowDialog(nameof(BookmarkPage), param, result =>
                 {
-                    if (result.Result == ButtonResult.OK)
+                    if (result.Result != ButtonResult.OK)
                     {
-                        CurrentDirectory =
-                            new DirectoryInfo(result.Parameters.GetValue<Favorite>(nameof(Favorite)).Path);
+                        return;
                     }
+
+                    var exFileInfo = new ExtendFileInfo(result.Parameters.GetValue<Favorite>(nameof(Favorite)).Path);
+                    if (exFileInfo.IsDirectory)
+                    {
+                        CurrentDirectory = new DirectoryInfo(exFileInfo.FileSystemInfo.FullName).Parent;
+                    }
+                    else
+                    {
+                        var fileInfo = (FileInfo)exFileInfo.FileSystemInfo;
+                        if (fileInfo.DirectoryName != null)
+                        {
+                            CurrentDirectory = new DirectoryInfo(fileInfo.DirectoryName);
+                        }
+                    }
+
+                    SelectedItem = FileList.FirstOrDefault(f => f.Name == exFileInfo.Name);
                 });
             }));
 
