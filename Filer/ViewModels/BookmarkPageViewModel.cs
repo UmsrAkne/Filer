@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using Filer.Models;
 using Filer.Models.Settings;
@@ -34,7 +35,22 @@ namespace Filer.ViewModels
             private set => SetProperty(ref buttonText, value);
         }
 
-        public string KeyText { get => keyText; set => SetProperty(ref keyText, value); }
+        public string KeyText
+        {
+            get => keyText;
+            set
+            {
+                if (mode == Mode.JumpMode)
+                {
+                    foreach (var f in Favorites)
+                    {
+                        f.IsMatch = value != string.Empty && f.Key.StartsWith(value);
+                    }
+                }
+
+                SetProperty(ref keyText, value);
+            }
+        }
 
         public ObservableCollection<Favorite> Favorites { get; private set; }
 
@@ -69,13 +85,29 @@ namespace Filer.ViewModels
             }
             else if (mode == Mode.JumpMode)
             {
+                var settings = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+                Favorites = new ObservableCollection<Favorite>(settings.Bookmarks);
+
                 ButtonText = "ブックマークにジャンプ";
                 ListViewVisibility = Visibility.Visible;
-                ButtonCommand = new DelegateCommand(() =>
-                {
-                    // ブックマークにジャンプする処理
-                });
+                ButtonCommand = new DelegateCommand(ReturnResult);
             }
+        }
+
+        private void ReturnResult()
+        {
+            if (Favorites.Count == 0 || string.IsNullOrWhiteSpace(KeyText))
+            {
+                return;
+            }
+
+            var target = Favorites.FirstOrDefault(f => f.IsMatch);
+            var buttonResult = target != null ? ButtonResult.OK : ButtonResult.Cancel;
+
+            RequestClose?.Invoke(new DialogResult(buttonResult, new DialogParameters
+            {
+                { nameof(Favorite), target },
+            }));
         }
 
         private void AddBookmark(ExtendFileInfo file)

@@ -185,7 +185,14 @@ namespace Filer.ViewModels
                 var param = new DialogParameters
                     { { nameof(BookmarkPageViewModel.Mode), BookmarkPageViewModel.Mode.JumpMode } };
 
-                dialogService.ShowDialog(nameof(BookmarkPage), param, result => { });
+                dialogService.ShowDialog(nameof(BookmarkPage), param, result =>
+                {
+                    if (result.Result == ButtonResult.OK)
+                    {
+                        CurrentDirectory =
+                            new DirectoryInfo(result.Parameters.GetValue<Favorite>(nameof(Favorite)).Path);
+                    }
+                });
             }));
 
         public DelegateCommand<ListView> CursorDownCommand =>
