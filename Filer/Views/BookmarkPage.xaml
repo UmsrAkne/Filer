@@ -43,7 +43,46 @@
             MinHeight="100"
             Background="{StaticResource BgColorBrush}"
             ItemsSource="{Binding Favorites}"
-            Visibility="{Binding ListViewVisibility}" />
+            Visibility="{Binding ListViewVisibility}">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsMatch}" Value="True">
+                                        <Setter Property="Background" Value="DarkSlateBlue" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="20" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Foreground="{StaticResource FgColorBrush}"
+                            Text="{Binding Key}" />
+
+                        <Border
+                            Grid.Column="1"
+                            Width="1"
+                            Background="White" />
+
+                        <TextBlock
+                            Grid.Column="2"
+                            Foreground="{StaticResource FgColorBrush}"
+                            Text="{Binding Name}" />
+                    </Grid>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
 
         <StackPanel
             Grid.Row="2"
