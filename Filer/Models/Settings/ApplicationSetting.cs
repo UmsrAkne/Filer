@@ -13,6 +13,8 @@ namespace Filer.Models.Settings
 
         public List<Favorite> Apps { get; set; } = new List<Favorite>();
 
+        public List<Favorite> Bookmarks { get; set; } = new List<Favorite>();
+
         public List<string> LastVisitedDirectories { get; set; } = new List<string>();
 
         public static void WriteApplicationSetting(ApplicationSetting setting)

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
+using Filer.Models;
 using Filer.Models.Settings;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -35,7 +36,7 @@ namespace Filer.ViewModels
 
         public string KeyText { get => keyText; set => SetProperty(ref keyText, value); }
 
-        public ObservableCollection<Favorite> Favorites { get; } = new ObservableCollection<Favorite>();
+        public ObservableCollection<Favorite> Favorites { get; private set; }
 
         public Visibility ListViewVisibility
         {
@@ -59,15 +60,12 @@ namespace Filer.ViewModels
         public void OnDialogOpened(IDialogParameters parameters)
         {
             mode = parameters.GetValue<Mode>(nameof(Mode));
-
             if (mode == Mode.AdditionMode)
             {
                 ButtonText = "ブックマークを追加";
                 ListViewVisibility = Visibility.Collapsed;
                 ButtonCommand = new DelegateCommand(() =>
-                {
-                    // ブックマークを追加する処理
-                });
+                    AddBookmark(parameters.GetValue<ExtendFileInfo>(nameof(ExtendFileInfo))));
             }
             else if (mode == Mode.JumpMode)
             {
@@ -78,6 +76,26 @@ namespace Filer.ViewModels
                     // ブックマークにジャンプする処理
                 });
             }
+        }
+
+        private void AddBookmark(ExtendFileInfo file)
+        {
+            if (file == null || string.IsNullOrWhiteSpace(KeyText))
+            {
+                return;
+            }
+
+            var fav = new Favorite()
+            {
+                Name = file.Name,
+                Path = file.FileSystemInfo.FullName,
+                Key = KeyText,
+            };
+
+            var settings = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+            settings.Bookmarks.Add(fav);
+            ApplicationSetting.WriteApplicationSetting(settings);
+            RequestClose?.Invoke(new DialogResult());
         }
     }
 }

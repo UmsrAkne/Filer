@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filer.Models;
+using Filer.Models.Settings;
 using Filer.Views;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -170,7 +171,10 @@ namespace Filer.ViewModels
             openBookmarkAdditionPageCommand ?? (openBookmarkAdditionPageCommand = new DelegateCommand(() =>
             {
                 var param = new DialogParameters
-                    { { nameof(BookmarkPageViewModel.Mode), BookmarkPageViewModel.Mode.AdditionMode } };
+                {
+                    { nameof(BookmarkPageViewModel.Mode), BookmarkPageViewModel.Mode.AdditionMode },
+                    { nameof(ExtendFileInfo), new ExtendFileInfo(SelectedItem.FileSystemInfo.FullName) },
+                };
 
                 dialogService.ShowDialog(nameof(BookmarkPage), param, result => { });
             }));
