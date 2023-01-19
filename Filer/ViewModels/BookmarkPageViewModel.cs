@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using Filer.Models.Settings;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -12,6 +13,7 @@ namespace Filer.ViewModels
         private string keyText;
         private Mode mode;
         private string buttonText;
+        private Visibility listViewVisibility;
 
         public event Action<IDialogResult> RequestClose;
 
@@ -35,6 +37,12 @@ namespace Filer.ViewModels
 
         public ObservableCollection<Favorite> Favorites { get; } = new ObservableCollection<Favorite>();
 
+        public Visibility ListViewVisibility
+        {
+            get => listViewVisibility;
+            set => SetProperty(ref listViewVisibility, value);
+        }
+
         public DelegateCommand ButtonCommand { get; private set; }
 
         public bool CanCloseDialog() => true;
@@ -51,6 +59,7 @@ namespace Filer.ViewModels
             if (mode == Mode.AdditionMode)
             {
                 ButtonText = "ブックマークを追加";
+                ListViewVisibility = Visibility.Collapsed;
                 ButtonCommand = new DelegateCommand(() =>
                 {
                     // ブックマークを追加する処理
@@ -59,6 +68,7 @@ namespace Filer.ViewModels
             else if (mode == Mode.JumpMode)
             {
                 ButtonText = "ブックマークにジャンプ";
+                ListViewVisibility = Visibility.Visible;
                 ButtonCommand = new DelegateCommand(() =>
                 {
                     // ブックマークにジャンプする処理

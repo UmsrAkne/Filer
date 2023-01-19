@@ -7,7 +7,6 @@
     xmlns:viewModels="clr-namespace:Filer.ViewModels"
     Title="BookmarkPage"
     Width="800"
-    Height="450"
     d:DataContext="{d:DesignInstance viewModels:BookmarkPageViewModel}"
     Background="{StaticResource BgColorBrush}"
     mc:Ignorable="d">
@@ -15,7 +14,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -36,8 +35,10 @@
 
         <ListView
             Grid.Row="1"
+            MinHeight="100"
             Background="{StaticResource BgColorBrush}"
-            ItemsSource="{Binding Favorites}" />
+            ItemsSource="{Binding Favorites}"
+            Visibility="{Binding ListViewVisibility}" />
 
         <StackPanel
             Grid.Row="2"
