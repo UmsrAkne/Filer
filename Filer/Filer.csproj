@@ -67,10 +67,14 @@
     <Compile Include="Models\SelectionListItem.cs" />
     <Compile Include="Models\Settings\ApplicationSetting.cs" />
     <Compile Include="Models\Settings\Favorite.cs" />
+    <Compile Include="ViewModels\BookmarkPageViewModel.cs" />
     <Compile Include="ViewModels\FileListViewModel.cs" />
     <Compile Include="ViewModels\KeyValueListPageViewModel.cs" />
     <Compile Include="ViewModels\OpenWithAppPageViewModel.cs" />
     <Compile Include="ViewModels\SelectionDialogViewModel.cs" />
+    <Compile Include="Views\BookmarkPage.xaml.cs">
+      <DependentUpon>BookmarkPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\KeyValueListPage.xaml.cs">
       <DependentUpon>KeyValueListPage.xaml</DependentUpon>
     </Compile>
@@ -83,6 +87,7 @@
     <Compile Include="Views\UserListView.xaml.cs">
       <DependentUpon>UserListView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\BookmarkPage.xaml" />
     <Page Include="Views\KeyValueListPage.xaml" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

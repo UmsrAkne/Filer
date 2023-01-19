@@ -198,6 +198,13 @@
 
                 <KeyBinding Key="N" Command="{Binding SearchFileCommand}" />
 
+                <KeyBinding Key="M" Command="{Binding OpenBookmarkAdditionPageCommand}" />
+
+                <KeyBinding
+                    Key="OemTilde"
+                    Command="{Binding OpenBookmarkJumpPageCommand}"
+                    Modifiers="Shift" />
+
                 <KeyBinding
                     Key="T"
                     Command="{Binding AddTabCommand}"
