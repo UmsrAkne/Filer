@@ -13,6 +13,11 @@
 
     <Page.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
+        <KeyBinding
+            Key="Return"
+            Command="{Binding ButtonCommand}"
+            Modifiers="Control" />
+
     </Page.InputBindings>
 
     <Grid FocusManager.FocusedElement="{Binding ElementName=KeyInputTextBox}">

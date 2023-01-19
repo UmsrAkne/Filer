@@ -78,7 +78,7 @@ namespace Filer.ViewModels
             mode = parameters.GetValue<Mode>(nameof(Mode));
             if (mode == Mode.AdditionMode)
             {
-                ButtonText = "ブックマークを追加";
+                ButtonText = "ブックマークを追加 (Ctrl + Enter)";
                 ListViewVisibility = Visibility.Collapsed;
                 ButtonCommand = new DelegateCommand(() =>
                     AddBookmark(parameters.GetValue<ExtendFileInfo>(nameof(ExtendFileInfo))));
@@ -88,7 +88,7 @@ namespace Filer.ViewModels
                 var settings = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
                 Favorites = new ObservableCollection<Favorite>(settings.Bookmarks);
 
-                ButtonText = "ブックマークにジャンプ";
+                ButtonText = "ブックマークにジャンプ (Ctrl + Enter)";
                 ListViewVisibility = Visibility.Visible;
                 ButtonCommand = new DelegateCommand(ReturnResult);
             }
