@@ -45,11 +45,15 @@ namespace Filer.ViewModels
 
         public DelegateCommand ButtonCommand { get; private set; }
 
+        public DelegateCommand CancelCommand => new DelegateCommand(() =>
+        {
+            RequestClose?.Invoke(new DialogResult());
+        });
+
         public bool CanCloseDialog() => true;
 
         public void OnDialogClosed()
         {
-            RequestClose?.Invoke(new DialogResult());
         }
 
         public void OnDialogOpened(IDialogParameters parameters)

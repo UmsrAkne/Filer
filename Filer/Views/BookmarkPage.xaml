@@ -11,7 +11,11 @@
     Background="{StaticResource BgColorBrush}"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CancelCommand}" />
+    </Page.InputBindings>
+
+    <Grid FocusManager.FocusedElement="{Binding ElementName=KeyInputTextBox}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -25,6 +29,7 @@
                 Text="Pleas input key =&gt;" />
 
             <TextBox
+                Name="KeyInputTextBox"
                 Height="auto"
                 VerticalAlignment="Top"
                 Background="{StaticResource BgColorBrush}"
@@ -53,7 +58,11 @@
 
             <Border Width="0" Margin="10,0" />
 
-            <Button Width="100" Content="Close" />
+            <Button
+                Width="100"
+                Command="{Binding CancelCommand}"
+                Content="Close (Escape)" />
+
         </StackPanel>
 
     </Grid>
