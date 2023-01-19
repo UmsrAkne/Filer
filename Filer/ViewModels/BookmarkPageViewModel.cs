@@ -10,6 +10,7 @@ using Prism.Services.Dialogs;
 
 namespace Filer.ViewModels
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class BookmarkPageViewModel : BindableBase, IDialogAware
     {
         private string keyText;
