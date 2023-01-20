@@ -455,7 +455,10 @@ namespace Filer.ViewModels
             openSortSettingPageCommand ?? (openSortSettingPageCommand = new DelegateCommand(() =>
             {
                 var param = new DialogParameters { { nameof(SortStatus), SelectedFolder.SortStatus } };
-                dialogService.ShowDialog(nameof(SortSettingPage), param, result => { });
+                dialogService.ShowDialog(nameof(SortSettingPage), param, result =>
+                {
+                    CurrentDirectory = CurrentDirectory;
+                });
             }));
 
         public int SelectedFolderIndex { get => selectedFolderIndex; set => SetProperty(ref selectedFolderIndex, value); }

@@ -4,12 +4,82 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:Filer.Models"
     xmlns:viewModels="clr-namespace:Filer.ViewModels"
     Title="SortSettingPage"
     Width="300"
     d:DataContext="{d:DesignInstance viewModels:SortSettingPageViewModel}"
     Background="{StaticResource BgColorBrush}"
+    FocusManager.FocusedElement="{Binding RelativeSource={RelativeSource Self}}"
+    Focusable="True"
     mc:Ignorable="d">
+
+    <Page.InputBindings>
+        <KeyBinding Key="f" Command="{Binding ConfirmCommand}">
+            <KeyBinding.CommandParameter>
+                <models:SortStatus Key="Name" Reverse="False" />
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+
+        <KeyBinding
+            Key="f"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Shift">
+            <KeyBinding.CommandParameter>
+                <models:SortStatus Key="Name" Reverse="True" />
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+
+        <KeyBinding Key="c" Command="{Binding ConfirmCommand}">
+            <KeyBinding.CommandParameter>
+                <models:SortStatus Key="Created" Reverse="False" />
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+
+        <KeyBinding
+            Key="c"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Shift">
+            <KeyBinding.CommandParameter>
+                <models:SortStatus Key="Created" Reverse="True" />
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+
+        <KeyBinding Key="u" Command="{Binding ConfirmCommand}">
+            <KeyBinding.CommandParameter>
+                <models:SortStatus Key="Updated" Reverse="False" />
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+
+        <KeyBinding
+            Key="u"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Shift">
+            <KeyBinding.CommandParameter>
+                <models:SortStatus Key="Updated" Reverse="True" />
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+
+        <KeyBinding Key="e" Command="{Binding ConfirmCommand}">
+            <KeyBinding.CommandParameter>
+                <models:SortStatus Key="Extension" Reverse="False" />
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+
+        <KeyBinding
+            Key="e"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Shift">
+            <KeyBinding.CommandParameter>
+                <models:SortStatus Key="Extension" Reverse="True" />
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
+
+        <KeyBinding Key="r" Command="{Binding ReverseCommand}" />
+
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+
+    </Page.InputBindings>
 
     <Grid>
         <Grid.Resources>
@@ -30,7 +100,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Foreground="{StaticResource FgColorBrush}" Text="並び替えに使用するキー (キー入力で確定)" />
+            <TextBlock Foreground="{StaticResource FgColorBrush}" Text="並び替えに使用するキー ( 昇順, 降順 )" />
             <Border Height="0" Margin="0,5" />
             <StackPanel Orientation="Horizontal">
                 <StackPanel Width="70">
@@ -52,13 +122,11 @@
         <StackPanel Grid.Row="1">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Width="70">
-                    <TextBlock Text="昇順" />
-                    <TextBlock Text="降順" />
+                    <TextBlock Text="反転" />
                 </StackPanel>
 
                 <StackPanel Width="100">
                     <TextBlock Text="(r)" />
-                    <TextBlock Text="(shift + r)" />
                 </StackPanel>
             </StackPanel>
         </StackPanel>

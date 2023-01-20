@@ -14,7 +14,7 @@ namespace Filer.Models
         private string name = string.Empty;
         private ObservableCollection<ExtendFileInfo> files = new ObservableCollection<ExtendFileInfo>();
         private bool selected;
-        private SortStatus sortStatus;
+        private SortStatus sortStatus = new SortStatus();
 
         public ObservableCollection<ExtendFileInfo> Files
         {
