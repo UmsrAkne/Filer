@@ -1,4 +1,6 @@
-﻿namespace Filer.Models
+﻿using System;
+
+namespace Filer.Models
 {
     using System.IO;
     using Prism.Mvvm;
@@ -30,6 +32,10 @@
         public bool IsDirectory { get; }
 
         public string Extension => IsDirectory ? "DIR" : FileSystemInfo.Extension;
+
+        public DateTime CreationTime => FileSystemInfo.CreationTime;
+
+        public DateTime UpdateTime => FileSystemInfo.LastWriteTime;
 
         public bool IsSelectionModeSelected
         {

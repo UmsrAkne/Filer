@@ -23,6 +23,7 @@ namespace Filer
             containerRegistry.RegisterDialog<KeyValueListPage, KeyValueListPageViewModel>();
             containerRegistry.RegisterDialog<OpenWithAppPage, OpenWithAppPageViewModel>();
             containerRegistry.RegisterDialog<BookmarkPage, BookmarkPageViewModel>();
+            containerRegistry.RegisterDialog<SortSettingPage, SortSettingPageViewModel>();
         }
 
         protected override void OnStartup(StartupEventArgs e)
