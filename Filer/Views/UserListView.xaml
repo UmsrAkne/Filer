@@ -198,6 +198,11 @@
 
                 <KeyBinding Key="N" Command="{Binding SearchFileCommand}" />
 
+                <KeyBinding
+                    Key="S"
+                    Command="{Binding OpenSortSettingPageCommand}"
+                    Modifiers="Control" />
+
                 <KeyBinding Key="M" Command="{Binding OpenBookmarkAdditionPageCommand}" />
 
                 <KeyBinding

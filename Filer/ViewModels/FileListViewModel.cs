@@ -45,6 +45,7 @@ namespace Filer.ViewModels
 
         private DelegateCommand openBookmarkAdditionPageCommand;
         private DelegateCommand openBookmarkJumpPageCommand;
+        private DelegateCommand openSortSettingPageCommand;
 
         private ExtendFileInfo selectedItem;
         private ObservableCollection<Folder> folders;
@@ -448,6 +449,13 @@ namespace Filer.ViewModels
             selectionModeCommand ?? (selectionModeCommand = new DelegateCommand(() =>
             {
                 SelectedFolder.FileContainer.SelectionMode = true;
+            }));
+
+        public DelegateCommand OpenSortSettingPageCommand =>
+            openSortSettingPageCommand ?? (openSortSettingPageCommand = new DelegateCommand(() =>
+            {
+                var param = new DialogParameters { { nameof(SortStatus), SelectedFolder.SortStatus } };
+                dialogService.ShowDialog(nameof(SortSettingPage), param, result => { });
             }));
 
         public int SelectedFolderIndex { get => selectedFolderIndex; set => SetProperty(ref selectedFolderIndex, value); }
