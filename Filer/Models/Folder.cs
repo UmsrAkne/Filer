@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -89,14 +90,52 @@ namespace Filer.Models
         private ObservableCollection<ExtendFileInfo> GetFileList(string path)
         {
             var defaultDirectoryInfo = new DirectoryInfo(path);
+
             var directories = defaultDirectoryInfo.GetDirectories().Select(d => new ExtendFileInfo(d.FullName));
+            directories = Sort(directories);
+
             var fs = defaultDirectoryInfo.GetFiles().Select(f => new ExtendFileInfo(f.FullName));
+            fs = Sort(fs);
 
             var bothList = directories.Concat(fs).ToList();
 
             Enumerable.Range(0, bothList.Count).ToList().ForEach(n => bothList[n].Index = n + 1);
 
             return new ObservableCollection<ExtendFileInfo>(bothList);
+        }
+
+        private IEnumerable<ExtendFileInfo> Sort(IEnumerable<ExtendFileInfo> fileList)
+        {
+            if (SortStatus == null)
+            {
+                return fileList;
+            }
+
+            IEnumerable<ExtendFileInfo> fs;
+            switch (SortStatus.Key)
+            {
+                case SortStatus.SortKey.Name:
+                    fs = fileList.OrderBy(f => f.Name);
+                    break;
+                case SortStatus.SortKey.Updated:
+                    fs = fileList.OrderBy(f => f.UpdateTime);
+                    break;
+                case SortStatus.SortKey.Created:
+                    fs = fileList.OrderBy(f => f.CreationTime);
+                    break;
+                case SortStatus.SortKey.Extension:
+                    fs = fileList.OrderBy(f => f.Extension);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            if (SortStatus.Reverse)
+            {
+                fs = fs.Reverse();
+            }
+
+            return fs;
         }
     }
 }
