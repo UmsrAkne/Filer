@@ -13,6 +13,7 @@ namespace Filer.Models
         private string name = string.Empty;
         private ObservableCollection<ExtendFileInfo> files = new ObservableCollection<ExtendFileInfo>();
         private bool selected;
+        private SortStatus sortStatus;
 
         public ObservableCollection<ExtendFileInfo> Files
         {
@@ -82,6 +83,8 @@ namespace Filer.Models
         public Logger Logger { private get; set; }
 
         public FileContainer FileContainer { get; set; } = new FileContainer();
+
+        public SortStatus SortStatus { get => sortStatus; set => SetProperty(ref sortStatus, value); }
 
         private ObservableCollection<ExtendFileInfo> GetFileList(string path)
         {

@@ -67,6 +67,7 @@
     <Compile Include="Models\SelectionListItem.cs" />
     <Compile Include="Models\Settings\ApplicationSetting.cs" />
     <Compile Include="Models\Settings\Favorite.cs" />
+    <Compile Include="Models\SortStatus.cs" />
     <Compile Include="ViewModels\BookmarkPageViewModel.cs" />
     <Compile Include="ViewModels\FileListViewModel.cs" />
     <Compile Include="ViewModels\KeyValueListPageViewModel.cs" />
