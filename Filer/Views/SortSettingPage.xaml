@@ -13,7 +13,7 @@
 
     <Grid>
         <Grid.Resources>
-            <Style TargetType="RadioButton">
+            <Style TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{StaticResource FgColorBrush}" />
                 <Setter Property="Margin" Value="8,3" />
             </Style>
@@ -30,17 +30,37 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0">
-            <TextBlock Foreground="{StaticResource FgColorBrush}" Text="並び替えに使用するキー (キー入力可)" />
+            <TextBlock Foreground="{StaticResource FgColorBrush}" Text="並び替えに使用するキー (キー入力で確定)" />
             <Border Height="0" Margin="0,5" />
-            <RadioButton Content="ファイル名 ( f, Shift + f )" />
-            <RadioButton Content="作成日時 ( c, Shift + c )" />
-            <RadioButton Content="更新日時 ( u, Shift + u )" />
-            <RadioButton Content="拡張子 ( e, Shift + e )" />
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Width="70">
+                    <TextBlock Text="ファイル名" />
+                    <TextBlock Text="作成日時" />
+                    <TextBlock Text="更新日時" />
+                    <TextBlock Text="拡張子" />
+                </StackPanel>
+
+                <StackPanel Width="100">
+                    <TextBlock Text="( f, Shift + f )" />
+                    <TextBlock Text="( c, Shift + c )" />
+                    <TextBlock Text="( u, Shift + u )" />
+                    <TextBlock Text="( e, Shift + e )" />
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
 
         <StackPanel Grid.Row="1">
-            <RadioButton Content="昇順 (r)" />
-            <RadioButton Content="降順 (shift + r)" />
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Width="70">
+                    <TextBlock Text="昇順" />
+                    <TextBlock Text="降順" />
+                </StackPanel>
+
+                <StackPanel Width="100">
+                    <TextBlock Text="(r)" />
+                    <TextBlock Text="(shift + r)" />
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
 
         <Button
