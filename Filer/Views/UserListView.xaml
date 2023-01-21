@@ -85,9 +85,8 @@
                 Text="{Binding SelectedFolder.FullName, UpdateSourceTrigger=PropertyChanged}">
 
                 <TextBox.InputBindings>
-
                     <KeyBinding Key="Return" Command="{Binding OpenPathCommand}" />
-
+                    <KeyBinding Key="Escape" Command="{Binding ClearInputNumberCommand}" />
                 </TextBox.InputBindings>
 
                 <i:Interaction.Triggers>
