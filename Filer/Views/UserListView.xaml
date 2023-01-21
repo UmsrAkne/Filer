@@ -88,6 +88,25 @@
                     <KeyBinding Key="Return" Command="{Binding OpenPathCommand}" />
 
                 </TextBox.InputBindings>
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="GotFocus">
+                        <i:InvokeCommandAction Command="{Binding ToggleTextInputCommand}">
+                            <i:InvokeCommandAction.CommandParameter>
+                                <system:Boolean>True</system:Boolean>
+                            </i:InvokeCommandAction.CommandParameter>
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+
+                    <i:EventTrigger EventName="LostFocus">
+                        <i:InvokeCommandAction Command="{Binding ToggleTextInputCommand}">
+                            <i:InvokeCommandAction.CommandParameter>
+                                <system:Boolean>False</system:Boolean>
+                            </i:InvokeCommandAction.CommandParameter>
+                        </i:InvokeCommandAction>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
             </TextBox>
 
         </StackPanel>
