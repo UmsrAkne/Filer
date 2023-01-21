@@ -42,6 +42,7 @@ namespace Filer.ViewModels
         private DelegateCommand<object> changeTabCommand;
         private DelegateCommand<object> toggleTextInputCommand;
         private DelegateCommand selectionModeCommand;
+        private DelegateCommand<TextBox> focusToPathBarCommand;
 
         private DelegateCommand openBookmarkAdditionPageCommand;
         private DelegateCommand openBookmarkJumpPageCommand;
@@ -449,6 +450,13 @@ namespace Filer.ViewModels
             selectionModeCommand ?? (selectionModeCommand = new DelegateCommand(() =>
             {
                 SelectedFolder.FileContainer.SelectionMode = true;
+            }));
+
+        public DelegateCommand<TextBox> FocusToPathBarCommand =>
+            focusToPathBarCommand ?? (focusToPathBarCommand = new DelegateCommand<TextBox>((tb) =>
+            {
+                Keyboard.Focus(tb);
+                tb.SelectAll();
             }));
 
         public DelegateCommand OpenSortSettingPageCommand =>
