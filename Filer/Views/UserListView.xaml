@@ -78,15 +78,15 @@
             </ListBox>
 
             <TextBox
+                Name="PathBar"
                 Background="{StaticResource bgColorBrush}"
                 BorderBrush="Black"
                 Foreground="{StaticResource fgColorBrush}"
                 Text="{Binding SelectedFolder.FullName, UpdateSourceTrigger=PropertyChanged}">
 
                 <TextBox.InputBindings>
-
                     <KeyBinding Key="Return" Command="{Binding OpenPathCommand}" />
-
+                    <KeyBinding Key="Escape" Command="{Binding ClearInputNumberCommand}" />
                 </TextBox.InputBindings>
 
                 <i:Interaction.Triggers>
@@ -255,6 +255,12 @@
                     Key="V"
                     Command="{Binding SelectionModeCommand}"
                     Modifiers="Shift" />
+
+                <KeyBinding
+                    Key="L"
+                    Command="{Binding FocusToPathBarCommand}"
+                    CommandParameter="{Binding ElementName=PathBar}"
+                    Modifiers="Control" />
 
                 <KeyBinding
                     Key="D1"
