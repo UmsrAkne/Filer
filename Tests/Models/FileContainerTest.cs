@@ -189,5 +189,28 @@ namespace Tests.Models
             fileContainer.JumpToNextFileName("e", new Logger());
             Assert.AreEqual(fileContainer.SelectedIndex, 0, "存在しないファイル名を指定した場合は動かない");
         }
+
+        [Test]
+        public void ファイル名にジャンプする機能のテスト逆方向()
+        {
+            var fileContainer = new FileContainer
+            {
+                Files = new ObservableCollection<ExtendFileInfo>()
+                {
+                    new ExtendFileInfo("a"), new ExtendFileInfo("b"), new ExtendFileInfo("c"), new ExtendFileInfo("d"),
+                },
+                SelectedIndex = 3,
+            };
+
+            fileContainer.JumpToPrevFileName("c", new Logger());
+            Assert.AreEqual(fileContainer.SelectedIndex, 2, "ファイル名 c にジャンプしているならばインデックスは 2");
+
+            fileContainer.JumpToPrevFileName("a", new Logger());
+            Assert.AreEqual(fileContainer.SelectedIndex, 0, "ファイル名 a にジャンプしているならばインデックスは 0");
+
+            fileContainer.SelectedIndex = 3;
+            fileContainer.JumpToPrevFileName("e", new Logger());
+            Assert.AreEqual(fileContainer.SelectedIndex, 3, "存在しないファイル名を指定した場合は動かない");
+        }
     }
 }

@@ -155,6 +155,27 @@ namespace Filer.Models
             }
         }
 
+        public void JumpToPrevFileName(string searchPattern, Logger logger)
+        {
+            if (!CanMoveCursor)
+            {
+                return;
+            }
+
+            // 現在選択中の要素の前の要素から検索を開始する
+            var matched = Files.Take(SelectedIndex).LastOrDefault(f => Regex.IsMatch(f.Name, searchPattern));
+
+            if (matched != null)
+            {
+                SelectedIndex = Files.IndexOf(matched);
+                UpdateSelectionRange();
+            }
+            else
+            {
+                logger.FileNotFound(searchPattern);
+            }
+        }
+
         private void UpdateSelectionRange()
         {
             if (!SelectionMode)
