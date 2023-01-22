@@ -166,5 +166,28 @@ namespace Tests.Models
             Assert.AreEqual(4, selectedFlags.Count);
             CollectionAssert.DoesNotContain(selectedFlags, true, "選択モード解除後なので true は含まれていないはず");
         }
+
+        [Test]
+        public void ファイル名にジャンプする機能のテスト()
+        {
+            var fileContainer = new FileContainer
+            {
+                Files = new ObservableCollection<ExtendFileInfo>()
+                {
+                    new ExtendFileInfo("a"), new ExtendFileInfo("b"), new ExtendFileInfo("c"), new ExtendFileInfo("d"),
+                },
+                SelectedIndex = 0,
+            };
+
+            fileContainer.JumpToNextFileName("c", new Logger());
+            Assert.AreEqual(fileContainer.SelectedIndex, 2, "ファイル名 c にジャンプしているならばインデックスは 2");
+
+            fileContainer.JumpToNextFileName("d", new Logger());
+            Assert.AreEqual(fileContainer.SelectedIndex, 3, "ファイル名 d にジャンプしているならばインデックスは 3");
+
+            fileContainer.SelectedIndex = 0;
+            fileContainer.JumpToNextFileName("e", new Logger());
+            Assert.AreEqual(fileContainer.SelectedIndex, 0, "存在しないファイル名を指定した場合は動かない");
+        }
     }
 }
