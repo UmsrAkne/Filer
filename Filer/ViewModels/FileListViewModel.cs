@@ -36,6 +36,7 @@ namespace Filer.ViewModels
         private DelegateCommand<TextBox> focusCommandTextBoxCommand;
         private DelegateCommand<TextBox> startPartialMatchSearchCommand;
         private DelegateCommand searchFileCommand;
+        private DelegateCommand reverseSearchFileCommand;
         private DelegateCommand addTabCommand;
         private DelegateCommand closeTabCommand;
         private DelegateCommand<object> changeTabCommand;
@@ -362,6 +363,21 @@ namespace Filer.ViewModels
             {
                 SelectedFolder.FileContainer.JumpToNextFileName(CommandText, Logger);
                 FocusToListViewItem();
+            }));
+
+        public DelegateCommand ReverseSearchFileCommand =>
+            reverseSearchFileCommand ?? (reverseSearchFileCommand = new DelegateCommand(() =>
+            {
+                SelectedFolder.FileContainer.JumpToPrevFileName(CommandText, Logger);
+                FocusToListViewItem();
+                var index = SelectedFolder.FileContainer.SelectedIndex;
+
+                foreach (var f in FileList.Where(f => f.IsSelected))
+                {
+                    f.IsSelected = false;
+                }
+
+                SelectedFolder.FileContainer.SelectedIndex = index;
             }));
 
         public DelegateCommand ClearInputNumberCommand => new DelegateCommand(() =>
