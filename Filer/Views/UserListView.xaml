@@ -218,6 +218,11 @@
                 <KeyBinding Key="N" Command="{Binding SearchFileCommand}" />
 
                 <KeyBinding
+                    Key="N"
+                    Command="{Binding ReverseSearchFileCommand}"
+                    Modifiers="Shift" />
+
+                <KeyBinding
                     Key="S"
                     Command="{Binding OpenSortSettingPageCommand}"
                     Modifiers="Control" />
@@ -327,6 +332,11 @@
 
             <TextBox.InputBindings>
                 <KeyBinding Key="Return" Command="{Binding SearchFileCommand}" />
+                <KeyBinding
+                    Key="Return"
+                    Command="{Binding ReverseSearchFileCommand}"
+                    Modifiers="Shift" />
+
                 <KeyBinding Key="Escape" Command="{Binding ClearInputNumberCommand}" />
             </TextBox.InputBindings>
 

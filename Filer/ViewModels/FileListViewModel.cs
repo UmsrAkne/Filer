@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filer.Models;
@@ -37,6 +36,7 @@ namespace Filer.ViewModels
         private DelegateCommand<TextBox> focusCommandTextBoxCommand;
         private DelegateCommand<TextBox> startPartialMatchSearchCommand;
         private DelegateCommand searchFileCommand;
+        private DelegateCommand reverseSearchFileCommand;
         private DelegateCommand addTabCommand;
         private DelegateCommand closeTabCommand;
         private DelegateCommand<object> changeTabCommand;
@@ -361,28 +361,24 @@ namespace Filer.ViewModels
         public DelegateCommand SearchFileCommand =>
             searchFileCommand ?? (searchFileCommand = new DelegateCommand(() =>
             {
-                // 現在選択中の要素の次の要素から検索を開始する
-                var matched = FileList.Skip(SelectedIndex + 1).FirstOrDefault(f => Regex.IsMatch(f.Name, CommandText));
-
-                if (matched != null)
-                {
-                    SelectedIndex = matched.Index - 1;
-                    FocusToListViewItem();
-                }
-                else
-                {
-                    Logger.FileNotFound(CommandText);
-                }
+                SelectedFolder.FileContainer.JumpToNextFileName(CommandText, Logger);
+                FocusToListViewItem();
             }));
 
-        public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>
-        {
-            // 型が string なのは、例えば 1, 2 と入力を行ったとき、合わせて入力値が 12 になるようにするため
-            if (ExecuteCounter < 10000)
+        public DelegateCommand ReverseSearchFileCommand =>
+            reverseSearchFileCommand ?? (reverseSearchFileCommand = new DelegateCommand(() =>
             {
-                ExecuteCounter = int.Parse(ExecuteCounter.ToString() + counter);
-            }
-        });
+                SelectedFolder.FileContainer.JumpToPrevFileName(CommandText, Logger);
+                FocusToListViewItem();
+                var index = SelectedFolder.FileContainer.SelectedIndex;
+
+                foreach (var f in FileList.Where(f => f.IsSelected))
+                {
+                    f.IsSelected = false;
+                }
+
+                SelectedFolder.FileContainer.SelectedIndex = index;
+            }));
 
         public DelegateCommand ClearInputNumberCommand => new DelegateCommand(() =>
         {

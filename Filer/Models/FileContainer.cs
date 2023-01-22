@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Prism.Mvvm;
 
 namespace Filer.Models
@@ -131,6 +132,48 @@ namespace Filer.Models
             SelectedIndex = Files.Count - 1;
 
             UpdateSelectionRange();
+        }
+
+        public void JumpToNextFileName(string searchPattern, Logger logger)
+        {
+            if (!CanMoveCursor)
+            {
+                return;
+            }
+
+            // 現在選択中の要素の次の要素から検索を開始する
+            var matched = Files.Skip(SelectedIndex + 1).FirstOrDefault(f => Regex.IsMatch(f.Name, searchPattern));
+
+            if (matched != null)
+            {
+                SelectedIndex = Files.IndexOf(matched);
+                UpdateSelectionRange();
+            }
+            else
+            {
+                logger.FileNotFound(searchPattern);
+            }
+        }
+
+        public void JumpToPrevFileName(string searchPattern, Logger logger)
+        {
+            if (!CanMoveCursor)
+            {
+                return;
+            }
+
+            // 現在選択中の要素の前の要素から検索を開始する
+            var matched = Files.Take(SelectedIndex).LastOrDefault(f => Regex.IsMatch(f.Name, searchPattern));
+
+            if (matched != null)
+            {
+                SelectedIndex = Files.IndexOf(matched);
+                UpdateSelectionRange();
+            }
+            else
+            {
+                logger.FileNotFound(searchPattern);
+            }
         }
 
         private void UpdateSelectionRange()
