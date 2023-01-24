@@ -1,6 +1,5 @@
 using System.Windows.Controls;
 using System.Windows.Input;
-using Filer.ViewModels;
 using Microsoft.Xaml.Behaviors;
 
 namespace Filer.Models.Behaviors
@@ -21,7 +20,6 @@ namespace Filer.Models.Behaviors
 
         private void AssociatedObject_KeyDown(object sender, KeyEventArgs args)
         {
-            var vm = ((ListView)sender).DataContext as KeyValueListPageViewModel;
         }
     }
 }

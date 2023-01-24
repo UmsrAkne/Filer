@@ -48,7 +48,6 @@ namespace Filer.ViewModels
         private DelegateCommand openBookmarkJumpPageCommand;
         private DelegateCommand openSortSettingPageCommand;
 
-        private ExtendFileInfo selectedItem;
         private ObservableCollection<Folder> folders;
         private Folder selectedFolder;
         private int selectedFolderIndex;
