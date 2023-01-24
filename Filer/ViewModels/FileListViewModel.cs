@@ -64,12 +64,10 @@ namespace Filer.ViewModels
             SelectedFolder = defaultFolder;
         }
 
-        public OwnerListViewLocation OwnerListViewLocation { get; set; }
-
         public ExtendFileInfo SelectedItem
         {
             get => SelectedFolder.FileContainer.SelectedItem;
-            set => SelectedFolder.FileContainer.SelectedItem = value;
+            private set => SelectedFolder.FileContainer.SelectedItem = value;
         }
 
         public bool IsFocused { get => isFocused; set => SetProperty(ref isFocused, value); }
@@ -472,6 +470,8 @@ namespace Filer.ViewModels
         private double ListViewItemLineHeight => 15.0;
 
         private Logger Logger { get; }
+
+        private OwnerListViewLocation OwnerListViewLocation { get; }
 
         private int SelectedIndex
         {
