@@ -43,6 +43,7 @@ namespace Tests.Models.Settings
         /// JSON ファイルにパスを表記する場合はどのようなフォーマットで書けば良いかを明示するためのテスト
         /// </summary>
         [Test]
+        // ReSharper disable once InconsistentNaming
         public void JSONファイルのパスの表記のテスト()
         {
             using (var sw = new StreamWriter("applicationSettings.json"))
