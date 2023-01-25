@@ -462,6 +462,15 @@ namespace Filer.ViewModels
                 });
             }));
 
+        public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>
+            {
+                // 型が string なのは、例えば 1, 2 と入力を行ったとき、合わせて入力値が 12 になるようにするため
+                if (ExecuteCounter < 10000)
+                {
+                    ExecuteCounter = int.Parse(ExecuteCounter + counter);
+                }
+            });
+
         public int SelectedFolderIndex { get => selectedFolderIndex; set => SetProperty(ref selectedFolderIndex, value); }
 
         private int ExecuteCounter { get => executeCounter; set => SetProperty(ref executeCounter, value); }
