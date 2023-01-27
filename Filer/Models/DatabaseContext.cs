@@ -1,3 +1,4 @@
+using System;
 using System.Data.SQLite;
 using System.IO;
 using Microsoft.Data.Sqlite;
@@ -10,6 +11,13 @@ namespace Filer.Models
         private static readonly string DatabaseFileName = "database.sqlite";
 
         public DbSet<History> Histories { get; set; }
+
+        public void Add(string path)
+        {
+            var history = new History() { Path = path };
+            Histories.Add(history);
+            SaveChanges();
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
