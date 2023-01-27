@@ -1,4 +1,3 @@
-using System;
 using System.Data.SQLite;
 using System.IO;
 using Microsoft.Data.Sqlite;
@@ -10,7 +9,8 @@ namespace Filer.Models
     {
         private static readonly string DatabaseFileName = "database.sqlite";
 
-        public DbSet<History> Histories { get; set; }
+        // ReSharper disable once UnusedAutoPropertyAccessor.Local
+        private DbSet<History> Histories { get; set; }
 
         public void Add(string path)
         {
