@@ -60,8 +60,10 @@
     <Compile Include="Models\Behaviors\FocusSetBehavior.cs" />
     <Compile Include="Models\Behaviors\KeyboardBehavior.cs" />
     <Compile Include="Models\Behaviors\KeyDownBehavior.cs" />
+    <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\FileContainer.cs" />
     <Compile Include="Models\Folder.cs" />
+    <Compile Include="Models\History.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\ScrollBehavior.cs" />
     <Compile Include="Models\SelectionListItem.cs" />
@@ -149,6 +151,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.32" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.32" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="Prism.Unity" Version="8.0.0.1909" />
     <PackageReference Include="StyleCop.Analyzers">
@@ -156,6 +160,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="System.Data.SQLite" Version="1.0.117" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

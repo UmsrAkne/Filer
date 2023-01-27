@@ -128,6 +128,11 @@ namespace Filer.ViewModels
                     }
                     else
                     {
+                        using (var dbContext = new DatabaseContext())
+                        {
+                            dbContext.Add(SelectedItem.FileSystemInfo.FullName);
+                        }
+
                         Process.Start(SelectedItem.FileSystemInfo.FullName);
                     }
                 }
@@ -157,9 +162,14 @@ namespace Filer.ViewModels
                         if (dialogResult.Parameters.ContainsKey(nameof(FileInfo)))
                         {
                             var executeFilePath = dialogResult.Parameters.GetValue<FileInfo>(nameof(FileInfo));
-                            foreach (var f in targets)
+
+                            using (var dbContext = new DatabaseContext())
                             {
-                                Process.Start(executeFilePath.FullName, f.FileSystemInfo.FullName);
+                                foreach (var f in targets)
+                                {
+                                    Process.Start(executeFilePath.FullName, f.FileSystemInfo.FullName);
+                                    dbContext.Add(f.FileSystemInfo.FullName);
+                                }
                             }
                         }
                     });

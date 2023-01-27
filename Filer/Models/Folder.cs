@@ -47,6 +47,12 @@ namespace Filer.Models
                 Files = GetFileList(value.FullName);
                 Name = value.Name;
                 FullName = value.FullName;
+
+                using (var dbContext = new DatabaseContext())
+                {
+                    dbContext.Add(value.FullName);
+                }
+
                 SetProperty(ref currentDirectory, value);
 
                 if (oldDirectory == null)
