@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
+using Filer.Models;
 using Filer.Models.Settings;
 using Filer.ViewModels;
 using Filer.Views;
@@ -50,6 +51,11 @@ namespace Filer
                 });
 
                 ApplicationSetting.WriteApplicationSetting(defaultSettings);
+            }
+
+            using (var dbContext = new DatabaseContext())
+            {
+                dbContext.Database.EnsureCreated();
             }
 
             base.OnStartup(e);
