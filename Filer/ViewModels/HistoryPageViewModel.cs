@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 using Filer.Models;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -9,6 +10,8 @@ namespace Filer.ViewModels
 {
     public class HistoryPageViewModel : BindableBase, IDialogAware
     {
+        private DelegateCommand<ListView> scrollCommand;
+
         private ObservableCollection<History> histories;
 
         public event Action<IDialogResult> RequestClose;
@@ -16,6 +19,15 @@ namespace Filer.ViewModels
         public string Title => string.Empty;
 
         public ObservableCollection<History> Histories { get => histories; set => SetProperty(ref histories, value); }
+
+        public DelegateCommand<ListView> ScrollCommand =>
+            scrollCommand ?? (scrollCommand = new DelegateCommand<ListView>((lv) =>
+            {
+                if (lv.SelectedItem != null)
+                {
+                    lv.ScrollIntoView(lv.SelectedItem);
+                }
+            }));
 
         public DelegateCommand CloseCommand => new DelegateCommand(() =>
         {
