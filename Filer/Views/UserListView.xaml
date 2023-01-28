@@ -227,6 +227,11 @@
                     Command="{Binding OpenSortSettingPageCommand}"
                     Modifiers="Control" />
 
+                <KeyBinding
+                    Key="H"
+                    Command="{Binding OpenHistoryPageCommand}"
+                    Modifiers="Control" />
+
                 <KeyBinding Key="M" Command="{Binding OpenBookmarkAdditionPageCommand}" />
 
                 <KeyBinding
