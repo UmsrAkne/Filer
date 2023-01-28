@@ -62,7 +62,11 @@
             Grid.Row="0"
             Grid.Column="0"
             Grid.ColumnSpan="2">
-            <MenuItem Header="File" />
+
+            <MenuItem Header="File">
+                <MenuItem Command="{Binding ExitCommand}" Header="Exit" />
+            </MenuItem>
+
             <MenuItem Header="Window (_W)">
                 <MenuItem Command="{Binding ShowFavoritesCommand}" Header="Favorites (_F)" />
             </MenuItem>

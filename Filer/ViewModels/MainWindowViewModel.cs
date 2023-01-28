@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Filer.Models;
@@ -109,6 +110,11 @@ namespace Filer.ViewModels
             };
 
             ApplicationSetting.WriteApplicationSetting(setting);
+        });
+
+        public DelegateCommand ExitCommand => new DelegateCommand(() =>
+        {
+            Application.Current.Shutdown();
         });
 
         public void DeleteFile()
