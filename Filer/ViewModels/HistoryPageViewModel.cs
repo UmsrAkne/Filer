@@ -1,5 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Controls;
 using Filer.Models;
 using Prism.Commands;
@@ -20,7 +21,11 @@ namespace Filer.ViewModels
 
         public CursorMoveCommands CursorMoveCommands { get; private set; }
 
-        public ObservableCollection<ExtendFileInfo> Histories { get => histories; set => SetProperty(ref histories, value); }
+        public ObservableCollection<ExtendFileInfo> Histories
+        {
+            get => histories;
+            private set => SetProperty(ref histories, value);
+        }
 
         public DelegateCommand<ListView> ScrollCommand =>
             scrollCommand ?? (scrollCommand = new DelegateCommand<ListView>((lv) =>
@@ -44,6 +49,12 @@ namespace Filer.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
+            using (var context = new DatabaseContext())
+            {
+                Histories = new ObservableCollection<ExtendFileInfo>(
+                    context.GetHistories().Select(h => new ExtendFileInfo(h.Path)));
+            }
+
             CursorMoveCommands = new CursorMoveCommands
             {
                 FileContainer = new FileContainer()

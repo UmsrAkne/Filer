@@ -25,14 +25,16 @@
         </Grid.RowDefinitions>
 
         <ListView
+            Name="ListView"
             Grid.Row="1"
-            Height="{Binding CursorMoveCommands.ListViewActualHeight}"
             Background="{StaticResource BgColorBrush}"
-            ItemsSource="{Binding Histories}">
+            ItemsSource="{Binding Histories}"
+            SelectedIndex="{Binding CursorMoveCommands.FileContainer.SelectedIndex}"
+            SelectedItem="{Binding CursorMoveCommands.FileContainer.SelectedItem}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding ScrollCommand}" />
+                    <i:InvokeCommandAction Command="{Binding ScrollCommand}" CommandParameter="{Binding ElementName=ListView}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 

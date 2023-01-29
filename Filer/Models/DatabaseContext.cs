@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
@@ -21,7 +21,7 @@ namespace Filer.Models
             SaveChanges();
         }
 
-        public IEnumerable GetHistories()
+        public IEnumerable<History> GetHistories()
         {
             return Histories.Where(h => true).OrderByDescending(h => h.DateTime);
         }
