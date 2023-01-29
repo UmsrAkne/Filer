@@ -26,6 +26,7 @@
 
         <ListView
             Grid.Row="1"
+            Height="{Binding CursorMoveCommands.ListViewActualHeight}"
             Background="{StaticResource BgColorBrush}"
             ItemsSource="{Binding Histories}">
 
@@ -34,6 +35,75 @@
                     <i:InvokeCommandAction Command="{Binding ScrollCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
+
+            <ListView.InputBindings>
+
+                <KeyBinding Key="U" Command="{Binding CursorMoveCommands.PageUpCommand}" />
+
+                <KeyBinding Key="D" Command="{Binding CursorMoveCommands.PageDownCommand}" />
+
+                <KeyBinding
+                    Key="G"
+                    Command="{Binding CursorMoveCommands.JumpToLastCommand}"
+                    Modifiers="Shift" />
+
+                <KeyBinding Key="G" Command="{Binding CursorMoveCommands.JumpToFirstCommand}" />
+
+                <KeyBinding Key="J" Command="{Binding CursorMoveCommands.CursorDownCommand}" />
+
+                <KeyBinding Key="K" Command="{Binding CursorMoveCommands.CursorUpCommand}" />
+
+                <KeyBinding
+                    Key="D1"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="1" />
+
+                <KeyBinding
+                    Key="D2"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="2" />
+
+                <KeyBinding
+                    Key="D3"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="3" />
+
+                <KeyBinding
+                    Key="D4"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="4" />
+
+                <KeyBinding
+                    Key="D5"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="5" />
+
+                <KeyBinding
+                    Key="D6"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="6" />
+
+                <KeyBinding
+                    Key="D7"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="7" />
+
+                <KeyBinding
+                    Key="D8"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="8" />
+
+                <KeyBinding
+                    Key="D9"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="9" />
+
+                <KeyBinding
+                    Key="D0"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="0" />
+
+            </ListView.InputBindings>
         </ListView>
 
         <StackPanel

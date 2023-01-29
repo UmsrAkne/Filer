@@ -12,13 +12,15 @@ namespace Filer.ViewModels
     {
         private DelegateCommand<ListView> scrollCommand;
 
-        private ObservableCollection<History> histories;
+        private ObservableCollection<ExtendFileInfo> histories;
 
         public event Action<IDialogResult> RequestClose;
 
         public string Title => string.Empty;
 
-        public ObservableCollection<History> Histories { get => histories; set => SetProperty(ref histories, value); }
+        public CursorMoveCommands CursorMoveCommands { get; private set; }
+
+        public ObservableCollection<ExtendFileInfo> Histories { get => histories; set => SetProperty(ref histories, value); }
 
         public DelegateCommand<ListView> ScrollCommand =>
             scrollCommand ?? (scrollCommand = new DelegateCommand<ListView>((lv) =>
@@ -42,6 +44,14 @@ namespace Filer.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
+            CursorMoveCommands = new CursorMoveCommands
+            {
+                FileContainer = new FileContainer()
+                {
+                    Files = Histories,
+                },
+                ListViewItemLineHeight = 15.0,
+            };
         }
     }
 }
