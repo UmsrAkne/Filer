@@ -106,6 +106,28 @@
                     CommandParameter="0" />
 
             </ListView.InputBindings>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Foreground="{StaticResource FgColorBrush}"
+                            Text="{Binding Name}" />
+
+                        <TextBlock
+                            Grid.Column="1"
+                            Foreground="{StaticResource FgColorBrush}"
+                            Text="{Binding FileSystemInfo.FullName}" />
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <StackPanel
