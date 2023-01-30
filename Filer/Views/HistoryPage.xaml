@@ -17,7 +17,7 @@
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
     </Page.InputBindings>
 
-    <Grid>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=ListView}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition />
