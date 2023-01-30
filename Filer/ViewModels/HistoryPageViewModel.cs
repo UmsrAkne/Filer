@@ -36,10 +36,23 @@ namespace Filer.ViewModels
                 }
             }));
 
+        public DelegateCommand ConfirmCommand => new DelegateCommand(() =>
+        {
+            var result = new DialogResult();
+            if (FileContainer.SelectedItem != null)
+            {
+                result.Parameters.Add(nameof(ExtendFileInfo), FileContainer.SelectedItem);
+            }
+
+            RequestClose?.Invoke(result);
+        });
+
         public DelegateCommand CloseCommand => new DelegateCommand(() =>
         {
             RequestClose?.Invoke(new DialogResult());
         });
+
+        private FileContainer FileContainer { get; set; } = new FileContainer();
 
         public bool CanCloseDialog() => true;
 
@@ -55,12 +68,10 @@ namespace Filer.ViewModels
                     context.GetHistories().Select(h => new ExtendFileInfo(h.Path)));
             }
 
+            FileContainer.Files = Histories;
             CursorMoveCommands = new CursorMoveCommands
             {
-                FileContainer = new FileContainer()
-                {
-                    Files = Histories,
-                },
+                FileContainer = FileContainer,
                 ListViewItemLineHeight = 15.0,
             };
         }

@@ -55,6 +55,8 @@
 
                 <KeyBinding Key="K" Command="{Binding CursorMoveCommands.CursorUpCommand}" />
 
+                <KeyBinding Key="Return" Command="{Binding ConfirmCommand}" />
+
                 <KeyBinding
                     Key="D1"
                     Command="{Binding CursorMoveCommands.NumberInputCommand}"

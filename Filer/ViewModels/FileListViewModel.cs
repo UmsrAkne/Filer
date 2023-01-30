@@ -476,7 +476,19 @@ namespace Filer.ViewModels
         public DelegateCommand OpenHistoryPageCommand =>
             openHistoryPageCommand ?? (openHistoryPageCommand = new DelegateCommand(() =>
             {
-                dialogService.ShowDialog(nameof(HistoryPage), new DialogParameters(), result => { });
+                dialogService.ShowDialog(nameof(HistoryPage), new DialogParameters(), result =>
+                {
+                    if (!result.Parameters.ContainsKey(nameof(ExtendFileInfo)))
+                    {
+                        return;
+                    }
+
+                    var exFileInfo = result.Parameters.GetValue<ExtendFileInfo>(nameof(ExtendFileInfo));
+                    if (exFileInfo.IsDirectory)
+                    {
+                        CurrentDirectory = new DirectoryInfo(exFileInfo.FileSystemInfo.FullName);
+                    }
+                });
             }));
 
         public DelegateCommand<string> NumberInputCommand => new DelegateCommand<string>((counter) =>
