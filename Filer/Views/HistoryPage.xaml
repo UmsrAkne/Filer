@@ -1,0 +1,149 @@
+<Page
+    x:Class="Filer.Views.HistoryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:Filer.ViewModels"
+    Title="HistoryPage"
+    Width="800"
+    Height="450"
+    d:DataContext="{d:DesignInstance viewModels:HistoryPageViewModel}"
+    Background="{StaticResource BgColorBrush}"
+    mc:Ignorable="d">
+
+    <Page.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+    </Page.InputBindings>
+
+    <Grid FocusManager.FocusedElement="{Binding ElementName=ListView}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ListView
+            Name="ListView"
+            Grid.Row="1"
+            Background="{StaticResource BgColorBrush}"
+            ItemsSource="{Binding Histories}"
+            SelectedIndex="{Binding CursorMoveCommands.FileContainer.SelectedIndex}"
+            SelectedItem="{Binding CursorMoveCommands.FileContainer.SelectedItem}">
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding ScrollCommand}" CommandParameter="{Binding ElementName=ListView}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+            <ListView.InputBindings>
+
+                <KeyBinding Key="U" Command="{Binding CursorMoveCommands.PageUpCommand}" />
+
+                <KeyBinding Key="D" Command="{Binding CursorMoveCommands.PageDownCommand}" />
+
+                <KeyBinding
+                    Key="G"
+                    Command="{Binding CursorMoveCommands.JumpToLastCommand}"
+                    Modifiers="Shift" />
+
+                <KeyBinding Key="G" Command="{Binding CursorMoveCommands.JumpToFirstCommand}" />
+
+                <KeyBinding Key="J" Command="{Binding CursorMoveCommands.CursorDownCommand}" />
+
+                <KeyBinding Key="K" Command="{Binding CursorMoveCommands.CursorUpCommand}" />
+
+                <KeyBinding Key="Return" Command="{Binding ConfirmCommand}" />
+
+                <KeyBinding
+                    Key="D1"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="1" />
+
+                <KeyBinding
+                    Key="D2"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="2" />
+
+                <KeyBinding
+                    Key="D3"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="3" />
+
+                <KeyBinding
+                    Key="D4"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="4" />
+
+                <KeyBinding
+                    Key="D5"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="5" />
+
+                <KeyBinding
+                    Key="D6"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="6" />
+
+                <KeyBinding
+                    Key="D7"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="7" />
+
+                <KeyBinding
+                    Key="D8"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="8" />
+
+                <KeyBinding
+                    Key="D9"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="9" />
+
+                <KeyBinding
+                    Key="D0"
+                    Command="{Binding CursorMoveCommands.NumberInputCommand}"
+                    CommandParameter="0" />
+
+            </ListView.InputBindings>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            Grid.Column="0"
+                            Foreground="{StaticResource FgColorBrush}"
+                            Text="{Binding Name}" />
+
+                        <TextBlock
+                            Grid.Column="1"
+                            Foreground="{StaticResource FgColorBrush}"
+                            Text="{Binding FileSystemInfo.FullName}" />
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel
+            Grid.Row="2"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+
+            <Button
+                Width="100"
+                Margin="4"
+                Command="{Binding CloseCommand}"
+                Content="Close (Esc)" />
+
+        </StackPanel>
+
+    </Grid>
+</Page>

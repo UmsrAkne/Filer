@@ -25,6 +25,7 @@ namespace Filer
             containerRegistry.RegisterDialog<OpenWithAppPage, OpenWithAppPageViewModel>();
             containerRegistry.RegisterDialog<BookmarkPage, BookmarkPageViewModel>();
             containerRegistry.RegisterDialog<SortSettingPage, SortSettingPageViewModel>();
+            containerRegistry.RegisterDialog<HistoryPage, HistoryPageViewModel>();
         }
 
         protected override void OnStartup(StartupEventArgs e)

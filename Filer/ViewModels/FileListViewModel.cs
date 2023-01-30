@@ -47,6 +47,7 @@ namespace Filer.ViewModels
         private DelegateCommand openBookmarkAdditionPageCommand;
         private DelegateCommand openBookmarkJumpPageCommand;
         private DelegateCommand openSortSettingPageCommand;
+        private DelegateCommand openHistoryPageCommand;
 
         private ObservableCollection<Folder> folders;
         private Folder selectedFolder;
@@ -469,6 +470,24 @@ namespace Filer.ViewModels
                 dialogService.ShowDialog(nameof(SortSettingPage), param, result =>
                 {
                     CurrentDirectory = CurrentDirectory;
+                });
+            }));
+
+        public DelegateCommand OpenHistoryPageCommand =>
+            openHistoryPageCommand ?? (openHistoryPageCommand = new DelegateCommand(() =>
+            {
+                dialogService.ShowDialog(nameof(HistoryPage), new DialogParameters(), result =>
+                {
+                    if (!result.Parameters.ContainsKey(nameof(ExtendFileInfo)))
+                    {
+                        return;
+                    }
+
+                    var exFileInfo = result.Parameters.GetValue<ExtendFileInfo>(nameof(ExtendFileInfo));
+                    if (exFileInfo.IsDirectory)
+                    {
+                        CurrentDirectory = new DirectoryInfo(exFileInfo.FileSystemInfo.FullName);
+                    }
                 });
             }));
 

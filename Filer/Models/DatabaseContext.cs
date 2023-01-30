@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +19,11 @@ namespace Filer.Models
             var history = new History() { Path = path };
             Histories.Add(history);
             SaveChanges();
+        }
+
+        public IEnumerable<History> GetHistories()
+        {
+            return Histories.Where(h => true).OrderByDescending(h => h.DateTime);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
