@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Behaviors\CursorMoveBehavior.cs" />
     <Compile Include="Models\Behaviors\FocusSetBehavior.cs" />
     <Compile Include="Models\Behaviors\KeyboardBehavior.cs" />
     <Compile Include="Models\Behaviors\KeyDownBehavior.cs" />
