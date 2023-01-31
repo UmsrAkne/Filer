@@ -19,8 +19,6 @@ namespace Filer.ViewModels
 
         public string Title => string.Empty;
 
-        public CursorMoveCommands CursorMoveCommands { get; private set; }
-
         public double ListViewItemLineHeight => 15.0;
 
         public ObservableCollection<ExtendFileInfo> Histories
@@ -71,11 +69,6 @@ namespace Filer.ViewModels
             }
 
             FileContainer.Files = Histories;
-            CursorMoveCommands = new CursorMoveCommands
-            {
-                FileContainer = FileContainer,
-                ListViewItemLineHeight = 15.0,
-            };
         }
     }
 }

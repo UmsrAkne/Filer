@@ -30,8 +30,8 @@
             Grid.Row="1"
             Background="{StaticResource BgColorBrush}"
             ItemsSource="{Binding Histories}"
-            SelectedIndex="{Binding CursorMoveCommands.FileContainer.SelectedIndex}"
-            SelectedItem="{Binding CursorMoveCommands.FileContainer.SelectedItem}">
+            SelectedIndex="{Binding FileContainer.SelectedIndex}"
+            SelectedItem="{Binding FileContainer.SelectedItem}">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
