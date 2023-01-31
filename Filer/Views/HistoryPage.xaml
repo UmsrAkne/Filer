@@ -111,7 +111,7 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <Grid Height="{Binding (viewModels:HistoryPageViewModel.ListViewItemLineHeight), RelativeSource={RelativeSource AncestorType=Page}}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />

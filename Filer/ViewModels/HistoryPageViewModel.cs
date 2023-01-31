@@ -21,6 +21,8 @@ namespace Filer.ViewModels
 
         public CursorMoveCommands CursorMoveCommands { get; private set; }
 
+        public double ListViewItemLineHeight => 15.0;
+
         public ObservableCollection<ExtendFileInfo> Histories
         {
             get => histories;
@@ -52,7 +54,7 @@ namespace Filer.ViewModels
             RequestClose?.Invoke(new DialogResult());
         });
 
-        private FileContainer FileContainer { get; set; } = new FileContainer();
+        public FileContainer FileContainer { get; set; } = new FileContainer();
 
         public bool CanCloseDialog() => true;
 

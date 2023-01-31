@@ -12,6 +12,13 @@ namespace Filer.Models
         private ExtendFileInfo selectedItem;
         private int selectedIndex = -1;
         private bool selectionMode;
+        private int executeCounter;
+
+        public int ExecuteCounter
+        {
+            get => executeCounter;
+            set => SetProperty(ref executeCounter, value);
+        }
 
         public ObservableCollection<ExtendFileInfo> Files
         {
