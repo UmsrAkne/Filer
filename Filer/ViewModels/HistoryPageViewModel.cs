@@ -9,7 +9,7 @@ using Prism.Services.Dialogs;
 
 namespace Filer.ViewModels
 {
-    public class HistoryPageViewModel : BindableBase, IDialogAware
+    public class HistoryPageViewModel : BindableBase, IDialogAware, IListViewControllable
     {
         private DelegateCommand<ListView> scrollCommand;
 

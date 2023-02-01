@@ -1,6 +1,5 @@
 using System.Windows.Controls;
 using System.Windows.Input;
-using Filer.ViewModels;
 using Microsoft.Xaml.Behaviors;
 
 namespace Filer.Models.Behaviors
@@ -22,10 +21,10 @@ namespace Filer.Models.Behaviors
         private void AssociatedObjectKeyDown(object sender, KeyEventArgs e)
         {
             var lv = sender as ListView;
-            var vm = lv?.DataContext as HistoryPageViewModel;
-            var fileContainer = vm?.FileContainer;
+            var lvDataContext = lv?.DataContext as IListViewControllable;
+            var fileContainer = lvDataContext?.FileContainer;
 
-            if (vm == null || fileContainer == null)
+            if (lvDataContext == null || fileContainer == null)
             {
                 return;
             }
@@ -48,7 +47,7 @@ namespace Filer.Models.Behaviors
             {
                 var amount = fileContainer.ExecuteCounter != 0 ? fileContainer.ExecuteCounter : 1;
                 fileContainer.ExecuteCounter = 0;
-                var itemCountPerPage = (int)(lv.ActualHeight / vm.ListViewItemLineHeight);
+                var itemCountPerPage = (int)(lv.ActualHeight / lvDataContext.ListViewItemLineHeight);
                 fileContainer.DownCursor(amount * itemCountPerPage);
             }
 
@@ -56,7 +55,7 @@ namespace Filer.Models.Behaviors
             {
                 var amount = fileContainer.ExecuteCounter != 0 ? fileContainer.ExecuteCounter : 1;
                 fileContainer.ExecuteCounter = 0;
-                var itemCountPerPage = (int)(lv.ActualHeight / vm.ListViewItemLineHeight);
+                var itemCountPerPage = (int)(lv.ActualHeight / lvDataContext.ListViewItemLineHeight);
                 fileContainer.UpCursor(amount * itemCountPerPage);
             }
 
