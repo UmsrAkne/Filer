@@ -14,12 +14,15 @@ namespace Filer.ViewModels
         private DelegateCommand<ListView> scrollCommand;
 
         private ObservableCollection<ExtendFileInfo> histories;
+        private string commandText = string.Empty;
 
         public event Action<IDialogResult> RequestClose;
 
         public string Title => string.Empty;
 
         public double ListViewItemLineHeight => 15.0;
+
+        public string CommandText { get => commandText; set => SetProperty(ref commandText, value); }
 
         public ObservableCollection<ExtendFileInfo> Histories
         {
