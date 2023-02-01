@@ -16,6 +16,8 @@
 
     <Page.InputBindings>
         <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+
     </Page.InputBindings>
 
     <Grid FocusManager.FocusedElement="{Binding ElementName=ListView}">
@@ -47,6 +49,16 @@
 
                 <KeyBinding Key="Return" Command="{Binding ConfirmCommand}" />
 
+                <KeyBinding
+                    Key="F"
+                    Command="{Binding FocusCommandTextBoxCommand}"
+                    CommandParameter="{Binding ElementName=CommandTextBox}" />
+
+                <KeyBinding
+                    Key="OemQuestion"
+                    Command="{Binding StartPartialMatchSearchCommand}"
+                    CommandParameter="{Binding ElementName=CommandTextBox}" />
+
             </ListView.InputBindings>
 
             <ListView.ItemTemplate>
@@ -72,18 +84,37 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel
-            Grid.Row="2"
-            HorizontalAlignment="Right"
-            Orientation="Horizontal">
+        <StackPanel Grid.Row="2">
+            <TextBox
+                Name="CommandTextBox"
+                Background="{StaticResource BgColorBrush}"
+                Foreground="{StaticResource FgColorBrush}"
+                Text="{Binding CommandText, UpdateSourceTrigger=PropertyChanged}">
 
-            <Button
-                Width="100"
-                Margin="4"
-                Command="{Binding CloseCommand}"
-                Content="Close (Esc)" />
+                <TextBox.InputBindings>
 
+                    <KeyBinding
+                        Key="Return"
+                        Command="{Binding SearchFileCommand}"
+                        CommandParameter="{Binding ElementName=ListView}" />
+
+                    <KeyBinding
+                        Key="Return"
+                        Command="{Binding ReverseSearchFileCommand}"
+                        CommandParameter="{Binding ElementName=ListView}"
+                        Modifiers="Shift" />
+
+                </TextBox.InputBindings>
+            </TextBox>
+
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    Width="100"
+                    Margin="4"
+                    Command="{Binding CloseCommand}"
+                    Content="Close (Esc)" />
+
+            </StackPanel>
         </StackPanel>
-
     </Grid>
 </Page>
