@@ -72,18 +72,20 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel
-            Grid.Row="2"
-            HorizontalAlignment="Right"
-            Orientation="Horizontal">
+        <StackPanel Grid.Row="2">
+            <TextBox
+                Background="{StaticResource BgColorBrush}"
+                Foreground="{StaticResource FgColorBrush}"
+                Text="{Binding CommandText}" />
 
-            <Button
-                Width="100"
-                Margin="4"
-                Command="{Binding CloseCommand}"
-                Content="Close (Esc)" />
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button
+                    Width="100"
+                    Margin="4"
+                    Command="{Binding CloseCommand}"
+                    Content="Close (Esc)" />
 
+            </StackPanel>
         </StackPanel>
-
     </Grid>
 </Page>
