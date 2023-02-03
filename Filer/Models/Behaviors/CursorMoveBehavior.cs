@@ -74,6 +74,18 @@ namespace Filer.Models.Behaviors
                 }
             }
 
+            if (e.Key == Key.N)
+            {
+                if ((Keyboard.Modifiers & ModifierKeys.Shift) != 0)
+                {
+                    fileContainer.JumpToPrevFileName(lvDataContext.CommandText, new Logger());
+                }
+                else
+                {
+                    fileContainer.JumpToNextFileName(lvDataContext.CommandText, new Logger());
+                }
+            }
+
             if ((int)e.Key >= (int)Key.D0 && (int)e.Key <= (int)Key.D9)
             {
                 var counterString = ((int)e.Key - (int)Key.D0).ToString();
