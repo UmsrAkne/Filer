@@ -33,7 +33,8 @@
             Background="{StaticResource BgColorBrush}"
             ItemsSource="{Binding Histories}"
             SelectedIndex="{Binding FileContainer.SelectedIndex}"
-            SelectedItem="{Binding FileContainer.SelectedItem}">
+            SelectedItem="{Binding FileContainer.SelectedItem}"
+            SelectionMode="Single">
 
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="SelectionChanged">
