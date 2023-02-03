@@ -99,15 +99,6 @@ namespace Filer.ViewModels
                         lv.ItemContainerGenerator.ContainerFromIndex(FileContainer.SelectedIndex) as ListViewItem;
                     Keyboard.Focus(item);
                 }
-
-                var index = FileContainer.SelectedIndex;
-
-                foreach (var f in Histories.Where(f => f.IsSelected))
-                {
-                    f.IsSelected = false;
-                }
-
-                FileContainer.SelectedIndex = index;
             }));
 
         public bool CanCloseDialog() => true;
