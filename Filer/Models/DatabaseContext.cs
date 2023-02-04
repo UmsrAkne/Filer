@@ -23,7 +23,9 @@ namespace Filer.Models
 
         public IEnumerable<History> GetHistories()
         {
-            return Histories.Where(h => true).OrderByDescending(h => h.DateTime);
+            // 間に ToList() が入っているのは、DbSet.GroupBy を実行すると例外がスローされるため
+            var paths = Histories.Where(h => true).ToList().GroupBy(h => h.Path);
+            return paths.Select(hs => hs.OrderByDescending(h => h.DateTime).First());
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
