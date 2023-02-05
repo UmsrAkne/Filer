@@ -20,7 +20,6 @@ namespace Filer
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterDialog<SelectionDialog, SelectionDialogViewModel>();
             containerRegistry.RegisterDialog<KeyValueListPage, KeyValueListPageViewModel>();
             containerRegistry.RegisterDialog<OpenWithAppPage, OpenWithAppPageViewModel>();
             containerRegistry.RegisterDialog<BookmarkPage, BookmarkPageViewModel>();

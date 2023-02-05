@@ -78,7 +78,6 @@
     <Compile Include="ViewModels\InputPageViewModel.cs" />
     <Compile Include="ViewModels\KeyValueListPageViewModel.cs" />
     <Compile Include="ViewModels\OpenWithAppPageViewModel.cs" />
-    <Compile Include="ViewModels\SelectionDialogViewModel.cs" />
     <Compile Include="ViewModels\SortSettingPageViewModel.cs" />
     <Compile Include="Views\BookmarkPage.xaml.cs">
       <DependentUpon>BookmarkPage.xaml</DependentUpon>
@@ -94,9 +93,6 @@
     </Compile>
     <Compile Include="Views\OpenWithAppPage.xaml.cs">
       <DependentUpon>OpenWithAppPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SelectionDialog.xaml.cs">
-      <DependentUpon>SelectionDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SortSettingPage.xaml.cs">
       <DependentUpon>SortSettingPage.xaml</DependentUpon>
@@ -128,10 +124,6 @@
     <Page Include="Views\Resources\ListViewTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\SelectionDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SortSettingPage.xaml" />
     <Page Include="Views\UserListView.xaml">

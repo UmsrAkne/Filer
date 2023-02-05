@@ -32,7 +32,6 @@ namespace Filer.ViewModels
         private DelegateCommand<ListView> pageDownCommand;
         private DelegateCommand createDirectoryCommand;
         private DelegateCommand createFileCommand;
-        private DelegateCommand createCommand;
         private DelegateCommand markCommand;
         private DelegateCommand<ListView> markAndDownCommand;
         private DelegateCommand<TextBox> focusCommandTextBoxCommand;
@@ -294,14 +293,6 @@ namespace Filer.ViewModels
                 var itemCountPerPage = (int)(lv.ActualHeight / (ListViewItemLineHeight + 8));
                 SelectedFolder.FileContainer.DownCursor(amount * itemCountPerPage);
                 FocusToListViewItem();
-            }));
-
-        public DelegateCommand CreateCommand =>
-            createCommand ?? (createCommand = new DelegateCommand(() =>
-            {
-                var dialogParam = new DialogParameters { { nameof(FileSystemInfo), new DirectoryInfo(CurrentDirectory.FullName) } };
-                dialogService.ShowDialog(nameof(SelectionDialog), dialogParam, dialogResult => { });
-                CurrentDirectory = new DirectoryInfo(CurrentDirectory.FullName);
             }));
 
         public DelegateCommand CreateDirectoryCommand =>
