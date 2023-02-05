@@ -200,7 +200,7 @@
 
                 <KeyBinding
                     Key="N"
-                    Command="{Binding CreateCommand}"
+                    Command="{Binding CreateFileCommand}"
                     Modifiers="Ctrl" />
 
                 <KeyBinding

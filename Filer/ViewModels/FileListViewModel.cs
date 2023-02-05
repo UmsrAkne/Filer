@@ -31,6 +31,7 @@ namespace Filer.ViewModels
         private DelegateCommand<ListView> pageUpCommand;
         private DelegateCommand<ListView> pageDownCommand;
         private DelegateCommand createDirectoryCommand;
+        private DelegateCommand createFileCommand;
         private DelegateCommand createCommand;
         private DelegateCommand markCommand;
         private DelegateCommand<ListView> markAndDownCommand;
@@ -311,6 +312,20 @@ namespace Filer.ViewModels
                     { nameof(DirectoryInfo), new DirectoryInfo(CurrentDirectory.FullName) },
                     { nameof(InputPageViewModel.Message), "ディレクトリを作成します" },
                     { nameof(FileSystemInfo), new DirectoryInfo("NameIsMeaningless") },
+                };
+
+                dialogService.ShowDialog(nameof(InputPage), dialogParam, dialogResult => { });
+                CurrentDirectory = new DirectoryInfo(CurrentDirectory.FullName);
+            }));
+
+        public DelegateCommand CreateFileCommand =>
+            createFileCommand ?? (createFileCommand = new DelegateCommand(() =>
+            {
+                var dialogParam = new DialogParameters
+                {
+                    { nameof(DirectoryInfo), new DirectoryInfo(CurrentDirectory.FullName) },
+                    { nameof(InputPageViewModel.Message), "ファイルを作成します" },
+                    { nameof(FileSystemInfo), new FileInfo("NameIsMeaningless") },
                 };
 
                 dialogService.ShowDialog(nameof(InputPage), dialogParam, dialogResult => { });
