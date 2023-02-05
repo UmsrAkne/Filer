@@ -4,9 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:Filer.ViewModels"
     Title="InputPage"
     Width="500"
     Height="100"
+    d:DataContext="{d:DesignInstance viewModels:InputPageViewModel}"
     Background="{StaticResource BgColorBrush}"
     FocusManager.FocusedElement="{Binding ElementName=TextBox}"
     mc:Ignorable="d">
@@ -21,9 +23,13 @@
             <TextBlock
                 Margin="10"
                 Foreground="{StaticResource FgColorBrush}"
-                Text="Message" />
+                Text="{Binding Message}" />
 
-            <TextBox Name="TextBox" Margin="5,0" />
+            <TextBox
+                Name="TextBox"
+                Margin="5,0"
+                Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
+
         </StackPanel>
 
         <StackPanel
