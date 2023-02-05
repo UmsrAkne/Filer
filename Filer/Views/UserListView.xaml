@@ -204,6 +204,11 @@
                     Modifiers="Ctrl" />
 
                 <KeyBinding
+                    Key="N"
+                    Command="{Binding CreateDirectoryCommand}"
+                    Modifiers="Ctrl+Shift" />
+
+                <KeyBinding
                     Key="F"
                     Command="{Binding FocusCommandTextBoxCommand}"
                     CommandParameter="{Binding ElementName=CommandTextBox}" />

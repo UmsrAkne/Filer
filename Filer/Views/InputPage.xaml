@@ -10,10 +10,9 @@
     Height="100"
     d:DataContext="{d:DesignInstance viewModels:InputPageViewModel}"
     Background="{StaticResource BgColorBrush}"
-    FocusManager.FocusedElement="{Binding ElementName=TextBox}"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=TextBox}">
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition Height="30" />
@@ -28,7 +27,18 @@
             <TextBox
                 Name="TextBox"
                 Margin="5,0"
-                Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}">
+
+                <TextBox.InputBindings>
+
+                    <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+
+                    <KeyBinding
+                        Key="Enter"
+                        Command="{Binding ConfirmCommand}"
+                        Modifiers="Control" />
+                </TextBox.InputBindings>
+            </TextBox>
 
         </StackPanel>
 
@@ -40,11 +50,13 @@
             <Button
                 Width="100"
                 Margin="5"
+                Command="{Binding CloseCommand}"
                 Content="Cancel (Esc)" />
 
             <Button
                 Width="100"
                 Margin="5"
+                Command="{Binding ConfirmCommand}"
                 Content="Enter (Ctrl + Enter)" />
         </StackPanel>
     </Grid>
