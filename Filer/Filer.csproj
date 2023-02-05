@@ -75,6 +75,7 @@
     <Compile Include="ViewModels\BookmarkPageViewModel.cs" />
     <Compile Include="ViewModels\FileListViewModel.cs" />
     <Compile Include="ViewModels\HistoryPageViewModel.cs" />
+    <Compile Include="ViewModels\InputPageViewModel.cs" />
     <Compile Include="ViewModels\KeyValueListPageViewModel.cs" />
     <Compile Include="ViewModels\OpenWithAppPageViewModel.cs" />
     <Compile Include="ViewModels\SelectionDialogViewModel.cs" />
@@ -84,6 +85,9 @@
     </Compile>
     <Compile Include="Views\HistoryPage.xaml.cs">
       <DependentUpon>HistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InputPage.xaml.cs">
+      <DependentUpon>InputPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KeyValueListPage.xaml.cs">
       <DependentUpon>KeyValueListPage.xaml</DependentUpon>
@@ -102,6 +106,7 @@
     </Compile>
     <Page Include="Views\BookmarkPage.xaml" />
     <Page Include="Views\HistoryPage.xaml" />
+    <Page Include="Views\InputPage.xaml" />
     <Page Include="Views\KeyValueListPage.xaml" />
     <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
