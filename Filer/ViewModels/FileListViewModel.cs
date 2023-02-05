@@ -30,7 +30,8 @@ namespace Filer.ViewModels
         private DelegateCommand directoryUpCommand;
         private DelegateCommand<ListView> pageUpCommand;
         private DelegateCommand<ListView> pageDownCommand;
-        private DelegateCommand createCommand;
+        private DelegateCommand createDirectoryCommand;
+        private DelegateCommand createFileCommand;
         private DelegateCommand markCommand;
         private DelegateCommand<ListView> markAndDownCommand;
         private DelegateCommand<TextBox> focusCommandTextBoxCommand;
@@ -294,11 +295,31 @@ namespace Filer.ViewModels
                 FocusToListViewItem();
             }));
 
-        public DelegateCommand CreateCommand =>
-            createCommand ?? (createCommand = new DelegateCommand(() =>
+        public DelegateCommand CreateDirectoryCommand =>
+            createDirectoryCommand ?? (createDirectoryCommand = new DelegateCommand(() =>
             {
-                var dialogParam = new DialogParameters { { nameof(FileSystemInfo), new DirectoryInfo(CurrentDirectory.FullName) } };
-                dialogService.ShowDialog(nameof(SelectionDialog), dialogParam, dialogResult => { });
+                var dialogParam = new DialogParameters
+                {
+                    { nameof(DirectoryInfo), new DirectoryInfo(CurrentDirectory.FullName) },
+                    { nameof(InputPageViewModel.Message), "ディレクトリを作成します" },
+                    { nameof(FileSystemInfo), new DirectoryInfo("NameIsMeaningless") },
+                };
+
+                dialogService.ShowDialog(nameof(InputPage), dialogParam, dialogResult => { });
+                CurrentDirectory = new DirectoryInfo(CurrentDirectory.FullName);
+            }));
+
+        public DelegateCommand CreateFileCommand =>
+            createFileCommand ?? (createFileCommand = new DelegateCommand(() =>
+            {
+                var dialogParam = new DialogParameters
+                {
+                    { nameof(DirectoryInfo), new DirectoryInfo(CurrentDirectory.FullName) },
+                    { nameof(InputPageViewModel.Message), "ファイルを作成します" },
+                    { nameof(FileSystemInfo), new FileInfo("NameIsMeaningless") },
+                };
+
+                dialogService.ShowDialog(nameof(InputPage), dialogParam, dialogResult => { });
                 CurrentDirectory = new DirectoryInfo(CurrentDirectory.FullName);
             }));
 

@@ -20,12 +20,12 @@ namespace Filer
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterDialog<SelectionDialog, SelectionDialogViewModel>();
             containerRegistry.RegisterDialog<KeyValueListPage, KeyValueListPageViewModel>();
             containerRegistry.RegisterDialog<OpenWithAppPage, OpenWithAppPageViewModel>();
             containerRegistry.RegisterDialog<BookmarkPage, BookmarkPageViewModel>();
             containerRegistry.RegisterDialog<SortSettingPage, SortSettingPageViewModel>();
             containerRegistry.RegisterDialog<HistoryPage, HistoryPageViewModel>();
+            containerRegistry.RegisterDialog<InputPage, InputPageViewModel>();
         }
 
         protected override void OnStartup(StartupEventArgs e)

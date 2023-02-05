@@ -200,8 +200,13 @@
 
                 <KeyBinding
                     Key="N"
-                    Command="{Binding CreateCommand}"
+                    Command="{Binding CreateFileCommand}"
                     Modifiers="Ctrl" />
+
+                <KeyBinding
+                    Key="N"
+                    Command="{Binding CreateDirectoryCommand}"
+                    Modifiers="Ctrl+Shift" />
 
                 <KeyBinding
                     Key="F"
