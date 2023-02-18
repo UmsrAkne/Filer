@@ -35,7 +35,7 @@ namespace Filer.Models
                 {
                     value.GetDirectories();
                 }
-                catch (UnauthorizedAccessException e)
+                catch (UnauthorizedAccessException)
                 {
                     Logger.FailAccess(value);
                     return;

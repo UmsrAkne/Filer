@@ -135,7 +135,7 @@ namespace Filer.ViewModels
                 {
                     f.Delete();
                 }
-                catch (IOException e)
+                catch (IOException)
                 {
                     Logger.FailDelete(f.FileSystemInfo);
                     deleteSuccess = false;
@@ -169,7 +169,7 @@ namespace Filer.ViewModels
                 {
                     f.Copy(f.FileSystemInfo.FullName, $@"{anotherLv.CurrentDirectory.FullName}\{f.FileSystemInfo.Name}");
                 }
-                catch (IOException e)
+                catch (IOException)
                 {
                     Logger.FailCopy(f.FileSystemInfo);
                     copySuccess = false;
@@ -204,7 +204,7 @@ namespace Filer.ViewModels
                 {
                     f.Move(f.FileSystemInfo.FullName, $@"{anotherLv.CurrentDirectory.FullName}\{f.FileSystemInfo.Name}");
                 }
-                catch (IOException e)
+                catch (IOException)
                 {
                     Logger.FailMove(f.FileSystemInfo);
                     moveSuccess = false;
