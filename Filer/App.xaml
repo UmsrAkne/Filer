@@ -8,6 +8,7 @@
 
     <Application.Resources>
         <SolidColorBrush x:Key="BgColorBrush" Color="#333333" />
+        <SolidColorBrush x:Key="DarkBgColorBrush" Color="#222222" />
         <SolidColorBrush x:Key="FgColorBrush" Color="Gainsboro" />
         <system:Double x:Key="IndexColumnWidth">50</system:Double>
         <system:Double x:Key="NameColumnWidth">300</system:Double>

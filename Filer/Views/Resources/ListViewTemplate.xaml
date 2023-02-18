@@ -101,6 +101,10 @@
                 <Setter Property="Background" Value="{StaticResource bgColorBrush}" />
             </Trigger>
 
+            <Trigger Property="ListView.AlternationIndex" Value="0">
+                <Setter Property="Background" Value="{StaticResource BgColorBrush}" />
+            </Trigger>
+
             <DataTrigger Binding="{Binding Marked}" Value="True">
                 <Setter Property="Background" Value="Purple" />
             </DataTrigger>

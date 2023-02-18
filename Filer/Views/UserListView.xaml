@@ -131,6 +131,7 @@
                 <Style TargetType="GridViewColumnHeader">
                     <Setter Property="HorizontalContentAlignment" Value="Left" />
                 </Style>
+
             </ListView.Resources>
 
             <ListView.Style>
