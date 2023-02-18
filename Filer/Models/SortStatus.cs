@@ -1,4 +1,4 @@
-namespace Filer.Models
+﻿namespace Filer.Models
 {
     public class SortStatus
     {
