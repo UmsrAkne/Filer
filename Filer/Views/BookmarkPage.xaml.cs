@@ -1,4 +1,4 @@
-namespace Filer.Views
+﻿namespace Filer.Views
 {
     public partial class BookmarkPage
     {

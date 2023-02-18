@@ -1,4 +1,4 @@
-using Prism.Mvvm;
+﻿using Prism.Mvvm;
 
 namespace Filer.Models.Settings
 {
