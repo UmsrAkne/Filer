@@ -96,16 +96,30 @@
         <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="IsSelected" Value="{Binding IsSelected}" />
 
-        <Style.Triggers>
-            <Trigger Property="ListView.AlternationIndex" Value="1">
-                <Setter Property="Background" Value="{StaticResource bgColorBrush}" />
-            </Trigger>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListViewItem}">
+                    <Border Background="{TemplateBinding Background}">
+                        <GridViewRowPresenter Columns="{TemplateBinding GridView.ColumnCollection}" Content="{TemplateBinding Content}" />
+                    </Border>
 
-            <DataTrigger Binding="{Binding Marked}" Value="True">
-                <Setter Property="Background" Value="Purple" />
-            </DataTrigger>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ListView.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="{StaticResource bgColorBrush}" />
+                        </Trigger>
 
-        </Style.Triggers>
+                        <Trigger Property="ListView.AlternationIndex" Value="0">
+                            <Setter Property="Background" Value="{StaticResource BgColorBrush}" />
+                        </Trigger>
+
+                        <DataTrigger Binding="{Binding Marked}" Value="True">
+                            <Setter Property="Background" Value="Purple" />
+                        </DataTrigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
 </ResourceDictionary>

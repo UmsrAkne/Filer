@@ -119,7 +119,6 @@
             AlternationCount="2"
             Background="{StaticResource bgColorBrush}"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
-            ItemTemplate="{StaticResource ResourceKey=ListViewItemTemplate}"
             ItemsSource="{Binding SelectedFolder.Files}"
             SelectedIndex="{Binding SelectedFolder.FileContainer.SelectedIndex}"
             SelectedItem="{Binding SelectedFolder.FileContainer.SelectedItem}">
@@ -127,6 +126,13 @@
             <i:Interaction.Behaviors>
                 <models:ScrollBehavior />
             </i:Interaction.Behaviors>
+
+            <ListView.Resources>
+                <Style TargetType="GridViewColumnHeader">
+                    <Setter Property="HorizontalContentAlignment" Value="Left" />
+                </Style>
+
+            </ListView.Resources>
 
             <ListView.Style>
                 <Style TargetType="ListView">
@@ -141,6 +147,41 @@
                     </Style.Triggers>
                 </Style>
             </ListView.Style>
+
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding}" />
+                        </DataTemplate>
+                    </GridView.ColumnHeaderTemplate>
+
+                    <GridViewColumn Width="{Binding Source={StaticResource IndexColumnWidth}}" Header="Index">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type models:ExtendFileInfo}">
+                                <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding Index, Converter={StaticResource NumberFormatConverter}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="{Binding Source={StaticResource NameColumnWidth}}" Header="Name">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type models:ExtendFileInfo}">
+                                <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding Name}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="{Binding Source={StaticResource TypeColumnWidth}}" Header="Type">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type models:ExtendFileInfo}">
+                                <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding Extension}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                </GridView>
+            </ListView.View>
 
             <ListView.InputBindings>
 
