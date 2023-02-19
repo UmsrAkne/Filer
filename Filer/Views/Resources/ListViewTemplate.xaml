@@ -99,27 +99,27 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
-                    <StackPanel>
+                    <Border Background="{TemplateBinding Background}">
                         <GridViewRowPresenter Columns="{TemplateBinding GridView.ColumnCollection}" Content="{TemplateBinding Content}" />
-                    </StackPanel>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ListView.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="{StaticResource bgColorBrush}" />
+                        </Trigger>
+
+                        <Trigger Property="ListView.AlternationIndex" Value="0">
+                            <Setter Property="Background" Value="{StaticResource BgColorBrush}" />
+                        </Trigger>
+
+                        <DataTrigger Binding="{Binding Marked}" Value="True">
+                            <Setter Property="Background" Value="Purple" />
+                        </DataTrigger>
+
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-        <Style.Triggers>
-            <Trigger Property="ListView.AlternationIndex" Value="1">
-                <Setter Property="Background" Value="{StaticResource bgColorBrush}" />
-            </Trigger>
-
-            <Trigger Property="ListView.AlternationIndex" Value="0">
-                <Setter Property="Background" Value="{StaticResource BgColorBrush}" />
-            </Trigger>
-
-            <DataTrigger Binding="{Binding Marked}" Value="True">
-                <Setter Property="Background" Value="Purple" />
-            </DataTrigger>
-
-        </Style.Triggers>
     </Style>
 
 </ResourceDictionary>
