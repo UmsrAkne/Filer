@@ -10,10 +10,17 @@
         <SolidColorBrush x:Key="BgColorBrush" Color="#333333" />
         <SolidColorBrush x:Key="DarkBgColorBrush" Color="#222222" />
         <SolidColorBrush x:Key="FgColorBrush" Color="Gainsboro" />
+
+        <system:Double x:Key="BaseFontSize">13</system:Double>
+
         <system:Double x:Key="IndexColumnWidth">50</system:Double>
         <system:Double x:Key="NameColumnWidth">300</system:Double>
         <system:Double x:Key="TypeColumnWidth">40</system:Double>
         <converters:NumberFormatConverter x:Key="NumberFormatConverter" />
+
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="{StaticResource BaseFontSize}" />
+        </Style>
     </Application.Resources>
 
 </prism:PrismApplication>
