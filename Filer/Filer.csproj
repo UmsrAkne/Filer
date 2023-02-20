@@ -61,6 +61,7 @@
     <Compile Include="Models\Behaviors\FocusSetBehavior.cs" />
     <Compile Include="Models\Behaviors\KeyboardBehavior.cs" />
     <Compile Include="Models\Behaviors\KeyDownBehavior.cs" />
+    <Compile Include="Models\Converters\DateTimeConverter.cs" />
     <Compile Include="Models\DatabaseContext.cs" />
     <Compile Include="Models\FileContainer.cs" />
     <Compile Include="Models\Folder.cs" />

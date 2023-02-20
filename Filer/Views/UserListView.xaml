@@ -180,6 +180,22 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
+                    <GridViewColumn Width="{Binding Source={StaticResource CreationTimeColumnWidth}}" Header="Created">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type models:ExtendFileInfo}">
+                                <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding CreationTime, Converter={StaticResource DateTimeConverter}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
+                    <GridViewColumn Width="{Binding Source={StaticResource CreationTimeColumnWidth}}" Header="Updated">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type models:ExtendFileInfo}">
+                                <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding UpdateTime, Converter={StaticResource DateTimeConverter}}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
                 </GridView>
             </ListView.View>
 
