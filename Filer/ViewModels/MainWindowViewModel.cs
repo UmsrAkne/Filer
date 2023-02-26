@@ -72,6 +72,8 @@ namespace Filer.ViewModels
 
         public bool TextInputting => GetFocusingListView().TextInputting;
 
+        public Layout Layout { get; } = new Layout();
+
         public Logger Logger { get; } = new Logger();
 
         //// DelegateCommand *******************************************************
@@ -111,6 +113,21 @@ namespace Filer.ViewModels
 
             ApplicationSetting.WriteApplicationSetting(setting);
         });
+
+        private DelegateCommand<object> changeLayoutCommand;
+
+        public DelegateCommand<object> ChangeLayoutCommand =>
+            changeLayoutCommand ?? (changeLayoutCommand = new DelegateCommand<object>((orientation) =>
+            {
+                if ((Orientation)orientation == Orientation.Horizontal)
+                {
+                    Layout.ToHorizontalLayout();
+                }
+                else
+                {
+                     Layout.ToVerticalLayout();
+                }
+            }));
 
         public DelegateCommand ExitCommand => new DelegateCommand(() =>
         {

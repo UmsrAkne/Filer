@@ -67,6 +67,20 @@
                 <MenuItem Command="{Binding ExitCommand}" Header="Exit" />
             </MenuItem>
 
+            <MenuItem Header="View (_V)">
+                <MenuItem Command="{Binding ChangeLayoutCommand}" Header="ToHorizontalLayout (_H)">
+                    <MenuItem.CommandParameter>
+                        <Orientation>Horizontal</Orientation>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+
+                <MenuItem Command="{Binding ChangeLayoutCommand}" Header="ToVerticalLayout (_V)">
+                    <MenuItem.CommandParameter>
+                        <Orientation>Vertical</Orientation>
+                    </MenuItem.CommandParameter>
+                </MenuItem>
+            </MenuItem>
+
             <MenuItem Header="Window (_W)">
                 <MenuItem Command="{Binding ShowFavoritesCommand}" Header="Favorites (_F)" />
             </MenuItem>
@@ -81,7 +95,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="{Binding Layout.SecondRowHeight}" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -93,13 +107,15 @@
                 x:Name="LeftListView"
                 Grid.Row="0"
                 Grid.Column="0"
+                Grid.ColumnSpan="{Binding ElementName=Window, Path=DataContext.Layout.ColumnSpan}"
                 DataContext="{Binding LeftFileListViewModel}"
                 DockPanel.Dock="Left" />
 
             <local:UserListView
                 x:Name="RightListView"
-                Grid.Row="0"
-                Grid.Column="1"
+                Grid.Row="{Binding ElementName=Window, Path=DataContext.Layout.RightListViewRow}"
+                Grid.Column="{Binding ElementName=Window, Path=DataContext.Layout.RightListViewColumn}"
+                Grid.ColumnSpan="{Binding ElementName=Window, Path=DataContext.Layout.ColumnSpan}"
                 DataContext="{Binding RightFileListViewModel}"
                 DockPanel.Dock="Right" />
 
