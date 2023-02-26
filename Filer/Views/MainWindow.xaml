@@ -74,17 +74,36 @@
             <MenuItem Command="{Binding OpenSettingFileCommand}" Header="Setting (_S)" />
         </Menu>
 
-        <local:UserListView
-            x:Name="LeftListView"
+        <Grid
             Grid.Row="2"
             Grid.Column="0"
-            DataContext="{Binding LeftFileListViewModel}" />
+            Grid.ColumnSpan="2">
 
-        <local:UserListView
-            x:Name="RightListView"
-            Grid.Row="2"
-            Grid.Column="1"
-            DataContext="{Binding RightFileListViewModel}" />
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <local:UserListView
+                x:Name="LeftListView"
+                Grid.Row="0"
+                Grid.Column="0"
+                DataContext="{Binding LeftFileListViewModel}"
+                DockPanel.Dock="Left" />
+
+            <local:UserListView
+                x:Name="RightListView"
+                Grid.Row="0"
+                Grid.Column="1"
+                DataContext="{Binding RightFileListViewModel}"
+                DockPanel.Dock="Right" />
+
+        </Grid>
 
         <TextBlock
             Grid.Row="3"
