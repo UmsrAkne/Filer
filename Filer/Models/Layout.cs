@@ -5,10 +5,15 @@ namespace Filer.Models
 {
     public class Layout : BindableBase
     {
-        private GridLength secondRowHeight = GridLength.Auto;
-        private int rightListViewRow = 0;
-        private int rightListViewColumn = 1;
-        private int columnSpan = 1;
+        private GridLength secondRowHeight;
+        private int rightListViewRow;
+        private int rightListViewColumn;
+        private int columnSpan;
+
+        public Layout()
+        {
+            ToHorizontalLayout();
+        }
 
         public GridLength SecondRowHeight
         {
