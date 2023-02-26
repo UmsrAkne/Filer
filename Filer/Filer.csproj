@@ -67,6 +67,7 @@
     <Compile Include="Models\Folder.cs" />
     <Compile Include="Models\History.cs" />
     <Compile Include="Models\IListViewControllable.cs" />
+    <Compile Include="Models\Layout.cs" />
     <Compile Include="Models\Logger.cs" />
     <Compile Include="Models\ScrollBehavior.cs" />
     <Compile Include="Models\SelectionListItem.cs" />
