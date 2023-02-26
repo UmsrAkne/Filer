@@ -26,6 +26,7 @@ namespace Filer.ViewModels
 
         private DelegateCommand openSettingFileCommand;
         private DelegateCommand showFavoritesCommand;
+        private DelegateCommand<object> changeLayoutCommand;
 
         public MainWindowViewModel(IDialogService dialogService)
         {
@@ -113,8 +114,6 @@ namespace Filer.ViewModels
 
             ApplicationSetting.WriteApplicationSetting(setting);
         });
-
-        private DelegateCommand<object> changeLayoutCommand;
 
         public DelegateCommand<object> ChangeLayoutCommand =>
             changeLayoutCommand ?? (changeLayoutCommand = new DelegateCommand<object>((orientation) =>
