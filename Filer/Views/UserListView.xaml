@@ -172,6 +172,28 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
 
+                    <GridViewColumn Width="{Binding Source={StaticResource FileSizeColumnWidth}}" Header="Size">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate DataType="{x:Type models:ExtendFileInfo}">
+                                <TextBlock Foreground="{StaticResource FgColorBrush}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDirectory}" Value="True">
+                                                    <Setter Property="Text" Value="---" />
+                                                </DataTrigger>
+
+                                                <DataTrigger Binding="{Binding IsDirectory}" Value="False">
+                                                    <Setter Property="Text" Value="{Binding FileSize}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+
                     <GridViewColumn Width="{Binding Source={StaticResource TypeColumnWidth}}" Header="Type">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate DataType="{x:Type models:ExtendFileInfo}">
