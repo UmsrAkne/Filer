@@ -184,7 +184,7 @@
                                                 </DataTrigger>
 
                                                 <DataTrigger Binding="{Binding IsDirectory}" Value="False">
-                                                    <Setter Property="Text" Value="{Binding FileSize}" />
+                                                    <Setter Property="Text" Value="{Binding FileSize, Converter={StaticResource FileSizeConverter}}" />
                                                 </DataTrigger>
                                             </Style.Triggers>
                                         </Style>

@@ -21,6 +21,7 @@
 
         <converters:NumberFormatConverter x:Key="NumberFormatConverter" />
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
+        <converters:FileSizeConverter x:Key="FileSizeConverter" />
 
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="{StaticResource BaseFontSize}" />
