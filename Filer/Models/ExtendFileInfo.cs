@@ -37,6 +37,8 @@ namespace Filer.Models
 
         public DateTime UpdateTime => FileSystemInfo.LastWriteTime;
 
+        public long FileSize => IsDirectory ? 0 : ((FileInfo)FileSystemInfo).Length;
+
         public bool IsSelectionModeSelected
         {
             get => isSelectionModeSelected;

@@ -15,11 +15,13 @@
 
         <system:Double x:Key="IndexColumnWidth">50</system:Double>
         <system:Double x:Key="NameColumnWidth">300</system:Double>
+        <system:Double x:Key="FileSizeColumnWidth">90</system:Double>
         <system:Double x:Key="TypeColumnWidth">40</system:Double>
         <system:Double x:Key="CreationTimeColumnWidth">100</system:Double>
 
         <converters:NumberFormatConverter x:Key="NumberFormatConverter" />
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
+        <converters:FileSizeConverter x:Key="FileSizeConverter" />
 
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="{StaticResource BaseFontSize}" />
