@@ -132,6 +132,11 @@
                     <Setter Property="HorizontalContentAlignment" Value="Left" />
                 </Style>
 
+                <Style TargetType="ScrollBar">
+                    <Setter Property="Background" Value="{StaticResource BgColorBrush}" />
+                    <Setter Property="BorderBrush" Value="Gray" />
+                </Style>
+
             </ListView.Resources>
 
             <ListView.Style>
