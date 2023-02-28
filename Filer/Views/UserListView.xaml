@@ -172,7 +172,21 @@
                     <GridViewColumn Width="{Binding Source={StaticResource NameColumnWidth}}" Header="Name">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate DataType="{x:Type models:ExtendFileInfo}">
-                                <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Name}">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDirectory}" Value="True">
+                                                    <Setter Property="Foreground" Value="Gold" />
+                                                </DataTrigger>
+
+                                                <DataTrigger Binding="{Binding IsDirectory}" Value="False">
+                                                    <Setter Property="Foreground" Value="{StaticResource FgColorBrush}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
@@ -202,7 +216,22 @@
                     <GridViewColumn Width="{Binding Source={StaticResource TypeColumnWidth}}" Header="Type">
                         <GridViewColumn.CellTemplate>
                             <DataTemplate DataType="{x:Type models:ExtendFileInfo}">
-                                <TextBlock Foreground="{StaticResource FgColorBrush}" Text="{Binding Extension}" />
+                                <TextBlock Text="{Binding Extension}">
+
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="Foreground" Value="{StaticResource FgColorBrush}" />
+
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Extension}" Value="DIR">
+                                                    <Setter Property="Foreground" Value="Gold" />
+                                                </DataTrigger>
+
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+
+                                </TextBlock>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
