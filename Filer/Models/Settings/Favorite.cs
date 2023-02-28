@@ -1,4 +1,5 @@
-﻿using Prism.Mvvm;
+﻿using Newtonsoft.Json;
+using Prism.Mvvm;
 
 namespace Filer.Models.Settings
 {
@@ -15,6 +16,7 @@ namespace Filer.Models.Settings
 
         public string Name { get => name; set => SetProperty(ref name, value); }
 
+        [JsonIgnore]
         public bool IsMatch { get => isMatch; set => SetProperty(ref isMatch, value); }
     }
 }
