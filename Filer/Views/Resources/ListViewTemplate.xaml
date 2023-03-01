@@ -11,14 +11,16 @@
     <Style x:Key="ListViewItemContainerStyle" TargetType="ListViewItem">
         <Setter Property="Margin" Value="2" />
         <Setter Property="Padding" Value="3" />
-        <Setter Property="BorderThickness" Value="0,0,0,1" />
-        <Setter Property="BorderBrush" Value="Black" />
         <Setter Property="IsSelected" Value="{Binding IsSelected}" />
 
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ListViewItem}">
-                    <Border Background="{TemplateBinding Background}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="5,0,0,0">
+
                         <GridViewRowPresenter Columns="{TemplateBinding GridView.ColumnCollection}" Content="{TemplateBinding Content}" />
                     </Border>
 
@@ -32,7 +34,11 @@
                         </Trigger>
 
                         <DataTrigger Binding="{Binding Marked}" Value="True">
-                            <Setter Property="Background" Value="Purple" />
+                            <Setter Property="Background" Value="{StaticResource MarkedItemBackgroundColorBrush}" />
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding IsSelectionModeSelected}" Value="True">
+                            <Setter Property="BorderBrush" Value="{StaticResource SelectionModeBorderBrush}" />
                         </DataTrigger>
 
                     </ControlTemplate.Triggers>
