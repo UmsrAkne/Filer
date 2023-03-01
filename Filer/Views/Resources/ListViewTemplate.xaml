@@ -34,11 +34,11 @@
                         </Trigger>
 
                         <DataTrigger Binding="{Binding Marked}" Value="True">
-                            <Setter Property="Background" Value="Purple" />
+                            <Setter Property="Background" Value="{StaticResource MarkedItemBackgroundColorBrush}" />
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding IsSelectionModeSelected}" Value="True">
-                            <Setter Property="BorderBrush" Value="CornflowerBlue" />
+                            <Setter Property="BorderBrush" Value="{StaticResource SelectionModeBorderBrush}" />
                         </DataTrigger>
 
                     </ControlTemplate.Triggers>

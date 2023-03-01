@@ -11,6 +11,9 @@
         <SolidColorBrush x:Key="DarkBgColorBrush" Color="#222222" />
         <SolidColorBrush x:Key="FgColorBrush" Color="Gainsboro" />
 
+        <SolidColorBrush x:Key="MarkedItemBackgroundColorBrush" Color="Purple" />
+        <SolidColorBrush x:Key="SelectionModeBorderBrush" Color="CornflowerBlue" />
+
         <system:Double x:Key="BaseFontSize">13</system:Double>
 
         <system:Double x:Key="IndexColumnWidth">50</system:Double>
