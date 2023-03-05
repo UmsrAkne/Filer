@@ -121,8 +121,16 @@
 
         </Grid>
 
-        <TextBlock
+        <GridSplitter
             Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Height="2"
+            HorizontalAlignment="Stretch"
+            Background="DarkGray" />
+
+        <TextBlock
+            Grid.Row="4"
             Grid.Column="0"
             Grid.ColumnSpan="2"
             Height="150"
