@@ -45,7 +45,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="120" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -133,7 +133,6 @@
             Grid.Row="4"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Height="150"
             Background="{StaticResource BgColorBrush}"
             Foreground="{StaticResource FgColorBrush}"
             Text="{Binding Logger.Log}" />
