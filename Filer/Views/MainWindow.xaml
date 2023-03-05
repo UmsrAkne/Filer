@@ -45,7 +45,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
-            <RowDefinition Height="auto" />
+            <RowDefinition Height="120" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -121,11 +121,18 @@
 
         </Grid>
 
-        <TextBlock
+        <GridSplitter
             Grid.Row="3"
             Grid.Column="0"
             Grid.ColumnSpan="2"
-            Height="150"
+            Height="2"
+            HorizontalAlignment="Stretch"
+            Background="DarkGray" />
+
+        <TextBlock
+            Grid.Row="4"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
             Background="{StaticResource BgColorBrush}"
             Foreground="{StaticResource FgColorBrush}"
             Text="{Binding Logger.Log}" />
