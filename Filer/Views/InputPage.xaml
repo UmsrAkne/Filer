@@ -48,16 +48,17 @@
             Orientation="Horizontal">
 
             <Button
-                Width="100"
+                Width="130"
+                Margin="5"
+                Command="{Binding ConfirmCommand}"
+                Content="Enter (Ctrl + Enter)" />
+
+            <Button
+                Width="110"
                 Margin="5"
                 Command="{Binding CloseCommand}"
                 Content="Cancel (Esc)" />
 
-            <Button
-                Width="100"
-                Margin="5"
-                Command="{Binding ConfirmCommand}"
-                Content="Enter (Ctrl + Enter)" />
         </StackPanel>
     </Grid>
 </Page>
