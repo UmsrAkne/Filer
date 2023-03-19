@@ -5,6 +5,7 @@ using Prism.Services.Dialogs;
 
 namespace Filer.ViewModels
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class YesNoPageViewModel : BindableBase, IDialogAware
     {
         public event Action<IDialogResult> RequestClose;
