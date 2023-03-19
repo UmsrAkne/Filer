@@ -9,8 +9,6 @@ namespace Filer.ViewModels
     {
         public event Action<IDialogResult> RequestClose;
 
-        private string message;
-
         public string Title => string.Empty;
 
         public DelegateCommand ConfirmCommand => new DelegateCommand(() =>
@@ -23,11 +21,7 @@ namespace Filer.ViewModels
             RequestClose?.Invoke(new DialogResult(ButtonResult.No));
         });
 
-        public string Message
-        {
-            get => message;
-            private set => SetProperty(ref message, value);
-        }
+        public string Message { get; set; }
 
         public bool CanCloseDialog() => true;
 
@@ -38,6 +32,7 @@ namespace Filer.ViewModels
         public void OnDialogOpened(IDialogParameters parameters)
         {
             Message = parameters.GetValue<string>(nameof(Message));
+            RaisePropertyChanged(nameof(Message));
         }
     }
 }
