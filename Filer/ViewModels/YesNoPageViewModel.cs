@@ -9,12 +9,25 @@ namespace Filer.ViewModels
     {
         public event Action<IDialogResult> RequestClose;
 
+        private string message;
+
         public string Title => string.Empty;
+
+        public DelegateCommand ConfirmCommand => new DelegateCommand(() =>
+        {
+            RequestClose?.Invoke(new DialogResult(ButtonResult.Yes));
+        });
 
         public DelegateCommand CloseCommand => new DelegateCommand(() =>
         {
-            RequestClose?.Invoke(new DialogResult());
+            RequestClose?.Invoke(new DialogResult(ButtonResult.No));
         });
+
+        public string Message
+        {
+            get => message;
+            private set => SetProperty(ref message, value);
+        }
 
         public bool CanCloseDialog() => true;
 
