@@ -145,7 +145,7 @@ namespace Filer.ViewModels
 
             var param = new DialogParameters { { nameof(YesNoPageViewModel.Message), "ファイルを削除します。よろしいですか？" } };
             var cancel = false;
-            dialogService.ShowDialog(nameof(YesNoPage), param, result => cancel = result.Result == ButtonResult.No);
+            dialogService.ShowDialog(nameof(YesNoPage), param, result => cancel = result.Result != ButtonResult.Yes);
 
             if (cancel)
             {
