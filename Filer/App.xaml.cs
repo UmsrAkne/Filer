@@ -26,6 +26,7 @@ namespace Filer
             containerRegistry.RegisterDialog<SortSettingPage, SortSettingPageViewModel>();
             containerRegistry.RegisterDialog<HistoryPage, HistoryPageViewModel>();
             containerRegistry.RegisterDialog<InputPage, InputPageViewModel>();
+            containerRegistry.RegisterDialog<YesNoPage, YesNoPageViewModel>();
         }
 
         protected override void OnStartup(StartupEventArgs e)

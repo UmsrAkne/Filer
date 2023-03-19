@@ -37,6 +37,7 @@ namespace Filer.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
+            Message = parameters.GetValue<string>(nameof(Message));
         }
     }
 }
