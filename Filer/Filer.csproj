@@ -82,6 +82,7 @@
     <Compile Include="ViewModels\KeyValueListPageViewModel.cs" />
     <Compile Include="ViewModels\OpenWithAppPageViewModel.cs" />
     <Compile Include="ViewModels\SortSettingPageViewModel.cs" />
+    <Compile Include="ViewModels\YesNoPageViewModel.cs" />
     <Compile Include="Views\BookmarkPage.xaml.cs">
       <DependentUpon>BookmarkPage.xaml</DependentUpon>
     </Compile>
@@ -102,6 +103,9 @@
     </Compile>
     <Compile Include="Views\UserListView.xaml.cs">
       <DependentUpon>UserListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\YesNoPage.xaml.cs">
+      <DependentUpon>YesNoPage.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\BookmarkPage.xaml" />
     <Page Include="Views\HistoryPage.xaml" />
@@ -133,6 +137,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\YesNoPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
