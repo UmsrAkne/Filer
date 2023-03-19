@@ -5,11 +5,19 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:Filer.ViewModels"
+    Name="Page"
     Title="YesNoPage"
     Width="400"
     d:DataContext="{d:DesignInstance viewModels:YesNoPageViewModel}"
     Background="{StaticResource BgColorBrush}"
+    FocusManager.FocusedElement="{Binding ElementName=Page}"
+    Focusable="True"
     mc:Ignorable="d">
+
+    <Page.InputBindings>
+        <KeyBinding Key="Enter" Command="{Binding ConfirmCommand}" />
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+    </Page.InputBindings>
 
     <Grid>
         <Grid.RowDefinitions>
