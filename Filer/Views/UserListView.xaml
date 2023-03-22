@@ -21,10 +21,6 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-
-            <SolidColorBrush x:Key="bgColorBrush" Color="#333333" />
-            <SolidColorBrush x:Key="fgColorBrush" Color="Gainsboro" />
-
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/ListViewTemplate.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -89,9 +85,9 @@
 
             <TextBox
                 Name="PathBar"
-                Background="{StaticResource bgColorBrush}"
+                Background="{StaticResource BgColorBrush}"
                 BorderBrush="Black"
-                Foreground="{StaticResource fgColorBrush}"
+                Foreground="{StaticResource FgColorBrush}"
                 Text="{Binding SelectedFolder.FullName, UpdateSourceTrigger=PropertyChanged}">
 
                 <TextBox.InputBindings>
@@ -127,7 +123,7 @@
             HorizontalContentAlignment="Stretch"
             VerticalContentAlignment="Center"
             AlternationCount="2"
-            Background="{StaticResource bgColorBrush}"
+            Background="{StaticResource BgColorBrush}"
             ItemContainerStyle="{StaticResource ResourceKey=ListViewItemContainerStyle}"
             ItemsSource="{Binding SelectedFolder.Files}"
             SelectedIndex="{Binding SelectedFolder.FileContainer.SelectedIndex}"
